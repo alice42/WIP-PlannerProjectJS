@@ -1,25 +1,52 @@
 import * as React from 'react'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import LayoutRoute from '../components/LayoutComponents/LayoutRoute'
 import Layout from '../components/LayoutComponents/Layout'
-
-import A from './Pages/PageA'
-import B from './Pages/PageB'
+import * as projectsActions from '../actions/projectsActions'
+import Content from '../components/ContentComponents/Content'
 
 const App = () => {
   return (
     <BrowserRouter basename="/">
       <Switch>
         <Route exact path="/">
-          <Redirect to="/A" />
+          <Redirect to="/projects/" />
         </Route>
-        <LayoutRoute exact path={'/A'} component={A} layout={Layout} />
-        <LayoutRoute exact path={'/B'} component={B} layout={Layout} />
+        <LayoutRouteConnected
+          exact
+          path={'/projects/'}
+          component={Content}
+          layout={Layout}
+        />
+        <LayoutRouteConnected
+          exact
+          path={'/projects/:id'}
+          component={Content}
+          layout={Layout}
+        />
         <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   )
 }
+const actionsMapDispatchToProps = dispatch => {
+  return {
+    projectsActions: bindActionCreators(projectsActions, dispatch)
+  }
+}
 
-export default App
+const mapStateToProps = state => {
+  const { projects } = state
+  return {
+    projects
+  }
+}
+
+const LayoutRouteConnected = connect(
+  mapStateToProps,
+  actionsMapDispatchToProps
+)(LayoutRoute)
+
+export default connect(mapStateToProps, actionsMapDispatchToProps)(App)
