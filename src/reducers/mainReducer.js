@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux'
-import userReducer from './userReducer'
-import dataReducer from './dataReducer'
+import projectsReducer from './projectsReducer'
 
 const mainReducer = combineReducers({
-  user: userReducer,
-  data: dataReducer
+  projects: projectsReducer
 })
 
 export default mainReducer
