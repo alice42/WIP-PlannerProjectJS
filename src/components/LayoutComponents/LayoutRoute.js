@@ -5,8 +5,8 @@ const LayoutRoute = ({ component: Component, layout: Layout, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-      <Layout>
-        <Component {...props} />
+      <Layout {...rest}>
+        <Component {...props} {...rest} />
       </Layout>
     )}
   />

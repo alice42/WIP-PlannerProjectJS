@@ -1,8 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import Header from './Header'
 import Sidebar from './SideBar'
-import Footer from './Footer'
 
 const StyledSection = styled.div`
   font-family: monospace;
@@ -23,10 +21,8 @@ class Layout extends React.Component {
   render() {
     return (
       <StyledSection>
-        {/* <Header /> */}
-        <Sidebar />
-        <StyledContent>{this.props.children}</StyledContent>
-        {/* <Footer /> */}
+        <Sidebar {...this.props} />
+        <StyledContent {...this.props}>{this.props.children}</StyledContent>
       </StyledSection>
     )
   }
