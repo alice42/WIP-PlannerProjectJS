@@ -1,10 +1,14 @@
 import * as React from 'react'
+import Modal from './Modal'
+import Options from './Options'
+import ProjectInfo from './ProjectInfo'
 
 const Content = props => {
   const inputRef = React.useRef(null)
   const [options, setOptions] = React.useState(false)
   const [currentProject, setcurrentProject] = React.useState(null)
   const [formState, setFormState] = React.useState('')
+  const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     const existingProject = props.projects.all.find(
@@ -14,6 +18,18 @@ const Content = props => {
       ? props.history.push('/projects/')
       : setcurrentProject(existingProject)
   })
+
+  React.useEffect(() => {
+    setOptions(false)
+  }, [currentProject])
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const openOptions = () => {
     setOptions(!options)
@@ -32,9 +48,9 @@ const Content = props => {
     if (event.key === 'Enter') {
       const updatedProject = {
         id: currentProject.id,
-        text: formState || currentProject.text,
+        title: formState || currentProject.title,
         isCompleted: false,
-        defaultText: false
+        defaultTitle: false
       }
       props.projectsActions.updateProject(updatedProject)
       setFormState('')
@@ -44,44 +60,94 @@ const Content = props => {
     }
   }
 
+  const handleDateSelect = selectInfo => {
+    let calendarApi = selectInfo.view.calendar
+    calendarApi.unselect()
+    if (currentProject.title && !currentProject.startDate) {
+      calendarApi.addEvent({
+        id: currentProject.id,
+        title: currentProject.title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      })
+      const updatedProject = {
+        ...currentProject,
+        startDate: selectInfo.startStr
+      }
+      props.projectsActions.updateProject(updatedProject)
+    } else if (currentProject.title && currentProject.startDate) {
+      const event = calendarApi.getEventById(currentProject.id)
+      event.setStart(selectInfo.startStr, { maintainDuration: true })
+      const updatedProject = {
+        ...currentProject,
+        startDate: selectInfo.startStr
+      }
+      props.projectsActions.updateProject(updatedProject)
+    }
+  }
+
+  const handleDrop = info => {
+    let calendarApi = info.view.calendar
+    calendarApi.unselect()
+    console.log('handleDRop', info)
+    if (currentProject.title && currentProject.startDate) {
+      const event = calendarApi.getEventById(currentProject.id)
+      event.setStart(info.event.startStr, { maintainDuration: true })
+      const updatedProject = {
+        ...currentProject,
+        startDate: info.event.startStr
+      }
+      props.projectsActions.updateProject(updatedProject)
+    }
+  }
+
+  const handleEventClick = clickInfo => {
+    if (
+      clickInfo.event.id === currentProject.id &&
+      confirm(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
+      clickInfo.event.remove()
+      const updatedProject = {
+        ...currentProject,
+        startDate: null
+      }
+      props.projectsActions.updateProject(updatedProject)
+    }
+  }
   return (
-    <>
-      {(currentProject && (
-        <>
-          <div>
-            <div>
-              {(currentProject.defaultText && (
-                <input
-                  onBlur={() => {
-                    props.projectsActions.saveChange(currentProject)
-                  }}
-                  id={currentProject.id}
-                  autoFocus
-                  ref={inputRef}
-                  type="text"
-                  placeholder={currentProject.text}
-                  onChange={event => handleInputChange(event)}
-                  onKeyPress={event => handleInputEnter(event)}
-                />
-              )) ||
-                currentProject.text}
-            </div>
-          </div>
-          <div>{currentProject.id}</div>
-          <div onClick={openOptions}>options</div>
-          {options && (
-            <div>
-              <div onClick={() => handleRemoveProject(currentProject)}>
-                delete
-              </div>
-              <div>rename</div>
-              <div>add Date</div>
-              <div>Complete</div>
-            </div>
-          )}
-        </>
-      )) || <div>default</div>}
-    </>
+    (currentProject && (
+      <>
+        <Modal
+          all={props.projects.all}
+          currentProject={currentProject}
+          handleDateSelect={handleDateSelect}
+          handleDrop={handleDrop}
+          handleEventClick={handleEventClick}
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          open={open}
+        />
+        <ProjectInfo
+          saveChange={props.projectsActions.saveChange}
+          inputRef={inputRef}
+          currentProject={currentProject}
+          handleInputChange={handleInputChange}
+          handleInputEnter={handleInputEnter}
+        />
+        <Options
+          openOptions={openOptions}
+          options={options}
+          currentProject={currentProject}
+          handleRemoveProject={handleRemoveProject}
+          authorizeRename={props.projectsActions.authorizeRename}
+          handleOpen={handleOpen}
+          completeProject={props.projectsActions.completeProject}
+        />
+      </>
+    )) || <div>default</div>
   )
 }
 

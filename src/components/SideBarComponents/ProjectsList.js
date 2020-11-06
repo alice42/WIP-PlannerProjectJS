@@ -8,9 +8,10 @@ const ProjectsList = props => {
     const id = uuid()
     const newProject = {
       id: `project_${id}`,
-      text: 'New Project',
+      title: 'New Project',
       isCompleted: false,
-      defaultText: true
+      defaultTitle: true,
+      isCompleted: false
     }
     props.projectsActions.addProject(newProject)
     props.children.props.history.push({
@@ -25,7 +26,12 @@ const ProjectsList = props => {
           {props.projects.all.map(project => (
             <li key={project.id}>
               <Link to={`/projects/${project.id}`}>
-                <div>{project.text}</div>
+                {project.title}
+                {project.isCompleted ? (
+                  <span className="todo-item-checked">✔</span>
+                ) : (
+                  <span className="todo-item-unchecked" />
+                )}
               </Link>
             </li>
           ))}
