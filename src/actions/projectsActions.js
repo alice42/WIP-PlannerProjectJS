@@ -17,10 +17,18 @@ export const updateProject = data => {
 export const SAVE_CHANGE = 'SAVE_CHANGE'
 
 export const saveChange = data => {
-  console.log('data', data)
   return {
     type: SAVE_CHANGE,
     data: data
+  }
+}
+
+export const AUTHORIZE_RENAME = 'AUTHORIZE_RENAME'
+
+export const authorizeRename = currentProject => {
+  return {
+    type: AUTHORIZE_RENAME,
+    data: currentProject
   }
 }
 
@@ -31,5 +39,14 @@ export const removeProject = data => {
   return {
     type: REMOVE_PROJECT,
     projectToRemove: data
+  }
+}
+
+export const COMPLETE_PROJECT = 'COMPLETE_PROJECT'
+
+export const completeProject = data => {
+  return {
+    type: COMPLETE_PROJECT,
+    projectToComplete: data
   }
 }

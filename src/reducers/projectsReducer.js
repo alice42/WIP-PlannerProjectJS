@@ -1,8 +1,10 @@
 import {
   ADD_PROJECT,
   UPDATE_PROJECT,
+  AUTHORIZE_RENAME,
   REMOVE_PROJECT,
-  SAVE_CHANGE
+  SAVE_CHANGE,
+  COMPLETE_PROJECT
 } from '../actions/projectsActions'
 
 const initialState = {
@@ -11,10 +13,16 @@ const initialState = {
 
 // const project = {
 //   id
-//   text
-//   dateStart
+//   title
+//   title
+//   startDate
+//   endDate
+//   allDay
 //   isCompleted
-//   defaultText
+//   defaultTitle
+//   notes
+//   todos
+//   heading
 // }
 
 const reducer = (state = initialState, action) => {
@@ -35,9 +43,19 @@ const reducer = (state = initialState, action) => {
         ...state,
         all: tmp_update
       }
+    case AUTHORIZE_RENAME:
+      const tmp_rename = state.all.map(project =>
+        project.id === action.data
+          ? { ...project, defaultTitle: true }
+          : project
+      )
+      return {
+        ...state,
+        all: tmp_rename
+      }
     case SAVE_CHANGE:
       const tmp_save = state.all.map(
-        project => (project = { ...project, defaultText: false })
+        project => (project = { ...project, defaultTitle: false })
       )
       return {
         ...state,
@@ -49,6 +67,16 @@ const reducer = (state = initialState, action) => {
         all: state.all.filter(
           project => project.id !== action.projectToRemove.id
         )
+      }
+    case COMPLETE_PROJECT:
+      const tmp_complete = state.all.map(project =>
+        project.id === action.projectToComplete.id
+          ? { ...project, isCompleted: !action.projectToComplete.isCompleted }
+          : project
+      )
+      return {
+        ...state,
+        all: tmp_complete
       }
     default:
       return state

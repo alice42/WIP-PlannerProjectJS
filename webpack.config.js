@@ -23,8 +23,7 @@ module.exports = {
       },
       {
         test: /\.css/,
-        loaders: ['style-loader', 'css-loader'],
-        include: __dirname + '/src'
+        loaders: ['style-loader', 'css-loader']
       },
       {
         test: /\.(jpe?g|png|gif|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/,
