@@ -7,6 +7,7 @@ const ProjectInfo = props => {
   return (
     <>
       <Input
+        a={props.a}
         typeValue={'title'}
         placeholderValue={'New Project'}
         inputRef={props.inputRefTitle}

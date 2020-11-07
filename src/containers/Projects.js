@@ -57,19 +57,19 @@ const Content = props => {
         end: selectInfo.endStr,
         allDay: selectInfo.allDay
       })
-      const updatedProject = {
-        ...currentProject,
-        startDate: selectInfo.startStr
-      }
-      props.projectsActions.updateProject(updatedProject)
+      props.projectsActions.updateProject(
+        currentProject,
+        selectInfo.startStr,
+        'startDate'
+      )
     } else if (currentProject.title && currentProject.startDate) {
       const event = calendarApi.getEventById(currentProject.id)
       event.setStart(selectInfo.startStr, { maintainDuration: true })
-      const updatedProject = {
-        ...currentProject,
-        startDate: selectInfo.startStr
-      }
-      props.projectsActions.updateProject(updatedProject)
+      props.projectsActions.updateProject(
+        currentProject,
+        selectInfo.startStr,
+        'startDate'
+      )
     }
   }
 
@@ -80,11 +80,11 @@ const Content = props => {
     if (currentProject.title && currentProject.startDate) {
       const event = calendarApi.getEventById(currentProject.id)
       event.setStart(info.event.startStr, { maintainDuration: true })
-      const updatedProject = {
-        ...currentProject,
-        startDate: info.event.startStr
-      }
-      props.projectsActions.updateProject(updatedProject)
+      props.projectsActions.updateProject(
+        currentProject,
+        info.event.startStr,
+        'startDate'
+      )
     }
   }
 
@@ -96,11 +96,7 @@ const Content = props => {
       )
     ) {
       clickInfo.event.remove()
-      const updatedProject = {
-        ...currentProject,
-        startDate: null
-      }
-      props.projectsActions.updateProject(updatedProject)
+      props.projectsActions.updateProject(currentProject, null, 'startDate')
     }
   }
 
@@ -121,7 +117,7 @@ const Content = props => {
       notes: 'Notes',
       title: 'New Project'
     }
-    props.projectsActions.saveChange(
+    props.projectsActions.updateProject(
       currentProject,
       event.target.value || defaultValues[type],
       type
@@ -130,11 +126,16 @@ const Content = props => {
       refs[type].current.value = ''
     }
   }
-
+  const a = () => {
+    console.log('A')
+    // inputRefTitle.current.selectionStart = inputRefTitle.current.value.length
+    // inputRefTitle.current.selectionEnd = inputRefTitle.current.value.length
+  }
   return (
     (currentProject && (
       <>
         <ProjectHeader
+          a={a}
           inputRefNotes={inputRefNotes}
           inputRefTitle={inputRefTitle}
           currentProject={currentProject}

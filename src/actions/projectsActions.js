@@ -5,15 +5,6 @@ export const addProject = data => ({
   newProject: data
 })
 
-export const UPDATE_PROJECT = 'UPDATE_PROJECT'
-
-export const updateProject = data => {
-  return {
-    type: UPDATE_PROJECT,
-    updatedProject: data
-  }
-}
-
 export const REMOVE_PROJECT = 'REMOVE_PROJECT'
 
 export const removeProject = data => {
@@ -33,12 +24,12 @@ export const completeProject = data => {
   }
 }
 
-export const SAVE_CHANGE = 'SAVE_CHANGE'
+export const UPDATE_PROJECT = 'UPDATE_PROJECT'
 
-export const saveChange = (projectToUpdate, newValue, keyToUpdate) => {
+export const updateProject = (projectToUpdate, newValue, keyToUpdate) => {
   const updatedProject = { ...projectToUpdate, [`${keyToUpdate}`]: newValue }
   return {
-    type: SAVE_CHANGE,
+    type: UPDATE_PROJECT,
     updatedProject
   }
 }

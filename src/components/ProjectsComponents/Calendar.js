@@ -16,8 +16,6 @@ const Calendar = props => {
     }
   })
 
-  console.log(INITIAL_EVENTS)
-
   const renderEventContent = eventInfo => {
     return (
       <>
