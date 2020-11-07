@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 
-const Calendar = props => {
+export default function Calendar(props) {
   const [weekendsVisible, setweekendsVisible] = React.useState()
 
   const INITIAL_EVENTS = props.all.map(project => {
@@ -48,5 +48,3 @@ const Calendar = props => {
     />
   )
 }
-
-export default Calendar

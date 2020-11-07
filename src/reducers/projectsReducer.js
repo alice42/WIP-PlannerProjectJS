@@ -1,8 +1,7 @@
 import {
   ADD_PROJECT,
   UPDATE_PROJECT,
-  REMOVE_PROJECT,
-  COMPLETE_PROJECT
+  REMOVE_PROJECT
 } from '../actions/projectsActions'
 
 const initialState = {
@@ -35,25 +34,14 @@ const reducer = (state = initialState, action) => {
           project => project.id !== action.projectToRemove.id
         )
       }
-    case COMPLETE_PROJECT:
-      const tmp_complete = state.all.map(project =>
-        project.id === action.projectToComplete.id
-          ? { ...project, isCompleted: !action.projectToComplete.isCompleted }
-          : project
-      )
-      return {
-        ...state,
-        all: tmp_complete
-      }
     case UPDATE_PROJECT:
-      const tmp_updated = state.all.map(project =>
-        project.id === action.updatedProject.id
-          ? action.updatedProject
-          : project
-      )
       return {
         ...state,
-        all: tmp_updated
+        all: state.all.map(project =>
+          project.id === action.updatedProject.id
+            ? action.updatedProject
+            : project
+        )
       }
     default:
       return state

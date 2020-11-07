@@ -1,12 +1,13 @@
 import * as React from 'react'
 import ProjectHeader from '../components/ProjectsComponents/ProjectHeader'
+import ProjectContent from '../components/ProjectsComponents/ProjectContent'
 
 const Content = props => {
   const inputRefTitle = React.useRef(null)
   const inputRefNotes = React.useRef(null)
-  const [options, setOptions] = React.useState(false)
   const [currentProject, setcurrentProject] = React.useState(null)
-  const [open, setOpen] = React.useState(false)
+  const [options, setOptions] = React.useState(false)
+  const [modal, setOpenModal] = React.useState(false)
 
   React.useEffect(() => {
     const existingProject = props.projects.all.find(
@@ -27,22 +28,29 @@ const Content = props => {
     }
   }, [currentProject])
 
-  const handleOpen = () => {
-    setOpen(true)
+  // OPTIONS & MODAL (CALENDAR)
+  const handleOpenModal = () => {
+    setOpenModal(true)
   }
 
-  const handleClose = () => {
-    setOpen(false)
+  const handleCloseModal = () => {
+    setOpenModal(false)
   }
 
-  const openOptions = () => {
+  const handleOptions = () => {
     setOptions(!options)
   }
 
-  const handleRemoveProject = project => {
-    props.projectsActions.removeProject(project)
-    setOptions(false)
-  }
+  // PROJECT (REMOVE & COMPLETE)
+  const handleRemoveProject = () =>
+    props.projectsActions.removeProject(currentProject)
+
+  const handleCompleteProject = () =>
+    props.projectsActions.updateProject(
+      currentProject,
+      !currentProject.isCompleted,
+      'isCompleted'
+    )
 
   // EVENTS (SELECT A DATE, DROP ON DATE && CLICK EVENT TO REMOVE)
 
@@ -76,7 +84,6 @@ const Content = props => {
   const handleDrop = info => {
     let calendarApi = info.view.calendar
     calendarApi.unselect()
-    console.log('handleDRop', info)
     if (currentProject.title && currentProject.startDate) {
       const event = calendarApi.getEventById(currentProject.id)
       event.setStart(info.event.startStr, { maintainDuration: true })
@@ -100,8 +107,7 @@ const Content = props => {
     }
   }
 
-  //INPUTS (TITLE & NOTES)
-
+  //INPUTS (SAVE ON ENTER & FOCUS LOST)
   const handleInputEnter = (event, type) => {
     if (event.key === 'Enter') {
       handleInputUpdate(event, type)
@@ -126,46 +132,35 @@ const Content = props => {
       refs[type].current.value = ''
     }
   }
-  const a = () => {
-    console.log('A')
-    // inputRefTitle.current.selectionStart = inputRefTitle.current.value.length
-    // inputRefTitle.current.selectionEnd = inputRefTitle.current.value.length
-  }
+
   return (
     (currentProject && (
       <>
         <ProjectHeader
-          a={a}
+          // project
+          all={props.projects.all}
+          currentProject={currentProject}
+          handleRemoveProject={handleRemoveProject}
+          handleCompleteProject={handleCompleteProject}
+          // inputs
           inputRefNotes={inputRefNotes}
           inputRefTitle={inputRefTitle}
-          currentProject={currentProject}
           handleInputUpdate={handleInputUpdate}
           handleInputEnter={handleInputEnter}
-          openOptions={openOptions}
+          // opt&modal
           options={options}
-          handleRemoveProject={handleRemoveProject}
-          authorizeRename={props.projectsActions.authorizeRename}
-          handleOpen={handleOpen}
-          completeProject={props.projectsActions.completeProject}
-          all={props.projects.all}
+          handleOptions={handleOptions}
+          modal={modal}
+          handleOpenModal={handleOpenModal}
+          handleCloseModal={handleCloseModal}
+          // events
           handleDateSelect={handleDateSelect}
           handleDrop={handleDrop}
           handleEventClick={handleEventClick}
-          handleClose={handleClose}
-          open={open}
         />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column'
-          }}
-        >
-          Project CONTENT
-          <div>add heading</div>
-          <div>add todos</div>
-        </div>
+        <ProjectContent {...props} currentProject={currentProject} />
       </>
-    )) || <div>default</div>
+    )) || <div>NO PROJECT SELECTED</div>
   )
 }
 
