@@ -8,9 +8,6 @@ const ProjectsList = props => {
     const id = uuid()
     const newProject = {
       id: `project_${id}`,
-      title: 'New Project',
-      isCompleted: false,
-      defaultTitle: true,
       isCompleted: false
     }
     props.projectsActions.addProject(newProject)
@@ -26,7 +23,7 @@ const ProjectsList = props => {
           {props.projects.all.map(project => (
             <li key={project.id}>
               <Link to={`/projects/${project.id}`}>
-                {project.title}
+                {project.title || 'New Project'}
                 {project.isCompleted ? (
                   <span className="todo-item-checked">✔</span>
                 ) : (

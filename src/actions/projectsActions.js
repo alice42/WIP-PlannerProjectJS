@@ -14,24 +14,6 @@ export const updateProject = data => {
   }
 }
 
-export const SAVE_CHANGE = 'SAVE_CHANGE'
-
-export const saveChange = data => {
-  return {
-    type: SAVE_CHANGE,
-    data: data
-  }
-}
-
-export const AUTHORIZE_RENAME = 'AUTHORIZE_RENAME'
-
-export const authorizeRename = currentProject => {
-  return {
-    type: AUTHORIZE_RENAME,
-    data: currentProject
-  }
-}
-
 export const REMOVE_PROJECT = 'REMOVE_PROJECT'
 
 export const removeProject = data => {
@@ -48,5 +30,15 @@ export const completeProject = data => {
   return {
     type: COMPLETE_PROJECT,
     projectToComplete: data
+  }
+}
+
+export const SAVE_CHANGE = 'SAVE_CHANGE'
+
+export const saveChange = (projectToUpdate, newValue, keyToUpdate) => {
+  const updatedProject = { ...projectToUpdate, [`${keyToUpdate}`]: newValue }
+  return {
+    type: SAVE_CHANGE,
+    updatedProject
   }
 }

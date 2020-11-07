@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import LayoutRoute from '../components/LayoutComponents/LayoutRoute'
 import Layout from '../components/LayoutComponents/Layout'
 import * as projectsActions from '../actions/projectsActions'
-import Content from '../components/ContentComponents/Content'
+import Projects from './Projects'
 
 const App = () => {
   return (
@@ -17,13 +17,13 @@ const App = () => {
         <LayoutRouteConnected
           exact
           path={'/projects/'}
-          component={Content}
+          component={Projects}
           layout={Layout}
         />
         <LayoutRouteConnected
           exact
           path={'/projects/:id'}
-          component={Content}
+          component={Projects}
           layout={Layout}
         />
         <Redirect to="/" />

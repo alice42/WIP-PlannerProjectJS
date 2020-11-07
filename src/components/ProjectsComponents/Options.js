@@ -9,9 +9,6 @@ const Options = props => {
           <div onClick={() => props.handleRemoveProject(props.currentProject)}>
             delete
           </div>
-          <div onClick={() => props.authorizeRename(props.currentProject.id)}>
-            rename
-          </div>
           <div onClick={props.handleOpen}>add Date</div>
           <div onClick={() => props.completeProject(props.currentProject)}>
             Complete
