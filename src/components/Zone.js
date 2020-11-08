@@ -39,45 +39,51 @@ export default class Zone extends React.Component {
             style={getListStyle(snapshot.isDraggingOver)}
           >
             {this.props.subItems &&
-              this.props.subItems.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={`${item.id}`}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div style={{ display: 'flex' }}>
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        {item.content}
-                        <InputHeading
-                          {...this.props}
-                          subItem={item}
-                          typeValue={'todos'}
-                          placeholderValue={'New Todo'}
-                        />
-                        <span
-                          {...provided.dragHandleProps}
-                          style={{
-                            display: 'block',
-                            margin: '0 10px',
-                            border: '1px solid #000'
-                          }}
+              this.props.subItems.map((item, index) => {
+                return (
+                  <Draggable
+                    key={item.id}
+                    draggableId={`${item.id}`}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div style={{ display: 'flex' }}>
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
                         >
-                          Drag
-                        </span>
+                          {/* {item.content} */}
+                          {item.content ? (
+                            item.content
+                          ) : (
+                            <InputHeading
+                              {...this.props}
+                              subItem={item}
+                              typeValue={'todos'}
+                              placeholderValue={'New Todo'}
+                            />
+                          )}
+                          <span
+                            {...provided.dragHandleProps}
+                            style={{
+                              display: 'block',
+                              margin: '0 10px',
+                              border: '1px solid #000'
+                            }}
+                          >
+                            Drag
+                          </span>
+                        </div>
+                        {provided.placeholder}
                       </div>
-                      {provided.placeholder}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
+                    )}
+                  </Draggable>
+                )
+              })}
             {provided.placeholder}
           </div>
         )}

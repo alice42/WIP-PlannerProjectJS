@@ -102,7 +102,6 @@ const reducer = (state = initialState, action) => {
     case ADD_TODO:
       const tmp = state.all.map(project => {
         if (project.id === action.currentProject.id) {
-          console.log('A', action.newTodo)
           let a = {
             ...project
           }
@@ -118,10 +117,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         all: state.all.map(project =>
-          project.id === action.a.id
+          project.id === action.updatedProject.id
             ? (project = {
                 ...project,
-                ...action.a
+                ...action.updatedProject
               })
             : project
         )

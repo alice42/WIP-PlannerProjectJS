@@ -30,10 +30,6 @@ export default function ZoneDrop(props) {
   const [items, setitems] = React.useState()
 
   React.useEffect(() => {
-    console.log([
-      ...props.currentProject.todos,
-      ...props.currentProject.heading
-    ])
     setitems([...props.currentProject.todos, ...props.currentProject.heading])
   }, [props.currentProject.heading])
 

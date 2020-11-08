@@ -2,7 +2,6 @@
 export const ADD_PROJECT = 'ADD_PROJECT'
 
 export const addProject = newProject => {
-  console.log(newProject)
   return {
     type: ADD_PROJECT,
     newProject
@@ -54,14 +53,12 @@ export const removeHeading = (
   headingToRemove,
   keyToUpdate
 ) => {
-  console.log('acton', headingToRemove)
   const updatedProject = {
     ...projectToUpdate,
     [`${keyToUpdate}`]: projectToUpdate.heading.filter(
       head => head.id !== headingToRemove.id
     )
   }
-  console.log('A', updatedProject)
   return {
     type: REMOVE_HEADING,
     updatedProject
@@ -80,15 +77,14 @@ export const addTodo = (currentProject, newTodo) => ({
 export const UPDATE_TODO = 'UPDATE_TODO'
 
 export const updateTodos = (projectToUpdate, newValue, keyToUpdate) => {
-  console.log(projectToUpdate, newValue, keyToUpdate)
-
-  const a = { ...projectToUpdate }
-  a.todos[0].subItems = a.todos[0].subItems.map(item => {
-    return item.id === newValue.id ? newValue : item
-  })
-  console.log('sssss', a)
+  const updatedProject = { ...projectToUpdate }
+  updatedProject.todos[0].subItems = updatedProject.todos[0].subItems.map(
+    item => {
+      return item.id === newValue.id ? newValue : item
+    }
+  )
   return {
     type: UPDATE_TODO,
-    a
+    updatedProject
   }
 }
