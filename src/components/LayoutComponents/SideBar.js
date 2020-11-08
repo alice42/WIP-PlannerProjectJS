@@ -2,7 +2,7 @@ import { Divider } from '@material-ui/core'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import ProjectsList from '../SideBarComponents/ProjectsList'
+import ProjectsList from '../ProjectsList'
 
 const StyledSidebar = styled.div`
   background-color: #a2a2a2;

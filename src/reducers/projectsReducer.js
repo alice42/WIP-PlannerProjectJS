@@ -1,14 +1,20 @@
 import {
   ADD_PROJECT,
   UPDATE_PROJECT,
-  REMOVE_PROJECT
+  REMOVE_PROJECT,
+  ADD_HEADING,
+  UPDATE_HEADING,
+  REMOVE_HEADING,
+  ADD_TODO,
+  UPDATE_TODO
 } from '../actions/projectsActions'
 
 const initialState = {
   all: []
 }
 
-// const project = {
+// all: [
+//   {
 //   id
 //   title
 //   startDate
@@ -16,8 +22,22 @@ const initialState = {
 //   allDay
 //   notes
 //   isCompleted
-//   todos
-//   heading
+//   todos : [
+//    {
+//     id
+//     headingId
+//     todoTitle
+//     todoNotes
+//     title
+//     isCompleted
+//    }
+//   ]
+//   heading : [
+//    {
+//     id
+//     headingTitle
+//    }
+//   ]
 // }
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +60,69 @@ const reducer = (state = initialState, action) => {
         all: state.all.map(project =>
           project.id === action.updatedProject.id
             ? action.updatedProject
+            : project
+        )
+      }
+    case ADD_HEADING:
+      return {
+        ...state,
+        all: state.all.map(project =>
+          project.id === action.currentProject.id
+            ? (project = {
+                ...project,
+                heading: [...project.heading, action.newHeading]
+              })
+            : project
+        )
+      }
+    case UPDATE_HEADING:
+      return {
+        ...state,
+        all: state.all.map(project =>
+          project.id === action.updatedProject.id
+            ? (project = {
+                ...project,
+                ...action.updatedProject
+              })
+            : project
+        )
+      }
+    case REMOVE_HEADING:
+      return {
+        ...state,
+        all: state.all.map(project =>
+          project.id === action.updatedProject.id
+            ? (project = {
+                ...project,
+                ...action.updatedProject
+              })
+            : project
+        )
+      }
+    case ADD_TODO:
+      const tmp = state.all.map(project => {
+        if (project.id === action.currentProject.id) {
+          console.log('A', action.newTodo)
+          let a = {
+            ...project
+          }
+          a.todos[0].subItems = [...a.todos[0].subItems, action.newTodo]
+          return a
+        } else return project
+      })
+      return {
+        ...state,
+        all: tmp
+      }
+    case UPDATE_TODO:
+      return {
+        ...state,
+        all: state.all.map(project =>
+          project.id === action.a.id
+            ? (project = {
+                ...project,
+                ...action.a
+              })
             : project
         )
       }

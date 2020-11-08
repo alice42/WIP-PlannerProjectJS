@@ -6,9 +6,18 @@ import { Link } from 'react-router-dom'
 const ProjectsList = props => {
   const handleCreateNewProject = () => {
     const id = uuid()
+    const todosId = uuid()
     const newProject = {
       id: `project_${id}`,
-      isCompleted: false
+      isCompleted: false,
+      heading: [],
+      todos: [
+        {
+          id: `todos_${todosId}`,
+          disabled: true,
+          subItems: []
+        }
+      ]
     }
     props.projectsActions.addProject(newProject)
     props.children.props.history.push({

@@ -128,6 +128,7 @@ const Content = props => {
       event.target.value || defaultValues[type],
       type
     )
+
     if (refs[type] && refs[type].current) {
       refs[type].current.value = ''
     }
