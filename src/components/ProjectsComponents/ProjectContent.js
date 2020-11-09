@@ -21,6 +21,8 @@ const ProjectContent = props => {
     }
     props.projectsActions.addTodo(props.currentProject, newTodo)
   }
+
+  console.log('CONTENT *****', props)
   return (
     <>
       <ZoneDrop

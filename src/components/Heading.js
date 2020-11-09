@@ -15,14 +15,14 @@ const grid = 8
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: 'none',
-  // padding: grid * 2,
-  // margin: `0 0 ${grid}px 0`,
-  // background: isDragging ? 'lightgreen' : 'grey',
+  padding: grid * 2,
+  margin: `0 0 ${grid}px 0`,
+  background: isDragging ? 'lightgreen' : 'grey',
   ...draggableStyle
 })
 
 const getListStyle = isDraggingOver => ({
-  // background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: grid
 })
 
@@ -30,12 +30,8 @@ export default function ZoneDrop(props) {
   const [items, setitems] = React.useState()
 
   React.useEffect(() => {
-    console.log([
-      ...props.currentProject.todos,
-      ...props.currentProject.heading
-    ])
     setitems([...props.currentProject.todos, ...props.currentProject.heading])
-  }, [props.currentProject])
+  }, [props.currentProject.heading])
 
   const onDragEnd = result => {
     if (!result.destination) {
@@ -46,12 +42,10 @@ export default function ZoneDrop(props) {
     const destIndex = result.destination.index
 
     if (result.type === 'droppableItemA') {
-      console.log('result.type === droppableItemA')
       const itemsUpdated = reorder(items, sourceIndex, destIndex)
 
       setitems(itemsUpdated)
     } else if (result.type === 'droppableSubItem') {
-      console.log('result.type === droppableItem')
       const itemSubItemMap = items.reduce((acc, item) => {
         acc[item.id] = item.subItems
         return acc
@@ -66,7 +60,6 @@ export default function ZoneDrop(props) {
       let newItems = [...items]
 
       if (sourceParentId === destParentId) {
-        console.log('sourceParentId === destParentId')
         const reorderedSubItems = reorder(
           sourceSubItems,
           sourceIndex,
@@ -80,7 +73,6 @@ export default function ZoneDrop(props) {
         })
         setitems(newItems)
       } else {
-        console.log('sourceParentId !== destParentId')
         let newSourceSubItems = [...sourceSubItems]
         const [draggedItem] = newSourceSubItems.splice(sourceIndex, 1)
 
@@ -99,7 +91,6 @@ export default function ZoneDrop(props) {
     }
   }
 
-  console.log('ZONE DROP', items)
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" type="droppableItem">
@@ -119,22 +110,35 @@ export default function ZoneDrop(props) {
                       isDragDisabled={true}
                     >
                       {(provided, snapshot) => (
-                        <div
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          {item.content}
+                        <div>
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            style={getItemStyle(
+                              snapshot.isDragging,
+                              provided.draggableProps.style
+                            )}
+                          >
+                            {item.content}
 
-                          <Zone
-                            {...props}
-                            subItems={item.subItems}
-                            type={`${item.id}`}
-                          />
+                            {item.disabled || (
+                              <span
+                                {...provided.dragHandleProps}
+                                style={{
+                                  display: 'inline-block',
+                                  margin: '0 10px',
+                                  border: '1px solid #000'
+                                }}
+                              >
+                                Drag
+                              </span>
+                            )}
+                            <Zone
+                              {...props}
+                              subItems={item.subItems}
+                              type={`${item.id}`}
+                            />
+                          </div>
                           {provided.placeholder}
                         </div>
                       )}
@@ -160,7 +164,6 @@ export default function ZoneDrop(props) {
                               <div
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
-                                {...provided.dragHandleProps}
                                 style={getItemStyle(
                                   snapshot.isDragging,
                                   provided.draggableProps.style
@@ -168,10 +171,22 @@ export default function ZoneDrop(props) {
                               >
                                 <InputHeading
                                   {...props}
-                                  item={item}
+                                  heading={item}
                                   typeValue={'heading'}
                                   placeholderValue={'New Heading'}
                                 />
+
+                                <span
+                                  {...provided.dragHandleProps}
+                                  style={{
+                                    display: 'inline-block',
+                                    margin: '0 10px',
+                                    border: '1px solid #000'
+                                  }}
+                                >
+                                  Drag
+                                </span>
+
                                 <Zone
                                   subItems={item.subItems}
                                   type={`${item.id}`}

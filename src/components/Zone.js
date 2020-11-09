@@ -1,30 +1,25 @@
 import React from 'react'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 import InputHeading from './InputHeding'
 const grid = 8
 
 const getItemStyle = (isDragging, draggableStyle) => ({
-  // some basic styles to make the items look a bit nicer
+  display: 'flex',
   userSelect: 'none',
-  padding: grid * 2,
-  margin: `0 10px 10px 0`,
-
+  // padding: grid * 2,
+  // margin: `0 10px 10px 0`,
   display: 'inline-flex',
-  // width: '120px',
-  padding: '10px',
-
-  // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  // padding: '10px',
+  // background: isDragging ? 'lightgreen' : 'grey',
   display: 'inline-flex',
-  padding: '10px',
-  margin: '0 10px 10px 0',
-  border: '1px solid grey',
-  // styles we need to apply on draggables
+  // padding: '10px',
+  // margin: '0 10px 10px 0',
+  // border: '1px solid grey',
   ...draggableStyle
 })
 
 const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  // background: isDraggingOver ? 'lightblue' : 'lightgrey',
   padding: grid,
   margin: '10px 0'
 })
@@ -47,37 +42,21 @@ export default class Zone extends React.Component {
                     index={index}
                   >
                     {(provided, snapshot) => (
-                      <div style={{ display: 'flex' }}>
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          {/* {item.content} */}
-                          {item.content ? (
-                            item.content
-                          ) : (
-                            <InputHeading
-                              {...this.props}
-                              subItem={item}
-                              typeValue={'todos'}
-                              placeholderValue={'New Todo'}
-                            />
-                          )}
-                          <span
-                            {...provided.dragHandleProps}
-                            style={{
-                              display: 'block',
-                              margin: '0 10px',
-                              border: '1px solid #000'
-                            }}
-                          >
-                            Drag
-                          </span>
-                        </div>
+                      <div
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
+                      >
+                        <InputHeading
+                          {...this.props}
+                          item={item}
+                          typeValue={'todos'}
+                          placeholderValue={'New Todo'}
+                        />
                         {provided.placeholder}
                       </div>
                     )}

@@ -2,7 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const StyledInput = styled.input`
-  background: grey;
+  ${props =>
+    props.typeValue === 'heading'
+      ? `background: grey;
   text-decoration: none;
   border: none;
   outline: none;
@@ -10,7 +12,17 @@ const StyledInput = styled.input`
   border-bottom: 1px solid darkgrey;
   text-decoration: none;
   padding: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 15px;`
+      : `
+      background: grey;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  // border-bottom: 1px solid darkgrey;
+  text-decoration: none;
+  padding: 15px;
+  margin-bottom: 15px;`}
 `
 
 const Input = props => {
@@ -19,23 +31,19 @@ const Input = props => {
 
   React.useEffect(() => {
     if (inputRefHeading && inputRefHeading.current)
-      inputRefHeading.current.value = props.heading.title || ''
+      inputRefHeading.current.value = props.item.title || ''
     if (inputRefTodos && inputRefTodos.current)
-      inputRefTodos.current.value = props.subItem.content || ''
-  }, [props.heading])
+      inputRefTodos.current.value = props.item.content || ''
+  }, [props.item])
 
   //INPUTS (SAVE ON ENTER & FOCUS LOST)
-  const handleInputEnter = (event, type) => {
+  const handleInputEnter = (event, type, ref) => {
     if (event.key === 'Enter') {
-      handleInputUpdate(event, type)
+      handleInputUpdate(event, type, ref)
     }
   }
 
-  const handleInputUpdate = (event, type) => {
-    const refs = {
-      heading: inputRefHeading,
-      todos: inputRefTodos
-    }
+  const handleInputUpdate = (event, type, ref) => {
     const defaultValues = {
       heading: 'New Heading',
       todos: 'New Todo'
@@ -43,7 +51,7 @@ const Input = props => {
 
     if (type === 'heading') {
       const updatedHeading = {
-        id: props.heading.id,
+        id: props.item.id,
         title: event.target.value || defaultValues[type]
       }
       props.projectsActions.updateHeading(
@@ -53,21 +61,32 @@ const Input = props => {
       )
     }
     if (type === 'todos') {
-      console.log(props)
+      console.log('TODOS', props.projectsActions)
       const updatedTodos = {
-        id: props.subItem.id,
+        id: props.item.id,
         content: event.target.value || defaultValues[type]
       }
+      console.log('A', updatedTodos)
       props.projectsActions.updateTodos(
         props.currentProject,
         updatedTodos,
         type
       )
     }
-    if (refs[type] && refs[type].current) {
-      refs[type].current.value = ''
+    if (ref && ref.current) {
+      ref.current.value = ''
     }
   }
+
+  const test = event => {
+    console.log('EVENT', event, 'PROPS', props)
+  }
+
+  const refs = {
+    heading: inputRefHeading,
+    todos: inputRefTodos
+  }
+
   return (
     <div
       style={{
@@ -78,40 +97,27 @@ const Input = props => {
       }}
     >
       <StyledInput
-        ref={props.typeValue === 'heading' ? inputRefHeading : inputRefTodos}
+        ref={refs[props.typeValue]}
+        typeValue={props.typeValue}
         autoFocus
         onBlur={event => {
-          handleInputUpdate(event, props.typeValue)
+          handleInputUpdate(event, props.typeValue, refs[props.typeValue])
         }}
         placeholder={props.placeholderValue}
         type="text"
         onKeyPress={event => {
-          handleInputEnter(event, props.typeValue)
+          handleInputEnter(event, props.typeValue, refs[props.typeValue])
         }}
         onSelect={() => {
-          if (props.typeValue === 'heading') {
-            if (inputRefHeading.current.value !== props.placeholderValue) {
-              inputRefHeading.current.selectionStart =
-                inputRefHeading.current.value.length
-              inputRefHeading.current.selectionEnd =
-                inputRefHeading.current.value.length
-            } else {
-              inputRefHeading.current.value = ''
-              inputRefHeading.current.selectionStart = 0
-              inputRefHeading.current.selectionEnd = 0
-            }
-          }
-          if (props.typeValue === 'todos') {
-            if (inputRefTodos.current.value !== props.placeholderValue) {
-              inputRefTodos.current.selectionStart =
-                inputRefTodos.current.value.length
-              inputRefTodos.current.selectionEnd =
-                inputRefTodos.current.value.length
-            } else {
-              inputRefTodos.current.value = ''
-              inputRefTodos.current.selectionStart = 0
-              inputRefTodos.current.selectionEnd = 0
-            }
+          if (refs[props.typeValue].current.value !== props.placeholderValue) {
+            refs[props.typeValue].current.selectionStart =
+              refs[props.typeValue].current.value.length
+            refs[props.typeValue].current.selectionEnd =
+              refs[props.typeValue].current.value.length
+          } else {
+            refs[props.typeValue].current.value = ''
+            refs[props.typeValue].current.selectionStart = 0
+            refs[props.typeValue].current.selectionEnd = 0
           }
         }}
       />
@@ -120,7 +126,7 @@ const Input = props => {
           props.projectsActions.removeHeading(
             props.currentProject,
             props.heading,
-            'heading'
+            props.typeValue
           )
         }}
       >
