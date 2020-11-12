@@ -41,10 +41,11 @@ export const addList = (title, project) => {
     payload: title
   }
 }
-//
-export const editCard = (id, listID, newText) => {
+
+export const editCard = (id, listID, newText, currentProject) => {
   return {
     type: CONSTANTS.EDIT_CARD,
+    currentProject,
     payload: { id, listID, newText }
   }
 }
@@ -79,12 +80,12 @@ export const sort = (
   }
 }
 
-export const editTitle = (listID, newTitle) => {
-  return {
-    type: CONSTANTS.EDIT_LIST_TITLE,
-    payload: {
-      listID,
-      newTitle
-    }
-  }
-}
+// export const editTitle = (listID, newTitle) => {
+//   return {
+//     type: CONSTANTS.EDIT_LIST_TITLE,
+//     payload: {
+//       listID,
+//       newTitle
+//     }
+//   }
+// }

@@ -1,7 +1,7 @@
 import React from 'react'
 import TrelloForm from './TrelloForm'
 import TrelloOpenForm from './TrelloOpenForm'
-import TrelloFormCard from './TrelloFormCard'
+
 export default function TrelloCreate(props) {
   const [text, setText] = React.useState('')
   const [formOpen, setformOpen] = React.useState(false)
@@ -35,25 +35,15 @@ export default function TrelloCreate(props) {
     closeForm()
     return
   }
-  console.log(props)
+
   return formOpen ? (
-    !props.list ? (
-      <TrelloFormCard
-        list={props.listID === 'list-0' ? null : props.list}
-        text={text}
-        onChange={handleInputChange}
-        closeForm={closeForm}
-        handleAddItem={handleAddCard}
-      />
-    ) : (
-      <TrelloForm
-        list={props.listID === 'list-0' ? null : props.list}
-        text={text}
-        onChange={handleInputChange}
-        closeForm={closeForm}
-        handleAddItem={handleAddList}
-      />
-    )
+    <TrelloForm
+      list={props.listID === 'list-0' ? null : props.list}
+      text={text}
+      onChange={handleInputChange}
+      closeForm={closeForm}
+      handleAddItem={props.list ? handleAddList : handleAddCard}
+    />
   ) : (
     (!props.listID || props.listID === 'list-0') && (
       <TrelloOpenForm list={props.list} onClick={openForm}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TrelloCard from './TrelloCard'
+import Todos from './Todos'
 import TrelloCreate from './TrelloCreate'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import styled from 'styled-components'
@@ -19,7 +19,10 @@ const StyledInput = styled.input`
 `
 const StyledList = styled.div`
   border-radius: 3px;
-  padding: 8px;
+  ${props =>
+    props['data-rbd-drag-handle-draggable-id'] !== 'list-0'
+      ? 'padding: 8px;'
+      : ' padding: 0 8px 0 8px;'};
   height: 100%;
   margin: 8px;
   ${props =>
@@ -37,7 +40,7 @@ const StyledList = styled.div`
   }
 `
 
-export default function TrelloList(props) {
+export default function Heading(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
 
@@ -55,8 +58,6 @@ export default function TrelloList(props) {
   }
 
   const handleFocus = e => {
-    console.log('hi')
-
     e.target.select()
   }
 
@@ -67,7 +68,7 @@ export default function TrelloList(props) {
 
   const handleFinishEditing = e => {
     setIsEditing(false)
-    dispatch(editTitle(props.listID, listTitle))
+    // dispatch(editTitle(props.listID, listTitle))
   }
 
   return (
@@ -92,7 +93,7 @@ export default function TrelloList(props) {
                 )}
 
                 {props.cards.map((card, index) => (
-                  <TrelloCard
+                  <Todos
                     {...props}
                     key={card.id}
                     text={card.text}

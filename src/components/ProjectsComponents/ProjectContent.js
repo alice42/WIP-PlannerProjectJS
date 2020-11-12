@@ -1,8 +1,8 @@
 import React from 'react'
-import Drop from '../test/Drop'
+import DragDropContext from '../test/DragDropContext'
 
 const ProjectContent = props => {
-  return <Drop {...props} />
+  return <DragDropContext {...props} />
 }
 
 export default ProjectContent

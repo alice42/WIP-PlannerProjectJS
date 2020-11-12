@@ -1,5 +1,5 @@
 import { CONSTANTS } from '../actions/projectsActions'
-let listID = 1
+let listIDA = 1
 let cardID = 0
 
 const initialState = {
@@ -34,9 +34,9 @@ const reducer = (state = initialState, action) => {
       const newList = {
         title: action.payload,
         cards: [],
-        id: `list-${listID}`
+        id: `list-${listIDA}`
       }
-      listID += 1
+      listIDA += 1
       const newStateAddList = state.all
       newStateAddList.map(project =>
         project.id === action.project.id
@@ -55,8 +55,6 @@ const reducer = (state = initialState, action) => {
         isComplete: false
       }
       cardID += 1
-
-      console.log('action received', action, newCard)
       const newStateAddCard = state.all
       newStateAddCard.map(
         project =>
@@ -133,23 +131,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         all: newStateDrag
       }
-
-    case CONSTANTS.EDIT_CARD: {
+    case CONSTANTS.EDIT_CARD:
       const { id, listID, newText } = action.payload
-      return state.map(list => {
-        if (list.id === listID) {
-          const newCards = list.cards.map(card => {
-            if (card.id === id) {
-              card.text = newText
-              return card
-            }
-            return card
-          })
-          return { ...list, cards: newCards }
-        }
-        return list
-      })
-    }
+      const newStateEditCard = state.all
+      newStateEditCard
+        .find(project => project.id === action.currentProject.id)
+        .lists.map(list => {
+          if (list.id === listID) {
+            const newCards = list.cards.map(card => {
+              if (card.id === id) {
+                card.text = newText
+              }
+            })
+          }
+        })
+      return {
+        ...state,
+        all: newStateEditCard
+      }
 
     // case CONSTANTS.DELETE_CARD: {
     //   const { id, listID } = action.payload

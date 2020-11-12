@@ -1,9 +1,9 @@
 import React from 'react'
-import TrelloList from './TrelloList'
+import Heading from './Heading'
 import TrelloCreate from './TrelloCreate'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
-export default function Drop(props) {
+export default function DnDContext(props) {
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result
     if (
@@ -31,7 +31,7 @@ export default function Drop(props) {
         {provided => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {lists.map((list, index) => (
-              <TrelloList
+              <Heading
                 {...props}
                 listID={list.id}
                 key={list.id}
