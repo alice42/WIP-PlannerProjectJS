@@ -1,60 +1,26 @@
-import {
-  ADD_PROJECT,
-  UPDATE_PROJECT,
-  REMOVE_PROJECT,
-  ADD_HEADING,
-  UPDATE_HEADING,
-  REMOVE_HEADING,
-  ADD_TODO,
-  UPDATE_TODO
-} from '../actions/projectsActions'
+import { CONSTANTS } from '../actions/projectsActions'
+let listID = 1
+let cardID = 0
 
 const initialState = {
   all: []
 }
 
-// all: [
-//   {
-//   id
-//   title
-//   startDate
-//   endDate
-//   allDay
-//   notes
-//   isCompleted
-//   todos : [
-//    {
-//     id
-//     headingId
-//     todoTitle
-//     todoNotes
-//     title
-//     isCompleted
-//    }
-//   ]
-//   heading : [
-//    {
-//     id
-//     headingTitle
-//    }
-//   ]
-// }
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_PROJECT:
+    case CONSTANTS.ADD_PROJECT:
       return {
         ...state,
         all: [...state.all, action.newProject]
       }
-    case REMOVE_PROJECT:
+    case CONSTANTS.REMOVE_PROJECT:
       return {
         ...state,
         all: state.all.filter(
           project => project.id !== action.projectToRemove.id
         )
       }
-    case UPDATE_PROJECT:
+    case CONSTANTS.UPDATE_PROJECT:
       return {
         ...state,
         all: state.all.map(project =>
@@ -63,68 +29,152 @@ const reducer = (state = initialState, action) => {
             : project
         )
       }
-    case ADD_HEADING:
+
+    case CONSTANTS.ADD_LIST:
+      const newList = {
+        title: action.payload,
+        cards: [],
+        id: `list-${listID}`
+      }
+      listID += 1
+      const newStateAddList = state.all
+      newStateAddList.map(project =>
+        project.id === action.project.id
+          ? (action.project.lists = [...project.lists, newList])
+          : project
+      )
       return {
         ...state,
-        all: state.all.map(project =>
-          project.id === action.currentProject.id
-            ? (project = {
-                ...project,
-                heading: [...project.heading, action.newHeading]
-              })
-            : project
-        )
+        all: newStateAddList
       }
-    case UPDATE_HEADING:
+
+    case CONSTANTS.ADD_CARD:
+      const newCard = {
+        text: action.payload.text,
+        id: `card-${cardID}`,
+        isComplete: false
+      }
+      cardID += 1
+
+      console.log('action received', action, newCard)
+      const newStateAddCard = state.all
+      newStateAddCard.map(
+        project =>
+          (project =
+            project.id === action.project.id
+              ? (project.lists = project.lists.map(
+                  list =>
+                    (list =
+                      list.id === action.payload.listID
+                        ? { ...list, cards: [...list.cards, newCard] }
+                        : list)
+                ))
+              : project)
+      )
       return {
         ...state,
-        all: state.all.map(project =>
-          project.id === action.updatedProject.id
-            ? (project = {
-                ...project,
-                ...action.updatedProject
-              })
+        all: newStateAddCard
+      }
+
+    case CONSTANTS.DRAG_HAPPENED:
+      const {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexEnd,
+        droppableIndexStart,
+        type
+      } = action.payload
+      const newStateDrag = state.all
+      const newState = [
+        ...state.all.find(project => project.id === action.payload.project.id)
+          .lists
+      ]
+
+      if (type === 'list') {
+        const list = newState.splice(droppableIndexStart, 1)
+        newState.splice(droppableIndexEnd, 0, ...list)
+        newStateDrag.map(project =>
+          project.id === action.payload.project.id
+            ? (action.payload.project.lists = newState)
             : project
         )
+        return {
+          ...state,
+          all: newStateDrag
+        }
       }
-    case REMOVE_HEADING:
+
+      if (droppableIdStart === droppableIdEnd) {
+        const list = state.all
+          .find(project => project.id === action.payload.project.id)
+          .lists.find(list => droppableIdStart === list.id)
+        const card = list.cards.splice(droppableIndexStart, 1)
+        list.cards.splice(droppableIndexEnd, 0, ...card)
+      }
+
+      if (droppableIdStart !== droppableIdEnd) {
+        const listStart = state.all
+          .find(project => project.id === action.payload.project.id)
+          .lists.find(list => droppableIdStart === list.id)
+        const card = listStart.cards.splice(droppableIndexStart, 1)
+        const listEnd = state.all
+          .find(project => project.id === action.payload.project.id)
+          .lists.find(list => droppableIdEnd === list.id)
+
+        listEnd.cards.splice(droppableIndexEnd, 0, ...card)
+      }
+
+      newStateDrag.map(project =>
+        project.id === action.payload.project.id
+          ? (action.payload.project.lists = newState)
+          : project
+      )
       return {
         ...state,
-        all: state.all.map(project =>
-          project.id === action.updatedProject.id
-            ? (project = {
-                ...project,
-                ...action.updatedProject
-              })
-            : project
-        )
+        all: newStateDrag
       }
-    case ADD_TODO:
-      const tmp = state.all.map(project => {
-        if (project.id === action.currentProject.id) {
-          let a = {
-            ...project
-          }
-          a.todos[0].subItems = [...a.todos[0].subItems, action.newTodo]
-          return a
-        } else return project
+
+    case CONSTANTS.EDIT_CARD: {
+      const { id, listID, newText } = action.payload
+      return state.map(list => {
+        if (list.id === listID) {
+          const newCards = list.cards.map(card => {
+            if (card.id === id) {
+              card.text = newText
+              return card
+            }
+            return card
+          })
+          return { ...list, cards: newCards }
+        }
+        return list
       })
-      return {
-        ...state,
-        all: tmp
-      }
-    case UPDATE_TODO:
-      return {
-        ...state,
-        all: state.all.map(project =>
-          project.id === action.updatedProject.id
-            ? (project = {
-                ...project,
-                ...action.updatedProject
-              })
-            : project
-        )
-      }
+    }
+
+    // case CONSTANTS.DELETE_CARD: {
+    //   const { id, listID } = action.payload
+    //   return state.map(list => {
+    //     if (list.id === listID) {
+    //       const newCards = list.cards.filter(card => card.id !== id)
+    //       return { ...list, cards: newCards }
+    //     } else {
+    //       return list
+    //     }
+    //   })
+    // }
+
+    // case CONSTANTS.EDIT_LIST_TITLE: {
+    //   const { listID, newListTitle } = action.payload
+    //   return state.map(list => {
+    //     if (list.id === listID) {
+    //       list.title = newListTitle
+    //       return list
+    //     } else {
+    //       return list
+    //     }
+    //   })
+    // }
+
     default:
       return state
   }

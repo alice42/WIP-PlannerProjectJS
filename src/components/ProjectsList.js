@@ -10,12 +10,11 @@ const ProjectsList = props => {
     const newProject = {
       id: `project_${id}`,
       isCompleted: false,
-      heading: [],
-      todos: [
+      lists: [
         {
-          id: `todos_${todosId}`,
-          disabled: true,
-          subItems: []
+          title: '',
+          id: `list-${0}`,
+          cards: []
         }
       ]
     }

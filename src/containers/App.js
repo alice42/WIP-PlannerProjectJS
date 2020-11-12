@@ -38,9 +38,10 @@ const actionsMapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  const { projects } = state
+  const { projects, lists } = state
   return {
-    projects
+    projects,
+    lists
   }
 }
 

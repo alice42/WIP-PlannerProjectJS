@@ -1,90 +1,90 @@
 //PROJECTS
-export const ADD_PROJECT = 'ADD_PROJECT'
+export const CONSTANTS = {
+  ADD_PROJECT: 'ADD_PROJECT',
+  UPDATE_PROJECT: 'UPDATE_PROJECT',
+  REMOVE_PROJECT: 'REMOVE_PROJECT',
+  ADD_CARD: 'ADD_CARD',
+  ADD_LIST: 'ADD_LIST',
+  DRAG_HAPPENED: 'DRAG_HAPPENED',
+  EDIT_CARD: 'EDIT_CARD',
+  DELETE_CARD: 'DELETE_CARD',
+  EDIT_LIST_TITLE: 'EDIT_LIST_TITLE'
+}
 
 export const addProject = newProject => {
   return {
-    type: ADD_PROJECT,
+    type: CONSTANTS.ADD_PROJECT,
     newProject
   }
 }
 
-export const REMOVE_PROJECT = 'REMOVE_PROJECT'
-
 export const removeProject = projectToRemove => ({
-  type: REMOVE_PROJECT,
+  type: CONSTANTS.REMOVE_PROJECT,
   projectToRemove
 })
 
-export const UPDATE_PROJECT = 'UPDATE_PROJECT'
-
 export const updateProject = (projectToUpdate, newValue, keyToUpdate) => ({
-  type: UPDATE_PROJECT,
+  type: CONSTANTS.UPDATE_PROJECT,
   updatedProject: { ...projectToUpdate, [`${keyToUpdate}`]: newValue }
 })
 
-//HEADINGS
-export const ADD_HEADING = 'ADD_HEADING'
-
-export const addHeading = (currentProject, newHeading) => ({
-  type: ADD_HEADING,
-  currentProject,
-  newHeading
+export const addCard = (listID, text, project) => ({
+  type: CONSTANTS.ADD_CARD,
+  project,
+  payload: { text, listID }
 })
 
-export const UPDATE_HEADING = 'UPDATE_HEADING'
-
-export const updateHeading = (projectToUpdate, newValue, keyToUpdate) => {
-  const updatedProject = {
-    ...projectToUpdate,
-    [`${keyToUpdate}`]: projectToUpdate.heading.map(head =>
-      head.id === newValue.id ? { ...head, ...newValue } : head
-    )
-  }
+export const addList = (title, project) => {
   return {
-    type: UPDATE_HEADING,
-    updatedProject
+    type: CONSTANTS.ADD_LIST,
+    project,
+    payload: title
+  }
+}
+//
+export const editCard = (id, listID, newText) => {
+  return {
+    type: CONSTANTS.EDIT_CARD,
+    payload: { id, listID, newText }
   }
 }
 
-export const REMOVE_HEADING = 'REMOVE_HEADING'
+export const deleteCard = (id, listID) => {
+  return {
+    type: CONSTANTS.DELETE_CARD,
+    payload: { id, listID }
+  }
+}
 
-export const removeHeading = (
-  projectToUpdate,
-  headingToRemove,
-  keyToUpdate
+export const sort = (
+  droppableIdStart,
+  droppableIdEnd,
+  droppableIndexStart,
+  droppableIndexEnd,
+  draggableId,
+  type,
+  project
 ) => {
-  const updatedProject = {
-    ...projectToUpdate,
-    [`${keyToUpdate}`]: projectToUpdate.heading.filter(
-      head => head.id !== headingToRemove.id
-    )
-  }
   return {
-    type: REMOVE_HEADING,
-    updatedProject
+    type: CONSTANTS.DRAG_HAPPENED,
+    payload: {
+      droppableIdStart,
+      droppableIdEnd,
+      droppableIndexEnd,
+      droppableIndexStart,
+      draggableId,
+      type,
+      project
+    }
   }
 }
 
-//TODOS
-export const ADD_TODO = 'ADD_TODO'
-
-export const addTodo = (currentProject, newTodo) => ({
-  type: ADD_TODO,
-  currentProject,
-  newTodo
-})
-
-export const UPDATE_TODO = 'UPDATE_TODO'
-
-export const updateTodos = (projectToUpdate, newValue, keyToUpdate) => {
-  const updatedProject = { ...projectToUpdate }
-  updatedProject.todos[0].subItems = updatedProject.todos[0].subItems.map(
-    item => {
-      return item.id === newValue.id ? newValue : item
-    }
-  )
+export const editTitle = (listID, newTitle) => {
   return {
-    type: UPDATE_TODO,
-    updatedProject
+    type: CONSTANTS.EDIT_LIST_TITLE,
+    payload: {
+      listID,
+      newTitle
+    }
   }
 }
