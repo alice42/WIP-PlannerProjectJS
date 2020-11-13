@@ -1,44 +1,8 @@
 import React, { useState } from 'react'
 import Todos from './Todos'
-import TrelloCreate from './TrelloCreate'
+import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import styled from 'styled-components'
-import { editTitle } from '../../actions/projectsActions'
-
-const StyledInput = styled.input`
-  background: none;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  font: inherit;
-  border-bottom: 1px solid black;
-  text-align: start;
-  padding-left: 10px;
-  margin: unset;
-  width: -webkit-fill-available;
-`
-const StyledList = styled.div`
-  border-radius: 3px;
-  ${props =>
-    props['data-rbd-drag-handle-draggable-id'] !== 'list-0'
-      ? 'padding: 8px;'
-      : ' padding: 0 8px 0 8px;'};
-  height: 100%;
-  margin: 8px;
-  ${props =>
-    props['data-rbd-drag-handle-draggable-id'] === 'list-0' ||
-    'background-color: grey'};
-  h4 {
-    ${props =>
-      props['data-rbd-drag-handle-draggable-id'] === 'list-0' ||
-      `
-      border-bottom: 1px solid black;
-      text-align: start;
-      padding-left: 10px;
-      margin: 0 0 5px 0;
-      `}
-  }
-`
+import { StyledInput, StyledHeadingContainer } from './styles/DndStyled'
 
 export default function Heading(props) {
   const [isEditing, setIsEditing] = useState(false)
@@ -48,17 +12,18 @@ export default function Heading(props) {
     return (
       <StyledInput
         type="text"
+        placeholder={'New Heading'}
         value={listTitle}
         onChange={handleChange}
         autoFocus
-        onFocus={handleFocus}
         onBlur={handleFinishEditing}
+        onKeyPress={event => {
+          if (event.key === 'Enter') {
+            handleFinishEditing()
+          }
+        }}
       />
     )
-  }
-
-  const handleFocus = e => {
-    e.target.select()
   }
 
   const handleChange = e => {
@@ -68,13 +33,17 @@ export default function Heading(props) {
 
   const handleFinishEditing = e => {
     setIsEditing(false)
-    // dispatch(editTitle(props.listID, listTitle))
+    props.projectsActions.editTitle(
+      props.listID,
+      listTitle,
+      props.currentProject
+    )
   }
 
   return (
     <Draggable draggableId={String(props.listID)} index={props.index}>
       {provided => (
-        <StyledList
+        <StyledHeadingContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -103,11 +72,11 @@ export default function Heading(props) {
                   />
                 ))}
                 {provided.placeholder}
-                <TrelloCreate {...props} listID={props.listID} />
+                <Create {...props} listID={props.listID} />
               </div>
             )}
           </Droppable>
-        </StyledList>
+        </StyledHeadingContainer>
       )}
     </Draggable>
   )

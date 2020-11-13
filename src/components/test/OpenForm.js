@@ -1,12 +1,8 @@
 import React from 'react'
 import Icon from '@material-ui/core/Icon'
-import styled from 'styled-components'
-const StyledOpenForm = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 8px;
-`
-const TrelloOpenForm = ({ children, onClick }) => {
+import { StyledOpenForm } from './styles/DndStyled'
+
+const OpenForm = ({ children, onClick }) => {
   return (
     <StyledOpenForm onClick={onClick}>
       <Icon>add</Icon>
@@ -15,4 +11,4 @@ const TrelloOpenForm = ({ children, onClick }) => {
   )
 }
 
-export default TrelloOpenForm
+export default OpenForm

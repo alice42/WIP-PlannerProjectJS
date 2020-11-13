@@ -84,16 +84,15 @@ const reducer = (state = initialState, action) => {
       } = action.payload
       const newStateDrag = state.all
       const newState = [
-        ...state.all.find(project => project.id === action.payload.project.id)
-          .lists
+        ...state.all.find(project => project.id === action.project.id).lists
       ]
 
       if (type === 'list') {
         const list = newState.splice(droppableIndexStart, 1)
         newState.splice(droppableIndexEnd, 0, ...list)
         newStateDrag.map(project =>
-          project.id === action.payload.project.id
-            ? (action.payload.project.lists = newState)
+          project.id === action.project.id
+            ? (action.project.lists = newState)
             : project
         )
         return {
@@ -104,7 +103,7 @@ const reducer = (state = initialState, action) => {
 
       if (droppableIdStart === droppableIdEnd) {
         const list = state.all
-          .find(project => project.id === action.payload.project.id)
+          .find(project => project.id === action.project.id)
           .lists.find(list => droppableIdStart === list.id)
         const card = list.cards.splice(droppableIndexStart, 1)
         list.cards.splice(droppableIndexEnd, 0, ...card)
@@ -112,19 +111,19 @@ const reducer = (state = initialState, action) => {
 
       if (droppableIdStart !== droppableIdEnd) {
         const listStart = state.all
-          .find(project => project.id === action.payload.project.id)
+          .find(project => project.id === action.project.id)
           .lists.find(list => droppableIdStart === list.id)
         const card = listStart.cards.splice(droppableIndexStart, 1)
         const listEnd = state.all
-          .find(project => project.id === action.payload.project.id)
+          .find(project => project.id === action.project.id)
           .lists.find(list => droppableIdEnd === list.id)
 
         listEnd.cards.splice(droppableIndexEnd, 0, ...card)
       }
 
       newStateDrag.map(project =>
-        project.id === action.payload.project.id
-          ? (action.payload.project.lists = newState)
+        project.id === action.project.id
+          ? (action.project.lists = newState)
           : project
       )
       return {
@@ -132,15 +131,14 @@ const reducer = (state = initialState, action) => {
         all: newStateDrag
       }
     case CONSTANTS.EDIT_CARD:
-      const { id, listID, newText } = action.payload
       const newStateEditCard = state.all
       newStateEditCard
-        .find(project => project.id === action.currentProject.id)
+        .find(project => project.id === action.project.id)
         .lists.map(list => {
-          if (list.id === listID) {
-            const newCards = list.cards.map(card => {
-              if (card.id === id) {
-                card.text = newText
+          if (list.id === action.payload.listID) {
+            list.cards.map(card => {
+              if (card.id === action.payload.id) {
+                card.text = action.payload.newText
               }
             })
           }
@@ -162,17 +160,19 @@ const reducer = (state = initialState, action) => {
     //   })
     // }
 
-    // case CONSTANTS.EDIT_LIST_TITLE: {
-    //   const { listID, newListTitle } = action.payload
-    //   return state.map(list => {
-    //     if (list.id === listID) {
-    //       list.title = newListTitle
-    //       return list
-    //     } else {
-    //       return list
-    //     }
-    //   })
-    // }
+    case CONSTANTS.EDIT_LIST_TITLE:
+      const newStateEditTitleList = state.all
+      newStateEditTitleList
+        .find(project => project.id === action.project.id)
+        .lists.map(list => {
+          if (list.id === action.payload.listID) {
+            list.title = action.payload.newTitle
+          }
+        })
+      return {
+        state,
+        all: newStateEditTitleList
+      }
 
     default:
       return state

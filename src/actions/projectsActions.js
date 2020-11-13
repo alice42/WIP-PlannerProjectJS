@@ -45,7 +45,7 @@ export const addList = (title, project) => {
 export const editCard = (id, listID, newText, currentProject) => {
   return {
     type: CONSTANTS.EDIT_CARD,
-    currentProject,
+    project: currentProject,
     payload: { id, listID, newText }
   }
 }
@@ -64,28 +64,29 @@ export const sort = (
   droppableIndexEnd,
   draggableId,
   type,
-  project
+  currentProject
 ) => {
   return {
     type: CONSTANTS.DRAG_HAPPENED,
+    project: currentProject,
     payload: {
       droppableIdStart,
       droppableIdEnd,
       droppableIndexEnd,
       droppableIndexStart,
       draggableId,
-      type,
-      project
+      type
     }
   }
 }
 
-// export const editTitle = (listID, newTitle) => {
-//   return {
-//     type: CONSTANTS.EDIT_LIST_TITLE,
-//     payload: {
-//       listID,
-//       newTitle
-//     }
-//   }
-// }
+export const editTitle = (listID, newTitle, currentProject) => {
+  return {
+    type: CONSTANTS.EDIT_LIST_TITLE,
+    project: currentProject,
+    payload: {
+      listID,
+      newTitle
+    }
+  }
+}

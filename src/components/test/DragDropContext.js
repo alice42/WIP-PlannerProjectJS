@@ -1,6 +1,6 @@
 import React from 'react'
 import Heading from './Heading'
-import TrelloCreate from './TrelloCreate'
+import Create from './Create'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export default function DnDContext(props) {
@@ -41,7 +41,7 @@ export default function DnDContext(props) {
               />
             ))}
             {provided.placeholder}
-            <TrelloCreate {...props} list />
+            <Create {...props} list />
           </div>
         )}
       </Droppable>
