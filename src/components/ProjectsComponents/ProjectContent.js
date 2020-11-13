@@ -1,5 +1,5 @@
 import React from 'react'
-import DragDropContext from '../DndContent/DragDropContext'
+import DragDropContext from './Dnd/DragDropContext'
 
 const ProjectContent = props => {
   return <DragDropContext {...props} />

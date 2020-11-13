@@ -1,37 +1,57 @@
 import * as React from 'react'
-import styled from 'styled-components'
-
-const StyledInput = styled.input`
-  background: none;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  font: inherit;
-`
+import { StyledInput } from './styles/HeaderStyles'
 
 const Input = props => {
+  //INPUTS (SAVE ON ENTER & FOCUS LOST)
+  const handleInputEnter = (event, type) => {
+    if (event.key === 'Enter') {
+      handleInputUpdate(event, type)
+    }
+  }
+
+  const handleInputUpdate = (event, type) => {
+    const refs = {
+      notes: props.inputRefNotes,
+      title: props.inputRefTitle
+    }
+    const defaultValues = {
+      notes: 'Notes',
+      title: 'New Project'
+    }
+    props.projectsActions.updateProject(
+      props.currentProject,
+      event.target.value || defaultValues[type],
+      type
+    )
+
+    if (refs[type] && refs[type].current) {
+      refs[type].current.value = ''
+    }
+  }
+
+  const handleSelect = (inputRef, placeholderValue) => {
+    if (inputRef.current.value !== placeholderValue) {
+      inputRef.current.selectionStart = inputRef.current.value.length
+      inputRef.current.selectionEnd = inputRef.current.value.length
+    } else {
+      inputRef.current.value = ''
+      inputRef.current.selectionStart = 0
+      inputRef.current.selectionEnd = 0
+    }
+  }
   return (
     <StyledInput
       ref={props.inputRef}
       onBlur={event => {
-        props.handleInputUpdate(event, props.typeValue)
+        handleInputUpdate(event, props.typeValue)
       }}
       placeholder={props.placeholderValue}
       type="text"
       onKeyPress={event => {
-        props.handleInputEnter(event, props.typeValue)
+        handleInputEnter(event, props.typeValue)
       }}
       onSelect={() => {
-        if (props.inputRef.current.value !== props.placeholderValue) {
-          props.inputRef.current.selectionStart =
-            props.inputRef.current.value.length
-          props.inputRef.current.selectionEnd =
-            props.inputRef.current.value.length
-        } else {
-          props.inputRef.current.value = ''
-          props.inputRef.current.selectionStart = 0
-          props.inputRef.current.selectionEnd = 0
-        }
+        handleSelect(props.inputRef, props.placeholderValue)
       }}
     />
   )
