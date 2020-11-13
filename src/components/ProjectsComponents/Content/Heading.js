@@ -3,10 +3,29 @@ import Todos from './Todos'
 import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledInput, StyledHeadingContainer } from './styles/ContentStyles'
+import Icon from '@material-ui/core/icon'
 
 export default function Heading(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
+
+  const handleChange = e => {
+    e.preventDefault()
+    setListTitle(e.target.value)
+  }
+
+  const handleFinishEditing = e => {
+    setIsEditing(false)
+    props.projectsActions.editTitle(
+      props.listID,
+      listTitle,
+      props.currentProject
+    )
+  }
+
+  const handledeleteList = () => {
+    props.projectsActions.deleteList(props.listID, props.currentProject)
+  }
 
   const renderEditInput = () => {
     return (
@@ -26,20 +45,6 @@ export default function Heading(props) {
     )
   }
 
-  const handleChange = e => {
-    e.preventDefault()
-    setListTitle(e.target.value)
-  }
-
-  const handleFinishEditing = e => {
-    setIsEditing(false)
-    props.projectsActions.editTitle(
-      props.listID,
-      listTitle,
-      props.currentProject
-    )
-  }
-
   return (
     <Draggable draggableId={String(props.listID)} index={props.index}>
       {provided => (
@@ -55,11 +60,17 @@ export default function Heading(props) {
                 ref={provided.innerRef}
                 style={{ width: 'inherit', textAlign: 'start' }}
               >
-                {isEditing ? (
-                  renderEditInput()
-                ) : (
-                  <h4 onClick={() => setIsEditing(true)}>{listTitle}</h4>
-                )}
+                {isEditing
+                  ? renderEditInput()
+                  : props.listID !== 'list-0' && (
+                      <h4 onClick={() => setIsEditing(true)}>
+                        {listTitle}
+                        <div>
+                          <Icon>date_range</Icon>
+                          <Icon onClick={handledeleteList}>delete</Icon>
+                        </div>
+                      </h4>
+                    )}
 
                 {props.cards.map((card, index) => (
                   <Todos

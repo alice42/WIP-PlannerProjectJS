@@ -5,6 +5,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import { useStyles, StyledAccordionSummary } from './styles/ContentStyles'
+import { Icon } from '@material-ui/core'
 
 export default function Todos(props) {
   const classes = useStyles()
@@ -22,6 +23,10 @@ export default function Todos(props) {
           control={<Checkbox />}
           label={props.label}
         />
+        <div>
+          <Icon>date_range</Icon>
+          <Icon onClick={props.handleDeleteCard}>delete</Icon>
+        </div>
       </StyledAccordionSummary>
       <AccordionDetails>
         <Typography color="textSecondary">notes</Typography>

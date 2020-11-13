@@ -43,6 +43,8 @@ export const StyledHeadingContainer = styled.div`
     ${props =>
       props['data-rbd-drag-handle-draggable-id'] === 'list-0' ||
       `
+      display: flex;
+      justify-content: space-between;
       line-height: 1.5;
       border-bottom: 1px solid black;
       text-align: start;
@@ -76,6 +78,10 @@ export const StyledAccordionSummary = withStyles({
     }
   },
   content: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     margin: '0',
     '&$expanded': {
       margin: '0',

@@ -1,6 +1,5 @@
 import { CONSTANTS } from '../actions/projectsActions'
-let listIDA = 1
-let cardID = 0
+import uuid from 'react-uuid'
 
 const initialState = {
   all: []
@@ -34,9 +33,8 @@ const reducer = (state = initialState, action) => {
       const newList = {
         title: action.payload,
         cards: [],
-        id: `list-${listIDA}`
+        id: `heading_${uuid()}`
       }
-      listIDA += 1
       const newStateAddList = state.all
       newStateAddList.map(project =>
         project.id === action.project.id
@@ -51,10 +49,9 @@ const reducer = (state = initialState, action) => {
     case CONSTANTS.ADD_CARD:
       const newCard = {
         text: action.payload.text,
-        id: `card-${cardID}`,
+        id: `todo_${uuid()}`,
         isComplete: false
       }
-      cardID += 1
       const newStateAddCard = state.all
       newStateAddCard.map(
         project =>
@@ -148,17 +145,23 @@ const reducer = (state = initialState, action) => {
         all: newStateEditCard
       }
 
-    // case CONSTANTS.DELETE_CARD: {
-    //   const { id, listID } = action.payload
-    //   return state.map(list => {
-    //     if (list.id === listID) {
-    //       const newCards = list.cards.filter(card => card.id !== id)
-    //       return { ...list, cards: newCards }
-    //     } else {
-    //       return list
-    //     }
-    //   })
-    // }
+    case CONSTANTS.DELETE_CARD:
+      const newStateDeleteCard = state.all
+      newStateDeleteCard
+        .find(project => project.id === action.project.id)
+        .lists.map(list => {
+          if (list.id === action.payload.listID) {
+            const newCards = list.cards.filter(
+              card => card.id !== action.payload.id
+            )
+            list.cards = newCards
+          }
+        })
+      console.log(newStateDeleteCard)
+      return {
+        ...state,
+        all: newStateDeleteCard
+      }
 
     case CONSTANTS.EDIT_LIST_TITLE:
       const newStateEditTitleList = state.all
@@ -170,8 +173,22 @@ const reducer = (state = initialState, action) => {
           }
         })
       return {
-        state,
+        ...state,
         all: newStateEditTitleList
+      }
+
+    case CONSTANTS.DELETE_LIST:
+      const newStateDeleteList = state.all
+      newStateDeleteList.find(project => {
+        if (project.id === action.project.id) {
+          project.lists = project.lists.filter(
+            list => list.id !== action.payload.listID
+          )
+        }
+      })
+      return {
+        ...state,
+        all: newStateDeleteList
       }
 
     default:

@@ -8,7 +8,8 @@ export const CONSTANTS = {
   DRAG_HAPPENED: 'DRAG_HAPPENED',
   EDIT_CARD: 'EDIT_CARD',
   DELETE_CARD: 'DELETE_CARD',
-  EDIT_LIST_TITLE: 'EDIT_LIST_TITLE'
+  EDIT_LIST_TITLE: 'EDIT_LIST_TITLE',
+  DELETE_LIST: 'DELETE_LIST'
 }
 
 export const addProject = newProject => {
@@ -50,9 +51,10 @@ export const editCard = (id, listID, newText, currentProject) => {
   }
 }
 
-export const deleteCard = (id, listID) => {
+export const deleteCard = (id, listID, currentProject) => {
   return {
     type: CONSTANTS.DELETE_CARD,
+    project: currentProject,
     payload: { id, listID }
   }
 }
@@ -88,5 +90,13 @@ export const editTitle = (listID, newTitle, currentProject) => {
       listID,
       newTitle
     }
+  }
+}
+
+export const deleteList = (listID, currentProject) => {
+  return {
+    type: CONSTANTS.DELETE_LIST,
+    project: currentProject,
+    payload: { listID }
   }
 }

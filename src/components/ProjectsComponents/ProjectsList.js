@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 const ProjectsList = props => {
   const handleCreateNewProject = () => {
     const id = uuid()
-    const todosId = uuid()
     const newProject = {
       id: `project_${id}`,
       isCompleted: false,

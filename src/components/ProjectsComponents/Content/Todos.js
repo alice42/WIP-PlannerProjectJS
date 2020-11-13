@@ -23,8 +23,13 @@ export default function Todos(props) {
     setIsEditing(false)
   }
 
-  const handleDeleteCard = e => {
-    // props.projectsActions.deleteCard(props.id, props.listID)
+  const handleDeleteCard = () => {
+    console.log(props.id, props.listID, props.currentProject)
+    props.projectsActions.deleteCard(
+      props.id,
+      props.listID,
+      props.currentProject
+    )
   }
 
   const renderEditForm = () => {
@@ -56,7 +61,10 @@ export default function Todos(props) {
           ref={provided.innerRef}
           onDoubleClick={() => setIsEditing(true)}
         >
-          <TodoAccordion label={isEditing ? renderEditForm() : props.text} />
+          <TodoAccordion
+            label={isEditing ? renderEditForm() : props.text}
+            handleDeleteCard={handleDeleteCard}
+          />
         </StyledTodoContainer>
       )}
     </Draggable>
