@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
 
 export const StyledTodoContainer = styled.div`
   display: flex;
@@ -54,3 +56,33 @@ export const StyledOpenForm = styled.div`
   align-items: center;
   padding: 8px;
 `
+
+export const useStyles = makeStyles({
+  root: {
+    width: '100%',
+    margin: '5px'
+  }
+})
+
+export const StyledAccordionSummary = withStyles({
+  root: {
+    margin: '0',
+    backgroundColor: 'rgba(0, 0, 0, .03)',
+    borderBottom: '1px solid rgba(0, 0, 0, .125)',
+    minHeight: 0,
+    '&$expanded': {
+      margin: '0',
+      minHeight: 0
+    }
+  },
+  content: {
+    margin: '0',
+    '&$expanded': {
+      margin: '0',
+      minHeight: 0
+    }
+  },
+  expanded: {
+    minHeight: 0
+  }
+})(AccordionSummary)
