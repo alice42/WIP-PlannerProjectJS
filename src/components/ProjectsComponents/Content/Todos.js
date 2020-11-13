@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import TodoAccordion from './TodoAccordion'
-import { StyledInput, StyledTodoContainer } from './styles/DndStyled'
+import { StyledInput, StyledTodoContainer } from './styles/ContentStyles'
 
 export default function Todos(props) {
   const [isEditing, setIsEditing] = useState(false)

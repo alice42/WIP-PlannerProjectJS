@@ -4,7 +4,7 @@ import {
   StyledTodoContainer,
   StyledInput,
   StyledHeadingContainer
-} from './styles/DndStyled'
+} from './styles/ContentStyles'
 
 export default function Form({
   list,

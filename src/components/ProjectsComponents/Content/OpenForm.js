@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '@material-ui/core/Icon'
-import { StyledOpenForm } from './styles/DndStyled'
+import { StyledOpenForm } from './styles/ContentStyles'
 
 const OpenForm = ({ children, onClick }) => {
   return (

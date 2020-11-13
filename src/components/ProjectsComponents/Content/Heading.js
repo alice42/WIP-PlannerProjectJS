@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Todos from './Todos'
 import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { StyledInput, StyledHeadingContainer } from './styles/DndStyled'
+import { StyledInput, StyledHeadingContainer } from './styles/ContentStyles'
 
 export default function Heading(props) {
   const [isEditing, setIsEditing] = useState(false)

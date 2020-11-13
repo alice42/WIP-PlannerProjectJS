@@ -4,7 +4,7 @@ import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
-import { useStyles, StyledAccordionSummary } from './styles/DndStyled'
+import { useStyles, StyledAccordionSummary } from './styles/ContentStyles'
 
 export default function Todos(props) {
   const classes = useStyles()
