@@ -2,6 +2,7 @@ import * as React from 'react'
 import uuid from 'react-uuid'
 
 import { Link } from 'react-router-dom'
+import { Checkbox } from '@material-ui/core'
 
 const ProjectsList = props => {
   const handleCreateNewProject = () => {
@@ -23,19 +24,21 @@ const ProjectsList = props => {
     })
   }
 
+  const handleLongTitle = text =>
+    text && text.length > 11 ? `${text.slice(0, 10)}...` : text
+
   return (
     <>
       <div>
-        <ul>
+        <ul style={{ margin: '0', padding: '0' }}>
           {props.projects.all.map(project => (
             <li key={project.id}>
-              <Link to={`/projects/${project.id}`}>
-                {project.title || 'New Project'}
-                {project.isCompleted ? (
-                  <span className="todo-item-checked">✔</span>
-                ) : (
-                  <span className="todo-item-unchecked" />
-                )}
+              <Link
+                style={{ textDecoration: 'none' }}
+                to={`/projects/${project.id}`}
+              >
+                <Checkbox checked={project.isCompleted} />
+                {handleLongTitle(project.title) || 'New Project'}
               </Link>
             </li>
           ))}

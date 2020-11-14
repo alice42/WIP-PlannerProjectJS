@@ -20,7 +20,8 @@ export default function Todos(props) {
           aria-label="Acknowledge"
           onClick={event => event.stopPropagation()}
           onFocus={event => event.stopPropagation()}
-          control={<Checkbox />}
+          // control={<Checkbox />}
+          control={<div></div>}
           label={props.label}
         />
         <div>

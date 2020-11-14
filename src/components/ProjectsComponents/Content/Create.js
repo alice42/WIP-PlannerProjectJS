@@ -14,35 +14,41 @@ export default function Create(props) {
     setformOpen(false)
   }
 
-  const handleInputChange = e => {
-    setText(e.target.value)
+  const handleInputChange = (value, type) => {
+    setText(value)
+    const create = {
+      heading: handleAddList,
+      todo: handleAddCard
+    }
+    create[type](value)
   }
 
-  const handleAddList = () => {
-    if (text) {
+  const handleAddList = value => {
+    if (value) {
       setText('')
-      props.projectsActions.addList(text, props.currentProject)
+      props.projectsActions.addList(value, props.currentProject)
     }
     closeForm()
-    return
+    // return
   }
 
-  const handleAddCard = () => {
-    if (text) {
+  const handleAddCard = value => {
+    if (value) {
       setText('')
-      props.projectsActions.addCard(props.listID, text, props.currentProject)
+      props.projectsActions.addCard(props.listID, value, props.currentProject)
     }
     closeForm()
-    return
+    // return
   }
 
   return formOpen ? (
     <Form
       list={props.listID === 'list-0' ? null : props.list}
       text={text}
-      onChange={handleInputChange}
+      handleInputChange={handleInputChange}
       closeForm={closeForm}
-      handleAddItem={props.list ? handleAddList : handleAddCard}
+      // handleAddItem={props.list ? handleAddList : handleAddCard}
+      typeValue={props.list ? 'heading' : 'todo'}
     />
   ) : (
     (!props.listID || props.listID === 'list-0') && (

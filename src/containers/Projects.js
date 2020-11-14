@@ -13,17 +13,17 @@ const Content = props => {
       ? props.history.push('/projects/')
       : setcurrentProject(existingProject)
   })
-  const inputRefTitle = React.useRef(null)
-  const inputRefNotes = React.useRef(null)
+  // const inputRefTitle = React.useRef(null)
+  // const inputRefNotes = React.useRef(null)
 
-  React.useEffect(() => {
-    if (inputRefNotes && inputRefNotes.current)
-      inputRefNotes.current.value = currentProject.notes || ''
-    if (inputRefTitle && inputRefTitle.current) {
-      inputRefTitle.current.value = currentProject.title || ''
-      if (!currentProject.title) inputRefTitle.current.focus()
-    }
-  }, [currentProject])
+  // React.useEffect(() => {
+  //   if (inputRefNotes && inputRefNotes.current)
+  //     inputRefNotes.current.value = currentProject.notes || ''
+  //   if (inputRefTitle && inputRefTitle.current) {
+  //     inputRefTitle.current.value = currentProject.title || ''
+  //     if (!currentProject.title) inputRefTitle.current.focus()
+  //   }
+  // }, [currentProject])
 
   return (
     (currentProject && (
@@ -32,8 +32,8 @@ const Content = props => {
           {...props}
           all={props.projects.all}
           currentProject={currentProject}
-          inputRefNotes={inputRefNotes}
-          inputRefTitle={inputRefTitle}
+          // inputRefNotes={inputRefNotes}
+          // inputRefTitle={inputRefTitle}
         />
         <ProjectContent {...props} currentProject={currentProject} />
       </>

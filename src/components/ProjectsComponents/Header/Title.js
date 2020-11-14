@@ -1,31 +1,57 @@
+import { Checkbox } from '@material-ui/core'
 import * as React from 'react'
-import Input from './Input'
 import Options from './Options'
 import { TitleContainer } from './styles/HeaderStyles'
+import { Icon } from '@material-ui/core'
+import CustomGrowInput from '../CustomGrowInput'
 
 const Title = props => {
+  // PROJECT (REMOVE & COMPLETE)
+  const handleRemoveProject = () =>
+    props.projectsActions.removeProject(props.currentProject)
+
+  const handleCompleteProject = () => {
+    props.projectsActions.updateProject(
+      props.currentProject,
+      !props.currentProject.isCompleted,
+      'isCompleted'
+    )
+  }
+
   return (
-    <TitleContainer>
-      <Input
-        {...props}
-        typeValue={'title'}
-        placeholderValue={'New Project'}
-        inputRef={props.inputRefTitle}
-      />
-      {props.currentProject.isCompleted && (
-        <span className="todo-item-checked">✔</span>
-      )}
-      {props.currentProject.startDate && (
-        <span>startDate: {props.currentProject.startDate}</span>
-      )}
-      <Options
-        {...props}
-        options={props.options}
-        handleOptions={props.handleOptions}
-        modal={props.modal}
-        handleOpenModal={props.handleOpenModal}
-        handleCloseModal={props.handleCloseModal}
-      />
+    <TitleContainer style={{ padding: '10px' }}>
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left'
+        }}
+      >
+        <Checkbox
+          style={{ padding: '0px 5px 0px 5px', verticalAlign: 'text-top' }}
+          checked={props.currentProject.isCompleted}
+          onChange={handleCompleteProject}
+        />
+
+        <CustomGrowInput
+          {...props}
+          value={props.currentProject.title}
+          typeValue={'title'}
+          placeholderValue={'New Project'}
+        />
+
+        <Options
+          {...props}
+          isCompleted={props.currentProject.isCompleted}
+          options={props.options}
+          handleOptions={props.handleOptions}
+          modal={props.modal}
+          handleOpenModal={props.handleOpenModal}
+          handleCloseModal={props.handleCloseModal}
+          handleCompleteProject={handleCompleteProject}
+          handleRemoveProject={handleRemoveProject}
+        />
+      </div>
     </TitleContainer>
   )
 }

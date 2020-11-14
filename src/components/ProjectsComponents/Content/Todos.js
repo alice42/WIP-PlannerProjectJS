@@ -3,17 +3,18 @@ import { Draggable } from 'react-beautiful-dnd'
 import TodoAccordion from './TodoAccordion'
 import { StyledInput, StyledTodoContainer } from './styles/ContentStyles'
 
+import CustomGrowInput from '../CustomGrowInput'
+
 export default function Todos(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [cardText, setText] = useState(props.text)
 
-  const handleChange = e => {
-    setText(e.target.value)
+  const handleTypeEditing = (value, type) => {
+    setText(value)
+    saveCard()
   }
 
-  const saveCard = e => {
-    e.preventDefault()
-
+  const saveCard = () => {
     props.projectsActions.editCard(
       props.id,
       props.listID,
@@ -34,24 +35,39 @@ export default function Todos(props) {
 
   const renderEditForm = () => {
     return (
-      <>
-        <StyledInput
-          placeholder={'New To-do'}
-          type="text"
+      // <>
+      //   <StyledInput
+      //     placeholder={'New To-do'}
+      //     type="text"
+      //     value={cardText}
+      //     onChange={handleChange}
+      //     autoFocus
+      //     onBlur={saveCard}
+      //     onKeyPress={event => {
+      //       if (event.key === 'Enter') {
+      //         saveCard(event)
+      //       }
+      //     }}
+      //   />
+      // </>
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left'
+          // paddingLeft: '20px'
+        }}
+      >
+        <CustomGrowInput
+          {...props}
           value={cardText}
-          onChange={handleChange}
-          autoFocus
-          onBlur={saveCard}
-          onKeyPress={event => {
-            if (event.key === 'Enter') {
-              saveCard(event)
-            }
-          }}
+          typeValue={'todo'}
+          placeholderValue={'New To-do'}
+          handleTypeEditing={handleTypeEditing}
         />
-      </>
+      </div>
     )
   }
-
   return (
     <Draggable draggableId={String(props.id)} index={props.index}>
       {provided => (
@@ -62,7 +78,7 @@ export default function Todos(props) {
           onDoubleClick={() => setIsEditing(true)}
         >
           <TodoAccordion
-            label={isEditing ? renderEditForm() : props.text}
+            label={isEditing ? renderEditForm() : cardText}
             handleDeleteCard={handleDeleteCard}
           />
         </StyledTodoContainer>

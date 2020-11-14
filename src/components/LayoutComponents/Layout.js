@@ -15,6 +15,8 @@ const StyledContent = styled.div`
   background-color: #575757;
   flex: 3;
   min-height: 90%;
+  width: 75%;
+  max-width: 75%;
 `
 
 class Layout extends React.Component {

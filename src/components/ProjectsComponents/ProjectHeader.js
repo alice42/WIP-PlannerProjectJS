@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Input from './Header/Input'
+import CustomGrowInput from './CustomGrowInput'
 import Title from './Header/Title'
 import { HeaderContainer } from './styles/ProjectStyles'
 
@@ -24,6 +24,9 @@ const ProjectHeader = props => {
     setOptions(!options)
   }
 
+  const handleTypeEditing = (value, type) => {
+    props.projectsActions.updateProject(props.currentProject, value, type)
+  }
   return (
     <HeaderContainer>
       <Title
@@ -35,13 +38,24 @@ const ProjectHeader = props => {
         modal={modal}
         handleOpenModal={handleOpenModal}
         handleCloseModal={handleCloseModal}
+        handleTypeEditing={handleTypeEditing}
       />
-      <Input
-        {...props}
-        typeValue={'notes'}
-        placeholderValue={'Notes'}
-        inputRef={props.inputRefNotes}
-      />
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left',
+          paddingLeft: '20px'
+        }}
+      >
+        <CustomGrowInput
+          {...props}
+          value={props.currentProject.notes}
+          typeValue={'notes'}
+          placeholderValue={'Notes'}
+          handleTypeEditing={handleTypeEditing}
+        />
+      </div>
     </HeaderContainer>
   )
 }

@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 
 export const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
+  padding: 10px;
 `
 export const StyledModalBody = styled.div`
   position: absolute;
@@ -11,11 +10,4 @@ export const StyledModalBody = styled.div`
   border: 2px solid #000;
   box-shadow: grey;
   padding: 16px;
-`
-export const StyledInput = styled.input`
-  background: none;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  font: inherit;
 `

@@ -5,33 +5,56 @@ import {
   StyledInput,
   StyledHeadingContainer
 } from './styles/ContentStyles'
-
+import CustomGrowInput from '../CustomGrowInput'
 export default function Form({
   list,
-  text = '',
+  typeValue,
+  text,
   onChange,
   closeForm,
   children,
-  handleAddItem
+  handleAddItem,
+  handleInputChange
 }) {
   const placeholder = list ? 'New Heading' : 'New To-do'
-
+  const handleTypeEditing = (value, type) => {
+    handleInputChange(value, type)
+    closeForm()
+  }
   const renderInput = () => (
     <>
-      <StyledInput
-        placeholder={placeholder}
-        autoFocus
-        value={text}
-        onChange={e => onChange(e)}
-        onBlur={handleAddItem}
-        onKeyPress={event => {
-          if (event.key === 'Enter') {
-            handleAddItem()
-            closeForm()
-          }
+      {/* //   <StyledInput
+    //     placeholder={placeholder}
+    //     autoFocus
+    //     value={text}
+    //     onChange={e => onChange(e)}
+    //     onBlur={handleAddItem}
+    //     onKeyPress={event => {
+    //       if (event.key === 'Enter') {
+    //         handleAddItem()
+    //         closeForm()
+    //       }
+    //     }}
+    //   />
+    //   {children}
+    // </> */}
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left'
+          // paddingLeft: '20px'
         }}
-      />
-      {children}
+      >
+        <CustomGrowInput
+          // {...props}
+          value={text}
+          typeValue={typeValue}
+          placeholderValue={placeholder}
+          handleTypeEditing={handleTypeEditing}
+        />
+      </div>
+      {/* {children} */}
     </>
   )
 

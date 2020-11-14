@@ -5,16 +5,18 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledInput, StyledHeadingContainer } from './styles/ContentStyles'
 import Icon from '@material-ui/core/icon'
 
+import CustomGrowInput from '../CustomGrowInput'
+
 export default function Heading(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
 
-  const handleChange = e => {
-    e.preventDefault()
-    setListTitle(e.target.value)
+  const handleTypeEditing = (value, type) => {
+    setListTitle(value)
+    handleFinishEditing()
   }
 
-  const handleFinishEditing = e => {
+  const handleFinishEditing = () => {
     setIsEditing(false)
     props.projectsActions.editTitle(
       props.listID,
@@ -29,19 +31,35 @@ export default function Heading(props) {
 
   const renderEditInput = () => {
     return (
-      <StyledInput
-        type="text"
-        placeholder={'New Heading'}
-        value={listTitle}
-        onChange={handleChange}
-        autoFocus
-        onBlur={handleFinishEditing}
-        onKeyPress={event => {
-          if (event.key === 'Enter') {
-            handleFinishEditing()
-          }
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left',
+          paddingLeft: '20px'
         }}
-      />
+      >
+        <CustomGrowInput
+          {...props}
+          value={listTitle}
+          typeValue={'heading'}
+          placeholderValue={'New Heading'}
+          handleTypeEditing={handleTypeEditing}
+        />
+      </div>
+      // <StyledInput
+      //   type="text"
+      //   placeholder={'New Heading'}
+      //   value={listTitle}
+      //   onChange={handleChange}
+      //   autoFocus
+      //   onBlur={handleFinishEditing}
+      //   onKeyPress={event => {
+      //     if (event.key === 'Enter') {
+      //       handleFinishEditing()
+      //     }
+      //   }}
+      // />
     )
   }
 
@@ -55,11 +73,7 @@ export default function Heading(props) {
         >
           <Droppable droppableId={String(props.listID)} type="card">
             {provided => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                style={{ width: 'inherit', textAlign: 'start' }}
-              >
+              <div {...provided.droppableProps} ref={provided.innerRef}>
                 {isEditing
                   ? renderEditInput()
                   : props.listID !== 'list-0' && (
