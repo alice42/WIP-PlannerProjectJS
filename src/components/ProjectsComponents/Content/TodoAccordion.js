@@ -18,8 +18,8 @@ export default function Todos(props) {
       >
         <FormControlLabel
           aria-label="Acknowledge"
-          onClick={event => event.stopPropagation()}
-          onFocus={event => event.stopPropagation()}
+          // onClick={event => event.stopPropagation()}
+          // onFocus={event => event.stopPropagation()}
           // control={<Checkbox />}
           control={<div></div>}
           label={props.label}

@@ -4,6 +4,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 
 export const StyledTodoContainer = styled.div`
   display: flex;
+  outline: none;
 `
 
 // export const StyledInput = styled.input`
@@ -44,6 +45,7 @@ export const StyledHeadingContainer = styled.div`
       props['data-rbd-draggable-id'] === 'list-0' ||
       `
       display: flex;
+      outline: none;
       justify-content: space-between;
       line-height: 1.5;
       border-bottom: 1px solid black;
@@ -62,12 +64,14 @@ export const StyledOpenForm = styled.div`
 export const useStyles = makeStyles({
   root: {
     width: '100%',
-    margin: '5px'
+    margin: '5px',
+    outline: 'none'
   }
 })
 
 export const StyledAccordionSummary = withStyles({
   root: {
+    outline: 'none',
     margin: '0',
     backgroundColor: 'rgba(0, 0, 0, .03)',
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
@@ -78,6 +82,7 @@ export const StyledAccordionSummary = withStyles({
     }
   },
   content: {
+    outline: 'none',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
