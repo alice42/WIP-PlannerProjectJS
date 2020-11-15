@@ -27,13 +27,25 @@ export default function Todos(props) {
           control={<Checkbox style={{ pointerEvents: 'auto' }} />}
           label={props.label}
         />
-        {/* <div>
-          <Icon>date_range</Icon>
-          <Icon onClick={props.handleDeleteCard}>delete</Icon>
-        </div> */}
       </StyledAccordionSummary>
       <AccordionDetails>
-        <Typography color="textSecondary">notes</Typography>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '-webkit-fill-available'
+          }}
+        >
+          <div style={{ display: 'flex', minHeight: '50px' }}>
+            <Typography color="textSecondary">notes</Typography>
+          </div>
+          <div style={{ display: 'flex', alignSelf: 'flex-end' }}>
+            <Icon fontSize="small">date_range</Icon>
+            <Icon fontSize="small" onClick={props.handleDeleteCard}>
+              delete
+            </Icon>
+          </div>
+        </div>
       </AccordionDetails>
     </Accordion>
   )
