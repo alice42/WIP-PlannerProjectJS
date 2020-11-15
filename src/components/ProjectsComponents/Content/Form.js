@@ -14,49 +14,41 @@ export default function Form({
   closeForm,
   children,
   handleAddItem,
-  handleInputChange
+  handleInputChange,
+  inputRef
 }) {
+  React.useEffect(() => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.textContent = text || ''
+      if (!text) inputRef.current.focus()
+    }
+  }, [inputRef])
+
   const placeholder = list ? 'New Heading' : 'New To-do'
+
   const handleTypeEditing = (value, type) => {
     handleInputChange(value, type)
     closeForm()
   }
-  const renderInput = () => (
-    <>
-      {/* //   <StyledInput
-    //     placeholder={placeholder}
-    //     autoFocus
-    //     value={text}
-    //     onChange={e => onChange(e)}
-    //     onBlur={handleAddItem}
-    //     onKeyPress={event => {
-    //       if (event.key === 'Enter') {
-    //         handleAddItem()
-    //         closeForm()
-    //       }
-    //     }}
-    //   />
-    //   {children}
-    // </> */}
+  const renderInput = () => {
+    return (
       <div
         style={{
           display: 'block',
           width: '100%',
           textAlign: 'left'
-          // paddingLeft: '20px'
         }}
       >
         <CustomGrowInput
-          // {...props}
           value={text}
+          inputRef={inputRef}
           typeValue={typeValue}
           placeholderValue={placeholder}
           handleTypeEditing={handleTypeEditing}
         />
       </div>
-      {/* {children} */}
-    </>
-  )
+    )
+  }
 
   return list ? (
     <StyledHeadingContainer>{renderInput()}</StyledHeadingContainer>

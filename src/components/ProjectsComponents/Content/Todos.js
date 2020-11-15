@@ -9,23 +9,30 @@ export default function Todos(props) {
   const [isEditing, setIsEditing] = useState(false)
   const [cardText, setText] = useState(props.text)
 
+  React.useEffect(() => {
+    if (props.inputRef && props.inputRef.current) {
+      props.inputRef.current.textContent = cardText || ''
+      props.inputRef.current.focus()
+    }
+  }, [isEditing])
+
   const handleTypeEditing = (value, type) => {
-    setText(value)
-    saveCard()
+    setText(value || 'New To-do')
+    saveCard(type)
   }
 
-  const saveCard = () => {
-    props.projectsActions.editCard(
-      props.id,
-      props.listID,
-      cardText,
-      props.currentProject
-    )
+  const saveCard = type => {
+    if (type === 'todo')
+      props.projectsActions.editCard(
+        props.id,
+        props.listID,
+        cardText,
+        props.currentProject
+      )
     setIsEditing(false)
   }
 
   const handleDeleteCard = () => {
-    console.log(props.id, props.listID, props.currentProject)
     props.projectsActions.deleteCard(
       props.id,
       props.listID,
@@ -35,31 +42,16 @@ export default function Todos(props) {
 
   const renderEditForm = () => {
     return (
-      // <>
-      //   <StyledInput
-      //     placeholder={'New To-do'}
-      //     type="text"
-      //     value={cardText}
-      //     onChange={handleChange}
-      //     autoFocus
-      //     onBlur={saveCard}
-      //     onKeyPress={event => {
-      //       if (event.key === 'Enter') {
-      //         saveCard(event)
-      //       }
-      //     }}
-      //   />
-      // </>
       <div
         style={{
           display: 'block',
           width: '100%',
           textAlign: 'left'
-          // paddingLeft: '20px'
         }}
       >
         <CustomGrowInput
           {...props}
+          inputRef={props.inputRef}
           value={cardText}
           typeValue={'todo'}
           placeholderValue={'New To-do'}
@@ -75,6 +67,7 @@ export default function Todos(props) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onMouseDown={e => e.currentTarget.focus()}
           onDoubleClick={() => setIsEditing(true)}
         >
           <TodoAccordion

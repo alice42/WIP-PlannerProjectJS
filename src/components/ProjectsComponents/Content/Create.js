@@ -16,11 +16,7 @@ export default function Create(props) {
 
   const handleInputChange = (value, type) => {
     setText(value)
-    const create = {
-      heading: handleAddList,
-      todo: handleAddCard
-    }
-    create[type](value)
+    type === 'heading' ? handleAddList(value) : handleAddCard(value)
   }
 
   const handleAddList = value => {
@@ -29,7 +25,6 @@ export default function Create(props) {
       props.projectsActions.addList(value, props.currentProject)
     }
     closeForm()
-    // return
   }
 
   const handleAddCard = value => {
@@ -38,13 +33,14 @@ export default function Create(props) {
       props.projectsActions.addCard(props.listID, value, props.currentProject)
     }
     closeForm()
-    // return
   }
 
   return formOpen ? (
     <Form
+      onBlur={() => console.log('BLUE FORM')}
       list={props.listID === 'list-0' ? null : props.list}
       text={text}
+      inputRef={props.inputRef}
       handleInputChange={handleInputChange}
       closeForm={closeForm}
       // handleAddItem={props.list ? handleAddList : handleAddCard}

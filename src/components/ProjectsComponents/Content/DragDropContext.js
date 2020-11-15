@@ -4,6 +4,9 @@ import Create from './Create'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export default function DnDContext(props) {
+  const inputRefHeading = React.useRef(null)
+  // const inputRefNotes = React.useRef(null)
+
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result
     if (
@@ -23,8 +26,8 @@ export default function DnDContext(props) {
       props.currentProject
     )
   }
-
   const { lists } = props.currentProject
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="all-lists" type="list">
@@ -33,6 +36,7 @@ export default function DnDContext(props) {
             {lists.map((list, index) => (
               <Heading
                 {...props}
+                inputRef={inputRefHeading}
                 listID={list.id}
                 key={list.id}
                 title={list.title}
@@ -41,7 +45,7 @@ export default function DnDContext(props) {
               />
             ))}
             {provided.placeholder}
-            <Create {...props} list />
+            <Create {...props} list inputRef={inputRefHeading} />
           </div>
         )}
       </Droppable>

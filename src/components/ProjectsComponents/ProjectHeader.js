@@ -31,7 +31,7 @@ const ProjectHeader = props => {
     <HeaderContainer>
       <Title
         {...props}
-        inputRef={props.inputRefTitle}
+        inputRefTitle={props.inputRefTitle}
         currentProject={props.currentProject}
         options={options}
         handleOptions={handleOptions}
@@ -50,6 +50,7 @@ const ProjectHeader = props => {
       >
         <CustomGrowInput
           {...props}
+          inputRef={props.inputRefNotes}
           value={props.currentProject.notes}
           typeValue={'notes'}
           placeholderValue={'Notes'}

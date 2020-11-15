@@ -2,17 +2,27 @@ import React, { useState } from 'react'
 import Todos from './Todos'
 import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { StyledInput, StyledHeadingContainer } from './styles/ContentStyles'
+import { StyledHeadingContainer } from './styles/ContentStyles'
 import Icon from '@material-ui/core/icon'
 
 import CustomGrowInput from '../CustomGrowInput'
 
 export default function Heading(props) {
+  const inputRefTodo = React.useRef(null)
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
 
+  React.useEffect(() => {
+    if (props.inputRef && props.inputRef.current) {
+      props.inputRef.current.textContent = listTitle || ''
+      props.inputRef.current.focus()
+    }
+  }, [isEditing])
+
   const handleTypeEditing = (value, type) => {
-    setListTitle(value)
+    if (type === 'heading') {
+      setListTitle(value)
+    }
     handleFinishEditing()
   }
 
@@ -41,35 +51,28 @@ export default function Heading(props) {
       >
         <CustomGrowInput
           {...props}
+          inputRef={props.inputRef}
           value={listTitle}
           typeValue={'heading'}
           placeholderValue={'New Heading'}
           handleTypeEditing={handleTypeEditing}
         />
       </div>
-      // <StyledInput
-      //   type="text"
-      //   placeholder={'New Heading'}
-      //   value={listTitle}
-      //   onChange={handleChange}
-      //   autoFocus
-      //   onBlur={handleFinishEditing}
-      //   onKeyPress={event => {
-      //     if (event.key === 'Enter') {
-      //       handleFinishEditing()
-      //     }
-      //   }}
-      // />
     )
   }
 
   return (
-    <Draggable draggableId={String(props.listID)} index={props.index}>
+    <Draggable
+      draggableId={String(props.listID)}
+      index={props.index}
+      isDragDisabled={props.listID === 'list-0' ? true : false}
+    >
       {provided => (
         <StyledHeadingContainer
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          onMouseDown={e => e.currentTarget.focus()}
         >
           <Droppable droppableId={String(props.listID)} type="card">
             {provided => (
@@ -88,6 +91,7 @@ export default function Heading(props) {
 
                 {props.cards.map((card, index) => (
                   <Todos
+                    inputRef={inputRefTodo}
                     {...props}
                     key={card.id}
                     text={card.text}
@@ -97,7 +101,11 @@ export default function Heading(props) {
                   />
                 ))}
                 {provided.placeholder}
-                <Create {...props} listID={props.listID} />
+                <Create
+                  {...props}
+                  listID={props.listID}
+                  inputRef={inputRefTodo}
+                />
               </div>
             )}
           </Droppable>

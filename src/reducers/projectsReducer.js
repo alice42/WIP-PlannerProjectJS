@@ -157,7 +157,6 @@ const reducer = (state = initialState, action) => {
             list.cards = newCards
           }
         })
-      console.log(newStateDeleteCard)
       return {
         ...state,
         all: newStateDeleteCard

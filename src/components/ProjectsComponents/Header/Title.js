@@ -22,7 +22,7 @@ const Title = props => {
     <TitleContainer style={{ padding: '10px' }}>
       <div
         style={{
-          display: 'block',
+          display: 'flex',
           width: '100%',
           textAlign: 'left'
         }}
@@ -32,14 +32,13 @@ const Title = props => {
           checked={props.currentProject.isCompleted}
           onChange={handleCompleteProject}
         />
-
         <CustomGrowInput
           {...props}
           value={props.currentProject.title}
+          inputRef={props.inputRefTitle}
           typeValue={'title'}
           placeholderValue={'New Project'}
         />
-
         <Options
           {...props}
           isCompleted={props.currentProject.isCompleted}

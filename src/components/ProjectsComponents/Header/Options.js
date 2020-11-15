@@ -5,9 +5,7 @@ import CalendarModal from './CalendarModal'
 const Options = props => {
   return (
     <Icon
-      onClick={() => {
-        console.log('CLICKED OPTIONS')
-      }}
+      onClick={() => {}}
       style={{
         padding: '0px 5px 0px 5px',
         verticalAlign: 'text-top',
