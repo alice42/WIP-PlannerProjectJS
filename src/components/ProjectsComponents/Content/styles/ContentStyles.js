@@ -60,7 +60,6 @@ export const useStyles = makeStyles({
 })
 
 export const StyledAccordionSummary = withStyles({
-  margin: '0',
   root: {
     outline: 'none',
     margin: '0',
