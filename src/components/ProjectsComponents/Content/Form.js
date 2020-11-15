@@ -2,7 +2,6 @@ import React from 'react'
 import TodoAccordion from './TodoAccordion'
 import {
   StyledTodoContainer,
-  StyledInput,
   StyledHeadingContainer
 } from './styles/ContentStyles'
 import CustomGrowInput from '../CustomGrowInput'

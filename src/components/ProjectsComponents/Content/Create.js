@@ -43,7 +43,6 @@ export default function Create(props) {
       inputRef={props.inputRef}
       handleInputChange={handleInputChange}
       closeForm={closeForm}
-      // handleAddItem={props.list ? handleAddList : handleAddCard}
       typeValue={props.list ? 'heading' : 'todo'}
     />
   ) : (

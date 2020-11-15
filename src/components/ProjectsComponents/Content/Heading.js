@@ -3,8 +3,6 @@ import Todos from './Todos'
 import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledHeadingContainer } from './styles/ContentStyles'
-import Icon from '@material-ui/core/icon'
-
 import CustomGrowInput from '../CustomGrowInput'
 import Options from '../Options'
 

@@ -7,19 +7,6 @@ export const StyledTodoContainer = styled.div`
   outline: none;
   margin-bottom: 5px;
 `
-// HEADING
-// export const StyledInput = styled.input`
-//       background: none;
-//       text-decoration: none;
-//       border: none;
-//       outline: none;
-//       font: inherit;
-//       border-bottom: 1px solid black;
-//       text-align: start;
-//       padding-left: 10px;
-//       margin: unset;
-//       width: -webkit-fill-available
-// `
 
 export const StyledHeadingContainer = styled.div`
   border-radius: 3px;

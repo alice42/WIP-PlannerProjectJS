@@ -5,7 +5,6 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 export default function DnDContext(props) {
   const inputRefHeading = React.useRef(null)
-  // const inputRefNotes = React.useRef(null)
 
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result

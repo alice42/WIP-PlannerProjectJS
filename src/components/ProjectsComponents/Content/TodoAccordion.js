@@ -9,10 +9,6 @@ import { Icon } from '@material-ui/core'
 
 export default function Todos(props) {
   const classes = useStyles()
-
-  const handleClick = e => {
-    console.log(e.currentTraget.value)
-  }
   return (
     <Accordion className={classes.root}>
       <StyledAccordionSummary

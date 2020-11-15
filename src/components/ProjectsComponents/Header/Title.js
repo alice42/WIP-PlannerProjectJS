@@ -2,11 +2,9 @@ import { Checkbox } from '@material-ui/core'
 import * as React from 'react'
 import Options from '../Options'
 import { TitleContainer } from './styles/HeaderStyles'
-import { Icon } from '@material-ui/core'
 import CustomGrowInput from '../CustomGrowInput'
 
 const Title = props => {
-  // PROJECT (REMOVE & COMPLETE)
   const handleRemoveProject = () =>
     props.projectsActions.removeProject(props.currentProject)
 

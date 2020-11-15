@@ -1,6 +1,5 @@
 import * as React from 'react'
 import uuid from 'react-uuid'
-
 import { Link } from 'react-router-dom'
 import { Checkbox } from '@material-ui/core'
 

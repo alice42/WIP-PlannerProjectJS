@@ -3,12 +3,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import ProjectsList from '../ProjectsComponents/ProjectsList'
-
-const StyledSidebar = styled.div`
-  background-color: #a2a2a2;
-  flex: 1;
-  min-height: 90%;
-`
+import { StyledSidebar } from './styles/LayoutStyles'
 
 const SideBar = props => {
   return (

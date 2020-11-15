@@ -26,13 +26,7 @@ const StyledInputContext = styled.span`
 `
 
 const CustomGrownInput = props => {
-  //INPUTS (SAVE ON ENTER & FOCUS LOST)
-  // const inputRef = React.useRef(null)
-
   const handleInputUpdate = (value, type) => {
-    // React.useEffect(() => {
-    // }, [props.inputRef])
-
     const defaultValues = {
       notes: 'Notes',
       title: 'New Project',

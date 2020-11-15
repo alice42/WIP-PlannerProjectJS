@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import TodoAccordion from './TodoAccordion'
-import { StyledInput, StyledTodoContainer } from './styles/ContentStyles'
-
+import { StyledTodoContainer } from './styles/ContentStyles'
 import CustomGrowInput from '../CustomGrowInput'
 
 export default function Todos(props) {
