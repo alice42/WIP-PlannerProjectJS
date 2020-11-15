@@ -6,6 +6,7 @@ import { StyledHeadingContainer } from './styles/ContentStyles'
 import Icon from '@material-ui/core/icon'
 
 import CustomGrowInput from '../CustomGrowInput'
+import Options from '../Options'
 
 export default function Heading(props) {
   const inputRefTodo = React.useRef(null)
@@ -46,7 +47,8 @@ export default function Heading(props) {
           display: 'block',
           width: '100%',
           textAlign: 'left',
-          paddingLeft: '20px'
+          paddingLeft: '20px',
+          marginBottom: '6px'
         }}
       >
         <CustomGrowInput
@@ -80,12 +82,11 @@ export default function Heading(props) {
                 {isEditing
                   ? renderEditInput()
                   : props.listID !== 'list-0' && (
-                      <h4 onClick={() => setIsEditing(true)}>
-                        {listTitle}
-                        <div>
-                          <Icon>date_range</Icon>
-                          <Icon onClick={handledeleteList}>delete</Icon>
+                      <h4>
+                        <div onClick={() => setIsEditing(true)}>
+                          {listTitle}
                         </div>
+                        <Options />
                       </h4>
                     )}
 

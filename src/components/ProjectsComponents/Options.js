@@ -1,11 +1,13 @@
 import { Icon } from '@material-ui/core'
 import * as React from 'react'
-import CalendarModal from './CalendarModal'
+// import CalendarModal from './CalendarModal'
 
 const Options = props => {
   return (
     <Icon
-      onClick={() => {}}
+      onClick={() => {
+        console.log('OPTIONS from')
+      }}
       style={{
         padding: '0px 5px 0px 5px',
         verticalAlign: 'text-top',

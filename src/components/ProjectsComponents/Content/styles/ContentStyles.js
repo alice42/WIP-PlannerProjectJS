@@ -7,19 +7,8 @@ export const StyledTodoContainer = styled.div`
   outline: none;
   margin-bottom: 5px;
 `
-
+// HEADING
 // export const StyledInput = styled.input`
-//   ${props =>
-//     props.placeholder === 'New To-do'
-//       ? `
-//       background: none;
-//       text-decoration: none;
-//       border: none;
-//       outline: none;
-//       font: inherit;
-//       text-align: start;
-//   `
-//       : `
 //       background: none;
 //       text-decoration: none;
 //       border: none;
@@ -30,7 +19,6 @@ export const StyledTodoContainer = styled.div`
 //       padding-left: 10px;
 //       margin: unset;
 //       width: -webkit-fill-available
-//   `}
 // `
 
 export const StyledHeadingContainer = styled.div`

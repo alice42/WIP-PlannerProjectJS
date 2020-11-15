@@ -1,6 +1,6 @@
 import { Checkbox } from '@material-ui/core'
 import * as React from 'react'
-import Options from './Options'
+import Options from '../Options'
 import { TitleContainer } from './styles/HeaderStyles'
 import { Icon } from '@material-ui/core'
 import CustomGrowInput from '../CustomGrowInput'
