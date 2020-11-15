@@ -9,6 +9,10 @@ import { Icon } from '@material-ui/core'
 
 export default function Todos(props) {
   const classes = useStyles()
+
+  const handleClick = e => {
+    console.log(e.currentTraget.value)
+  }
   return (
     <Accordion className={classes.root}>
       <StyledAccordionSummary
@@ -18,16 +22,15 @@ export default function Todos(props) {
       >
         <FormControlLabel
           aria-label="Acknowledge"
-          // onClick={event => event.stopPropagation()}
-          // onFocus={event => event.stopPropagation()}
-          // control={<Checkbox />}
-          control={<div></div>}
+          style={{ pointerEvents: 'none' }}
+          onClick={event => event.stopPropagation()}
+          control={<Checkbox style={{ pointerEvents: 'auto' }} />}
           label={props.label}
         />
-        <div>
+        {/* <div>
           <Icon>date_range</Icon>
           <Icon onClick={props.handleDeleteCard}>delete</Icon>
-        </div>
+        </div> */}
       </StyledAccordionSummary>
       <AccordionDetails>
         <Typography color="textSecondary">notes</Typography>

@@ -5,6 +5,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 export const StyledTodoContainer = styled.div`
   display: flex;
   outline: none;
+  margin-bottom: 5px;
 `
 
 // export const StyledInput = styled.input`
@@ -64,12 +65,14 @@ export const StyledOpenForm = styled.div`
 export const useStyles = makeStyles({
   root: {
     width: '100%',
-    margin: '5px',
+    marginLeft: '5px',
+    marginRight: '5px',
     outline: 'none'
   }
 })
 
 export const StyledAccordionSummary = withStyles({
+  margin: '0',
   root: {
     outline: 'none',
     margin: '0',
@@ -78,7 +81,7 @@ export const StyledAccordionSummary = withStyles({
     minHeight: 0,
     '&$expanded': {
       margin: '0',
-      minHeight: 0
+      minHeight: '0'
     }
   },
   content: {
@@ -90,10 +93,10 @@ export const StyledAccordionSummary = withStyles({
     margin: '0',
     '&$expanded': {
       margin: '0',
-      minHeight: 0
+      minHeight: '0'
     }
   },
   expanded: {
-    minHeight: 0
+    minHeight: '0'
   }
 })(AccordionSummary)

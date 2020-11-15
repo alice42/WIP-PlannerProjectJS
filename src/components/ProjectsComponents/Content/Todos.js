@@ -67,7 +67,9 @@ export default function Todos(props) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
-          onMouseDown={e => e.currentTarget.focus()}
+          onMouseDown={e => {
+            e.currentTarget.focus()
+          }}
           onDoubleClick={() => setIsEditing(true)}
         >
           <TodoAccordion
