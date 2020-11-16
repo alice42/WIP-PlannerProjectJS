@@ -20,7 +20,7 @@ const Title = props => {
     <TitleContainer style={{ padding: '10px' }}>
       <div
         style={{
-          display: 'flex',
+          display: 'block',
           width: '100%',
           textAlign: 'left'
         }}

@@ -2,9 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 const StyledInputContext = styled.span`
-  display: block;
   .input {
-    display: block;
     background: none;
     text-decoration: none;
     border: none;
@@ -21,7 +19,6 @@ const StyledInputContext = styled.span`
       props.children.props.typevalue === 'heading' ? 'white' : 'gray'};
     background-color: transparent;
     pointer-events: none;
-    display: block;
   }
 `
 

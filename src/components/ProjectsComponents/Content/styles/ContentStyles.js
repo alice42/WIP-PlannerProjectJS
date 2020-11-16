@@ -6,6 +6,10 @@ export const StyledTodoContainer = styled.div`
   display: flex;
   outline: none;
   margin-bottom: 5px;
+  text-align: -webkit-auto;
+  text-align-last: left;
+  line-break: anywhere;
+  overflow-wrap: anywhere;
 `
 
 export const StyledHeadingContainer = styled.div`
@@ -28,6 +32,10 @@ export const StyledHeadingContainer = styled.div`
       text-align: start;
       padding-left: 10px;
       margin: 0 0 5px 0;
+      text-align: -webkit-auto;
+      text-align-last: left;
+      line-break: anywhere;
+      overflow-wrap: anywhere;
       `}
   }
 `
