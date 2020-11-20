@@ -4,26 +4,6 @@ import Title from './Header/Title'
 import { HeaderContainer } from './styles/ProjectStyles'
 
 const ProjectHeader = props => {
-  const [options, setOptions] = React.useState(false)
-  const [modal, setOpenModal] = React.useState(false)
-
-  React.useEffect(() => {
-    setOptions(false)
-  }, [props.currentProject])
-
-  // OPTIONS & MODAL (CALENDAR)
-  const handleOpenModal = () => {
-    setOpenModal(true)
-  }
-
-  const handleCloseModal = () => {
-    setOpenModal(false)
-  }
-
-  const handleOptions = () => {
-    setOptions(!options)
-  }
-
   const handleTypeEditing = (value, type) => {
     props.projectsActions.updateProject(props.currentProject, value, type)
   }
@@ -33,13 +13,53 @@ const ProjectHeader = props => {
         {...props}
         inputRefTitle={props.inputRefTitle}
         currentProject={props.currentProject}
-        options={options}
-        handleOptions={handleOptions}
-        modal={modal}
-        handleOpenModal={handleOpenModal}
-        handleCloseModal={handleCloseModal}
         handleTypeEditing={handleTypeEditing}
       />
+      {props.currentProject.startDate && (
+        <div
+          style={{
+            margin: '10px 20px 10px 20px',
+            borderBottom: '1px solid black',
+            borderTop: '1px solid black'
+          }}
+        >
+          DATE: {props.currentProject.startDate}
+        </div>
+      )}
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left',
+          paddingLeft: '20px'
+        }}
+      ></div>
+      <div
+        style={{
+          margin: '10px 20px 10px 20px',
+          borderBottom: '1px solid black',
+          borderTop: '1px solid black'
+        }}
+      >
+        DEAD LINE
+      </div>
+      <div
+        style={{
+          display: 'block',
+          width: '100%',
+          textAlign: 'left',
+          paddingLeft: '20px'
+        }}
+      ></div>
+      <div
+        style={{
+          margin: '10px 20px 10px 20px',
+          borderBottom: '1px solid black',
+          borderTop: '1px solid black'
+        }}
+      >
+        TAGS
+      </div>
       <div
         style={{
           display: 'block',

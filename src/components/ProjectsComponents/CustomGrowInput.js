@@ -50,6 +50,10 @@ const CustomGrownInput = props => {
       <span
         ref={props.inputRef}
         typevalue={props.typeValue}
+        spellCheck={'false'}
+        autoComplete={'off'}
+        autoCorrect={'off'}
+        autoCapitalize={'off'}
         className={'input'}
         contentEditable={'true'}
         suppressContentEditableWarning={'true'}

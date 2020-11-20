@@ -1,34 +1,113 @@
-import { Icon } from '@material-ui/core'
-import * as React from 'react'
-// import CalendarModal from './CalendarModal'
+import React from 'react'
+import Popper from '@material-ui/core/Popper'
+import Icon from '@material-ui/core/Icon'
+import Calendar from './Calendar'
+import { ClickAwayListener } from '@material-ui/core'
+import { BodyCalendar, Body } from './styles/ProjectStyles'
 
-const Options = props => {
-  return (
-    <Icon
-      onClick={() => {
-        console.log('OPTIONS from')
-      }}
-      style={{
-        padding: '0px 5px 0px 5px',
-        verticalAlign: 'text-top',
-        cursor: 'pointer'
-      }}
-    >
-      more_horiz
-    </Icon>
+export default function Options(props) {
+  const [bodyType, setBodyType] = React.useState('options')
+  const [options, setOptions] = React.useState()
+
+  React.useEffect(() => {
+    !props.open && setBodyType('options')
+  })
+
+  const handleModalCalendar = () => {
+    setBodyType('calendar')
+  }
+  const optionsProject = [
+    {
+      title: 'Complete',
+      icon: 'close',
+      action: props.handleCompleteProject
+    },
+    { title: 'When', icon: 'close', action: handleModalCalendar },
+    { title: 'Tags', icon: 'close', action: props.handleCompleteProject },
+    {
+      title: 'Dead Line',
+      icon: 'close',
+      action: props.handleCompleteProject
+    },
+    {
+      title: 'Delete',
+      icon: 'close',
+      action: props.handleRemoveProject
+    },
+    {
+      title: 'Duplicate',
+      icon: 'close',
+      action: props.handleCompleteProject
+    },
+    {
+      title: 'Share',
+      icon: 'close',
+      action: props.handleCompleteProject
+    }
+  ]
+  const optionsHeading = []
+
+  const bodyCalendar = (
+    <BodyCalendar onBlur={() => console.log('BLUR')}>
+      <Calendar
+        {...props}
+        handleClose={props.handleClose}
+        all={props.all}
+        currentProject={props.currentProject}
+      />
+    </BodyCalendar>
   )
-  // <CalendarModal {...props} />
-  // <Icon onClick={props.handleOptions}>more_horiz</Icon>
-  //   {props.options && (
-  //     <div>
-  //       <div onClick={props.handleOpenModal}>add Date</div>
-  //       {props.isCompleted || (
-  //         <div onClick={props.handleCompleteProject}>Complete</div>
-  //       )}
-  //       <div onClick={props.handleRemoveProject}>delete</div>
-  //     </div>
-  //   )}
-  // </div>
-}
 
-export default Options
+  const bodyOptions = (
+    <Body>
+      <ul style={{ margin: '5px', listStyle: 'none', padding: 0 }}>
+        {optionsProject.map((option, index) => (
+          <li key={`option_${index}`}>
+            <Icon className={'icon-list-options'}>{option.icon}</Icon>
+            <span className={'label-list-options'} onClick={option.action}>
+              {option.title}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </Body>
+  )
+
+  const body = {
+    options: bodyOptions,
+    calendar: bodyCalendar
+  }
+  const handleClickAway = () => {
+    props.handleClose()
+    setBodyType('options')
+  }
+
+  // const option = {
+  //   heading: optionsHeading,
+  //   project: optionsProject
+  // }
+
+  return (
+    <ClickAwayListener onClickAway={handleClickAway}>
+      <span>
+        <Icon
+          onClick={props.handleClick('top')}
+          style={{
+            padding: '0px 5px 0px 5px',
+            verticalAlign: 'text-top',
+            cursor: 'pointer'
+          }}
+        >
+          more_horiz
+        </Icon>
+        <Popper
+          open={props.open}
+          anchorEl={props.anchorEl}
+          placement={props.placement}
+        >
+          {body[bodyType]}
+        </Popper>
+      </span>
+    </ClickAwayListener>
+  )
+}

@@ -1,30 +1,39 @@
 import { Checkbox } from '@material-ui/core'
 import * as React from 'react'
 import Options from '../Options'
-import { TitleContainer } from './styles/HeaderStyles'
+import { TitleContainer, StyledInputContainer } from './styles/HeaderStyles'
 import CustomGrowInput from '../CustomGrowInput'
 
 const Title = props => {
-  const handleRemoveProject = () =>
-    props.projectsActions.removeProject(props.currentProject)
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [open, setOpen] = React.useState(false)
+  const [placement, setPlacement] = React.useState()
 
+  const handleClose = () => {
+    setOpen(false)
+  }
+  const handleClick = newPlacement => event => {
+    setAnchorEl(event.currentTarget)
+    setOpen(prev => placement !== newPlacement || !prev)
+    setPlacement(newPlacement)
+  }
+
+  const handleRemoveProject = () => {
+    props.projectsActions.removeProject(props.currentProject)
+    handleClose()
+  }
   const handleCompleteProject = () => {
     props.projectsActions.updateProject(
       props.currentProject,
       !props.currentProject.isCompleted,
       'isCompleted'
     )
+    handleClose()
   }
 
   return (
     <TitleContainer style={{ padding: '10px' }}>
-      <div
-        style={{
-          display: 'block',
-          width: '100%',
-          textAlign: 'left'
-        }}
-      >
+      <StyledInputContainer>
         <Checkbox
           style={{ padding: '0px 5px 0px 5px', verticalAlign: 'text-top' }}
           checked={props.currentProject.isCompleted}
@@ -39,16 +48,16 @@ const Title = props => {
         />
         <Options
           {...props}
+          anchorEl={anchorEl}
+          open={open}
+          placement={placement}
+          handleClick={handleClick}
+          handleClose={handleClose}
           isCompleted={props.currentProject.isCompleted}
-          options={props.options}
-          handleOptions={props.handleOptions}
-          modal={props.modal}
-          handleOpenModal={props.handleOpenModal}
-          handleCloseModal={props.handleCloseModal}
           handleCompleteProject={handleCompleteProject}
           handleRemoveProject={handleRemoveProject}
         />
-      </div>
+      </StyledInputContainer>
     </TitleContainer>
   )
 }

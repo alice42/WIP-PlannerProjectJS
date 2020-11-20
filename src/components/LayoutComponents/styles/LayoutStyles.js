@@ -17,4 +17,8 @@ export const StyledContent = styled.div`
 export const StyledSidebar = styled.div`
   background-color: #a2a2a2;
   flex: 1;
+  ul {
+    list-style: none;
+    padding: 0;
+  }
 `

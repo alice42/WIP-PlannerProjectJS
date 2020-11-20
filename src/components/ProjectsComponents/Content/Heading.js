@@ -84,7 +84,7 @@ export default function Heading(props) {
                         <div onClick={() => setIsEditing(true)}>
                           {listTitle}
                         </div>
-                        <Options />
+                        {/* <Options /> */}
                       </h4>
                     )}
 
