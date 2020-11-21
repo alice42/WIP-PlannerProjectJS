@@ -45,11 +45,15 @@ export const StyledContainerList = styled(List)`
       font-weight: bold;
     }
   }
+  .deadline {
+    margin-left: 10px;
+    opacity: 0.5;
+  }
 `
 //TAGS
 export const StyledTagWrapper = styled.div`
   display: flex;
-  flexflow: wrap;
+  flex-flow: wrap;
 `
 export const StyledTagButton = styled.div`
   font-size: 15px;

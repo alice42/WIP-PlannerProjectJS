@@ -6,17 +6,19 @@ import ListProjectHeader from './Header/ListProjectHeader'
 
 const ProjectHeader = props => {
   const [tags, settags] = React.useState(false)
+
   const handleNoTags = () => {
     settags(false)
   }
   const handleAddTags = () => {
     settags(true)
   }
+
   const handleTypeEditing = (value, type) => {
     props.projectsActions.updateProject(props.currentProject, value, type)
   }
-  const handleRemoveEvent = () => {
-    props.projectsActions.updateProject(props.currentProject, null, 'startDate')
+  const handleRemoveEvent = type => {
+    props.projectsActions.updateProject(props.currentProject, null, type)
   }
   return (
     <HeaderContainer>

@@ -102,6 +102,44 @@ export const StyleWrapper = styled.div`
       border-radius: 3px;
     }
   }
+  .monthRender {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: inherit;
+    font-weight: bold;
+  }
+  .past {
+    opacity: 0.4;
+  }
+  .fc-day-disabled {
+    background: unset;
+  }
+  .fc-button-primary {
+    background: unset;
+    border: unset;
+    :disabled,
+    :hover,
+    :active,
+    :focus,
+    :not(:disabled):active,
+    :not(:disabled):active:focus {
+      background: unset;
+      border: unset;
+      outline: none;
+      box-shadow: unset;
+    }
+    :disabled {
+      opacity: 0.2;
+    }
+  }
+  .fc-toolbar-title {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+  }
 `
 
 export const StyledButtonToday = styled.button`

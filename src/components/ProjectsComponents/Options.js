@@ -8,6 +8,7 @@ import { BodyCalendar, Body } from './styles/ProjectStyles'
 export default function Options(props) {
   const [bodyType, setBodyType] = React.useState('options')
   // const [options, setOptions] = React.useState()
+  const [calendarType, setCalendarType] = React.useState()
 
   React.useEffect(() => {
     !props.open && setBodyType('options')
@@ -15,11 +16,22 @@ export default function Options(props) {
 
   const handleModalCalendar = () => {
     setBodyType('calendar')
+    setCalendarType('startDate')
+  }
+  const handleModalCalendarDeaLine = () => {
+    setBodyType('calendar')
+    setCalendarType('deadLine')
   }
   const handleTags = () => {
     props.handleClose()
     props.handleAddTags()
   }
+
+  const handleDeadLine = () => {
+    props.handleClose()
+    props.handleAddDeadLine()
+  }
+
   const optionsProject = [
     {
       title: 'Complete',
@@ -29,9 +41,9 @@ export default function Options(props) {
     { title: 'When', icon: 'calendar', action: handleModalCalendar },
     { title: 'Tags', icon: 'tags', action: handleTags },
     {
-      title: 'Dead Line',
+      title: 'DeadLine',
       icon: 'calendar',
-      action: props.handleCompleteProject
+      action: handleModalCalendarDeaLine
     },
     {
       title: 'Delete',
@@ -55,6 +67,7 @@ export default function Options(props) {
     <BodyCalendar>
       <Calendar
         {...props}
+        calendarType={calendarType}
         handleClose={props.handleClose}
         all={props.all}
         currentProject={props.currentProject}

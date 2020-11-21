@@ -6,17 +6,16 @@ export const StyledSection = styled.div`
   text-align: center;
   height: inherit;
   display: flex;
-  flex-wrap: wrap;
 `
 
 export const StyledContent = styled.div`
   background-color: #575757;
-  flex: 3;
+  min-width: 75%;
 `
 
 export const StyledSidebar = styled.div`
   background-color: #a2a2a2;
-  flex: 1;
+  min-width: 25%;
   ul {
     list-style: none;
     padding: 0;

@@ -8,7 +8,6 @@ import { StyleWrapper, StyledButtonToday } from './styles/ProjectStyles'
 import {
   todayStr,
   customViewPlugin,
-  cellContent,
   renderEventContent,
   handleDayCellClassNames,
   handleDayHeaderClassNames,
@@ -21,16 +20,19 @@ export default function Calendar(props) {
     {
       id: props.currentProject.id,
       title: props.currentProject.title,
-      start: props.currentProject.startDate,
+      start: props.currentProject[props.calendarType],
       editable: false,
       display: 'background'
     }
   ]
 
   const handleDateSelect = (startStr, calendarApi) => {
-    if (startStr < todayStr) return
+    if (props.calendarType === 'startDate' && startStr < todayStr) return
     calendarApi.unselect()
-    if (props.currentProject.title && !props.currentProject.startDate) {
+    if (
+      props.currentProject.title &&
+      !props.currentProject[props.calendarType]
+    ) {
       calendarApi.addEvent({
         id: props.currentProject.id,
         title: props.currentProject.title,
@@ -41,15 +43,18 @@ export default function Calendar(props) {
       props.projectsActions.updateProject(
         props.currentProject,
         startStr,
-        'startDate'
+        props.calendarType
       )
-    } else if (props.currentProject.title && props.currentProject.startDate) {
+    } else if (
+      props.currentProject.title &&
+      props.currentProject[props.calendarType]
+    ) {
       const event = calendarApi.getEventById(props.currentProject.id)
       event.setStart(startStr, { maintainDuration: true })
       props.projectsActions.updateProject(
         props.currentProject,
         startStr,
-        'startDate'
+        props.calendarType
       )
     }
     props.handleClose()
@@ -58,13 +63,13 @@ export default function Calendar(props) {
   // const handleDrop = info => {
   //   let calendarApi = info.view.calendar
   //   calendarApi.unselect()
-  //   if (props.currentProject.title && props.currentProject.startDate) {
+  //   if (props.currentProject.title && props.currentProject[props.calendarType]) {
   //     const event = calendarApi.getEventById(props.currentProject.id)
   //     event.setStart(info.event.startStr, { maintainDuration: true })
   //     props.projectsActions.updateProject(
   //       props.currentProject,
   //       info.event.startStr,
-  //       'startDate'
+  //       props.calendarType
   //     )
   //   }
   // }
@@ -77,23 +82,23 @@ export default function Calendar(props) {
       )
     ) {
       clickInfo.event.remove()
-      props.projectsActions.updateProject(
-        props.currentProject,
-        null,
-        'startDate'
-      )
+      props.projectsActions.updateProject(props.currentProject, null, [
+        props.calendarType
+      ])
     }
   }
 
   return (
     <StyleWrapper>
-      <StyledButtonToday
-        onClick={() => {
-          handleDateSelect(todayStr, calendarRef.current.getApi())
-        }}
-      >
-        <Icon style={{ fontSize: '20px' }}>star</Icon>Today
-      </StyledButtonToday>
+      {props.calendarType === 'startDate' && (
+        <StyledButtonToday
+          onClick={() => {
+            handleDateSelect(todayStr, calendarRef.current.getApi())
+          }}
+        >
+          <Icon style={{ fontSize: '20px' }}>star</Icon>Today
+        </StyledButtonToday>
+      )}
       <FullCalendar
         ref={calendarRef}
         plugins={[
@@ -102,7 +107,7 @@ export default function Calendar(props) {
           interactionPlugin,
           customViewPlugin
         ]}
-        initialView={'customConfig'}
+        initialView={props.calendarType}
         locale={'en'}
         weekNumberCalculation={'ISO'}
         headerToolbar={{
@@ -110,8 +115,8 @@ export default function Calendar(props) {
           center: '',
           right: ''
         }}
-        aspectRatio={1.75}
-        // editable={true}
+        footerToolbar={{ left: 'prev', center: 'title', right: 'next' }}
+        aspectRatio={props.calendarType === 'startDate' ? 1.75 : 1.25}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
@@ -121,11 +126,12 @@ export default function Calendar(props) {
         }
         eventClick={handleEventClick}
         // eventDrop={handleDrop}
-        dayCellContent={cellContent}
-        eventContent={renderEventContent}
-        dayCellDidMount={handleDayCellDidMount}
-        dayCellClassNames={handleDayCellClassNames}
-        dayHeaderClassNames={handleDayHeaderClassNames}
+        eventContent={e => renderEventContent(e, props.calendarType)}
+        dayCellDidMount={e => handleDayCellDidMount(e, props.calendarType)}
+        dayCellClassNames={e => handleDayCellClassNames(e, props.calendarType)}
+        dayHeaderClassNames={e =>
+          handleDayHeaderClassNames(e, props.calendarType)
+        }
       />
     </StyleWrapper>
   )
