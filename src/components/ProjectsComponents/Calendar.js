@@ -115,7 +115,10 @@ export default function Calendar(props) {
           center: '',
           right: ''
         }}
-        footerToolbar={{ left: 'prev', center: 'title', right: 'next' }}
+        footerToolbar={{ left: 'prev', center: 'title, today', right: 'next' }}
+        buttonText={{
+          today: 'Back to Today'
+        }}
         aspectRatio={props.calendarType === 'startDate' ? 1.75 : 1.25}
         selectable={true}
         selectMirror={true}

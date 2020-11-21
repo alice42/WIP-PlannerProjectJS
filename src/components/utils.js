@@ -10,7 +10,8 @@ export const CustomViewConfig = {
   validRange: {
     start: todayStr
   },
-  titleFormat: { year: 'numeric', month: 'long' }
+  titleFormat: { year: 'numeric', month: 'long' },
+  buttonText: '4 day'
 }
 
 export const CustomViewConfigDeadLine = {

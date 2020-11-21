@@ -35,10 +35,10 @@ const Tags = props => {
 
   React.useEffect(() => {
     if (inputRefTags && inputRefTags.current) inputRefTags.current.focus()
-  })
+  }, [props.currentProject.tags.length === 0])
 
   const handleInput = e => {
-    setinputvalue(e.target.value)
+    e.target.value === ',' || setinputvalue(e.target.value)
   }
 
   const onPressValidNewTag = () => {

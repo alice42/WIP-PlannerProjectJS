@@ -2,7 +2,7 @@ import React from 'react'
 import Popper from '@material-ui/core/Popper'
 import Icon from '@material-ui/core/Icon'
 import Calendar from './Calendar'
-import { ClickAwayListener } from '@material-ui/core'
+import { ClickAwayListener, Divider } from '@material-ui/core'
 import { BodyCalendar, Body } from './styles/ProjectStyles'
 
 export default function Options(props) {
@@ -13,6 +13,10 @@ export default function Options(props) {
   React.useEffect(() => {
     !props.open && setBodyType('options')
   })
+  React.useEffect(() => {
+    setBodyType('options')
+    props.handleBackToOptions(false)
+  }, [props.backToOption])
 
   const handleModalCalendar = () => {
     setBodyType('calendar')
@@ -27,37 +31,32 @@ export default function Options(props) {
     props.handleAddTags()
   }
 
-  const handleDeadLine = () => {
-    props.handleClose()
-    props.handleAddDeadLine()
-  }
-
   const optionsProject = [
     {
-      title: 'Complete',
-      icon: 'checked',
+      title: 'Complete Project',
+      icon: 'check_circle_outline',
       action: props.handleCompleteProject
     },
-    { title: 'When', icon: 'calendar', action: handleModalCalendar },
-    { title: 'Tags', icon: 'tags', action: handleTags },
+    { title: 'When', icon: 'event', action: handleModalCalendar },
+    { title: 'Tags', icon: 'local_offer', action: handleTags },
     {
-      title: 'DeadLine',
-      icon: 'calendar',
+      title: 'Add Deadline',
+      icon: 'calendar_today',
       action: handleModalCalendarDeaLine
     },
     {
-      title: 'Delete',
-      icon: 'close',
+      title: 'Delete Project',
+      icon: 'delete',
       action: props.handleRemoveProject
     },
     {
-      title: 'Duplicate',
-      icon: 'close',
+      title: 'Duplicate Project',
+      icon: 'file_copy',
       action: props.handleCompleteProject
     },
     {
       title: 'Share',
-      icon: 'close',
+      icon: 'share',
       action: props.handleCompleteProject
     }
   ]
@@ -79,12 +78,15 @@ export default function Options(props) {
     <Body>
       <ul style={{ margin: '5px', listStyle: 'none', padding: 0 }}>
         {optionsProject.map((option, index) => (
-          <li key={`option_${index}`}>
-            <Icon className={'icon-list-options'}>{option.icon}</Icon>
-            <span className={'label-list-options'} onClick={option.action}>
-              {option.title}
-            </span>
-          </li>
+          <>
+            <li key={`option_${index}`}>
+              <Icon className={'icon-list-options'}>{option.icon}</Icon>
+              <span className={'label-list-options'} onClick={option.action}>
+                {option.title}
+              </span>
+            </li>
+            {index === 3 && <Divider style={{ margin: '3px' }} />}
+          </>
         ))}
       </ul>
     </Body>
@@ -108,7 +110,7 @@ export default function Options(props) {
     <ClickAwayListener onClickAway={handleClickAway}>
       <span>
         <Icon
-          onClick={props.handleClick('top')}
+          onClick={props.handleClick('top', bodyType)}
           style={{
             padding: '0px 5px 0px 5px',
             verticalAlign: 'text-top',

@@ -7,15 +7,25 @@ import CustomGrowInput from '../CustomGrowInput'
 const Title = props => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [open, setOpen] = React.useState(false)
+  const [backToOption, setbackToOption] = React.useState(false)
   const [placement, setPlacement] = React.useState()
 
   const handleClose = () => {
     setOpen(false)
   }
-  const handleClick = newPlacement => event => {
-    setAnchorEl(event.currentTarget)
-    setOpen(prev => placement !== newPlacement || !prev)
-    setPlacement(newPlacement)
+
+  const handleBackToOptions = value => {
+    setbackToOption(value)
+  }
+  const handleClick = (newPlacement, bodyType) => event => {
+    if (bodyType === 'options') {
+      setAnchorEl(event.currentTarget)
+      setOpen(prev => placement !== newPlacement || !prev)
+      setPlacement(newPlacement)
+      handleBackToOptions(false)
+    } else {
+      handleBackToOptions(true)
+    }
   }
 
   const handleRemoveProject = () => {
@@ -51,6 +61,8 @@ const Title = props => {
           anchorEl={anchorEl}
           open={open}
           placement={placement}
+          backToOption={backToOption}
+          handleBackToOptions={handleBackToOptions}
           handleClick={handleClick}
           handleClose={handleClose}
           isCompleted={props.currentProject.isCompleted}
