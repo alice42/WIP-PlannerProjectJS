@@ -7,7 +7,7 @@ import { BodyCalendar, Body } from './styles/ProjectStyles'
 
 export default function Options(props) {
   const [bodyType, setBodyType] = React.useState('options')
-  const [options, setOptions] = React.useState()
+  // const [options, setOptions] = React.useState()
 
   React.useEffect(() => {
     !props.open && setBodyType('options')
@@ -16,17 +16,21 @@ export default function Options(props) {
   const handleModalCalendar = () => {
     setBodyType('calendar')
   }
+  const handleTags = () => {
+    props.handleClose()
+    props.handleAddTags()
+  }
   const optionsProject = [
     {
       title: 'Complete',
-      icon: 'close',
+      icon: 'checked',
       action: props.handleCompleteProject
     },
-    { title: 'When', icon: 'close', action: handleModalCalendar },
-    { title: 'Tags', icon: 'close', action: props.handleCompleteProject },
+    { title: 'When', icon: 'calendar', action: handleModalCalendar },
+    { title: 'Tags', icon: 'tags', action: handleTags },
     {
       title: 'Dead Line',
-      icon: 'close',
+      icon: 'calendar',
       action: props.handleCompleteProject
     },
     {
@@ -45,10 +49,10 @@ export default function Options(props) {
       action: props.handleCompleteProject
     }
   ]
-  const optionsHeading = []
+  // const optionsHeading = []
 
   const bodyCalendar = (
-    <BodyCalendar onBlur={() => console.log('BLUR')}>
+    <BodyCalendar>
       <Calendar
         {...props}
         handleClose={props.handleClose}

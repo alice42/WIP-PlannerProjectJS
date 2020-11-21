@@ -29,3 +29,11 @@ export const handleDayCellDidMount = e => {
         </span>
       </div`
 }
+
+export const date = startDate => {
+  if (new Date(startDate).getDate() === new Date(todayStr).getDate() + 1)
+    return 'Tomorrow'
+  else if (new Date(startDate).getDate() === new Date(todayStr).getDate())
+    return 'Today'
+  else return new Date(startDate).toDateString()
+}

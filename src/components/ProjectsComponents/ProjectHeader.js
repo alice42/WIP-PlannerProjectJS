@@ -2,10 +2,21 @@ import * as React from 'react'
 import CustomGrowInput from './CustomGrowInput'
 import Title from './Header/Title'
 import { HeaderContainer } from './styles/ProjectStyles'
+import ListProjectHeader from './ListProjectHeader'
 
 const ProjectHeader = props => {
+  const [tags, settags] = React.useState(false)
+  const handleNoTags = () => {
+    settags(false)
+  }
+  const handleAddTags = () => {
+    settags(true)
+  }
   const handleTypeEditing = (value, type) => {
     props.projectsActions.updateProject(props.currentProject, value, type)
+  }
+  const handleRemoveEvent = () => {
+    props.projectsActions.updateProject(props.currentProject, null, 'startDate')
   }
   return (
     <HeaderContainer>
@@ -14,52 +25,14 @@ const ProjectHeader = props => {
         inputRefTitle={props.inputRefTitle}
         currentProject={props.currentProject}
         handleTypeEditing={handleTypeEditing}
+        handleAddTags={handleAddTags}
       />
-      {props.currentProject.startDate && (
-        <div
-          style={{
-            margin: '10px 20px 10px 20px',
-            borderBottom: '1px solid black',
-            borderTop: '1px solid black'
-          }}
-        >
-          DATE: {props.currentProject.startDate}
-        </div>
-      )}
-      <div
-        style={{
-          display: 'block',
-          width: '100%',
-          textAlign: 'left',
-          paddingLeft: '20px'
-        }}
-      ></div>
-      <div
-        style={{
-          margin: '10px 20px 10px 20px',
-          borderBottom: '1px solid black',
-          borderTop: '1px solid black'
-        }}
-      >
-        DEAD LINE
-      </div>
-      <div
-        style={{
-          display: 'block',
-          width: '100%',
-          textAlign: 'left',
-          paddingLeft: '20px'
-        }}
-      ></div>
-      <div
-        style={{
-          margin: '10px 20px 10px 20px',
-          borderBottom: '1px solid black',
-          borderTop: '1px solid black'
-        }}
-      >
-        TAGS
-      </div>
+      <ListProjectHeader
+        {...props}
+        tags={tags}
+        handleNoTags={handleNoTags}
+        handleRemoveEvent={handleRemoveEvent}
+      />
       <div
         style={{
           display: 'block',

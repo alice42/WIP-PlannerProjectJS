@@ -56,6 +56,7 @@ const Title = props => {
           isCompleted={props.currentProject.isCompleted}
           handleCompleteProject={handleCompleteProject}
           handleRemoveProject={handleRemoveProject}
+          handleAddTags={props.handleAddTags}
         />
       </StyledInputContainer>
     </TitleContainer>

@@ -9,6 +9,7 @@ const ProjectsList = props => {
     const newProject = {
       id: `project_${id}`,
       isCompleted: false,
+      tags: [],
       lists: [
         {
           title: '',

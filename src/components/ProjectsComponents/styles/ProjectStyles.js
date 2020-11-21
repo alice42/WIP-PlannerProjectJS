@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { List } from '@material-ui/core'
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -8,6 +9,49 @@ export const TitleContainer = styled.div`
 `
 export const HeaderContainer = styled.div``
 
+//MODAL
+export const Body = styled.div`
+  width: 130px;
+  background: #5b5b5b;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 0;
+  font-family: monospace;
+  li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .label-list-options {
+      padding-left: 15px;
+    }
+    .icon-list-options {
+      font-size: 1rem;
+      padding-left: 5;
+    }
+  }
+`
+export const BodyCalendar = styled.div`
+  width: 230px;
+  min-height: 290px;
+  background: #5b5b5b;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  font-family: monospace;
+  li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .label-list-options {
+      padding-left: 15px;
+    }
+    .icon-list-options {
+      font-size: 1rem;
+      padding-left: 5;
+    }
+  }
+`
+//CALENDAR
 export const StyleWrapper = styled.div`
   .fc {
     padding: 5px;
@@ -77,44 +121,69 @@ export const StyledButtonToday = styled.button`
     outline: none;
   }
 `
-export const Body = styled.div`
-  width: 130px;
-  background: #5b5b5b;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 0;
-  font-family: monospace;
-  li {
+
+//HEADER LIST
+export const StyledContainerList = styled(List)`
+  font-size: 15px;
+  .each {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .tags {
+    padding-top: 3px;
+    padding-bottom: 0;
+  }
+  .date {
+    padding: 3px;
+    border-radius: 3px;
+    width: fit-content;
     display: flex;
     align-items: center;
-    flex-direction: row;
-    .label-list-options {
-      padding-left: 15px;
+    :hover {
+      opacity: 0.5;
+      background: grey;
+      text-color: white;
     }
-    .icon-list-options {
-      font-size: 1rem;
-      padding-left: 5;
+    .date-icon-close {
+      font-size: 15px;
+      font-weight: bold;
     }
   }
 `
-export const BodyCalendar = styled.div`
-  width: 230px;
-  min-height: 290px;
-  background: #5b5b5b;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 2px;
-  font-family: monospace;
-  li {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    .label-list-options {
-      padding-left: 15px;
-    }
-    .icon-list-options {
-      font-size: 1rem;
-      padding-left: 5;
-    }
+//TAGS
+export const StyledTagWrapper = styled.div`
+  display: flex;
+  flexflow: wrap;
+`
+export const StyledTagButton = styled.div`
+  font-size: 15px;
+  margin-left: 3px;
+  margin-bottom: 3px;
+  padding: 3px;
+  border-radius: 3px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  opacity: 0.5;
+  background: grey;
+  text-color: white;
+  overflow-wrap: anywhere;
+  : focus {
+    outline: none;
+    background: lightsteelblue;
   }
+`
+export const StyledTagButtonInput = styled.input`
+  margin-left: 3px;
+  margin-bottom: 3px;
+  padding: 3px;
+  background: none;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  font: inherit;
+  text-align: -webkit-auto;
+  text-align-last: left;
+  line-break: anywhere;
+  overflow-wrap: anywhere;
 `

@@ -37,7 +37,6 @@ export default function Create(props) {
 
   return formOpen ? (
     <Form
-      onBlur={() => console.log('BLUE FORM')}
       list={props.listID === 'list-0' ? null : props.list}
       text={text}
       inputRef={props.inputRef}
