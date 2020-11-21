@@ -2,7 +2,7 @@ import * as React from 'react'
 import CustomGrowInput from './CustomGrowInput'
 import Title from './Header/Title'
 import { HeaderContainer } from './styles/ProjectStyles'
-import ListProjectHeader from './ListProjectHeader'
+import ListProjectHeader from './Header/ListProjectHeader'
 
 const ProjectHeader = props => {
   const [tags, settags] = React.useState(false)

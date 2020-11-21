@@ -3,7 +3,7 @@ import {
   StyledTagButton,
   StyledTagButtonInput,
   StyledTagWrapper
-} from './styles/ProjectStyles'
+} from './styles/HeaderStyles'
 
 const TagButton = props => (
   <StyledTagButton
