@@ -72,6 +72,7 @@ export default function Todos(props) {
           onDoubleClick={() => setIsEditing(true)}
         >
           <TodoAccordion
+            currentTodo={props.todo}
             label={isEditing ? renderEditForm() : cardText}
             handleDeleteCard={handleDeleteCard}
           />

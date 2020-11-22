@@ -4,7 +4,7 @@ import Create from './Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledHeadingContainer } from './styles/ContentStyles'
 import CustomGrowInput from '../CustomGrowInput'
-import Options from '../Options'
+// import Options from '../Options'
 
 export default function Heading(props) {
   const inputRefTodo = React.useRef(null)
@@ -92,6 +92,7 @@ export default function Heading(props) {
                   <Todos
                     inputRef={inputRefTodo}
                     {...props}
+                    todo={card}
                     key={card.id}
                     text={card.text}
                     id={card.id}

@@ -35,7 +35,7 @@ export default function Todos(props) {
           <div style={{ display: 'flex', minHeight: '50px' }}>
             <Typography color="textSecondary">notes</Typography>
           </div>
-          <TodosOptions />
+          <TodosOptions currentTodo={props.currentTodo} />
         </div>
       </AccordionDetails>
     </Accordion>

@@ -1,8 +1,9 @@
 import React from 'react'
 import ExpandInput from './ExpandInput'
 import { Popper } from '@material-ui/core'
+import { BodyCalendarA, BodyOptions } from '../PopperBody'
 
-export default function TodosOptions() {
+export default function TodosOptions(props) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [open, setOpen] = React.useState(false)
   const [placement, setPlacement] = React.useState()
@@ -24,12 +25,32 @@ export default function TodosOptions() {
     setOpen(false)
   }
 
-  const body = { A: 'calendar', B: 'tags', C: 'checklist', D: 'deadline' }
+  const handleUpdateTodo = (itemType, newValue, valueType) => {
+    console.log('A')
+    console.log('A', itemType, newValue, valueType)
+  }
+
+  const body = {
+    A: (
+      <BodyCalendarA
+        {...props}
+        dateType={'startDate'}
+        handleUpdate={handleUpdateTodo}
+        toUpdate={props.currentTodo}
+        //
+        handleClose={handleClose}
+      />
+    ),
+    B: 'tags',
+    C: 'checklist',
+    D: 'deadline'
+  }
   return (
     <div style={{ display: 'flex', alignSelf: 'flex-end' }}>
       <Popper open={open} anchorEl={anchorEl} placement={placement}>
         Popper from {Object.keys(expanded)[0]} : display{' '}
-        {body[Object.keys(expanded)[0]]}
+        {body[Object.keys(expanded)[0]]} for Todo id :{' '}
+        {props.currentTodo && props.currentTodo.id}
       </Popper>
       <ExpandInput
         id={'A'}

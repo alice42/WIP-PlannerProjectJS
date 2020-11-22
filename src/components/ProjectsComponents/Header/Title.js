@@ -1,6 +1,6 @@
 import { Checkbox } from '@material-ui/core'
 import * as React from 'react'
-import Options from '../Options'
+import ProjectOptions from '../ProjectOptions'
 import { TitleContainer, StyledInputContainer } from './styles/HeaderStyles'
 import CustomGrowInput from '../CustomGrowInput'
 
@@ -56,7 +56,7 @@ const Title = props => {
           typeValue={'title'}
           placeholderValue={'New Project'}
         />
-        <Options
+        <ProjectOptions
           {...props}
           anchorEl={anchorEl}
           open={open}
