@@ -6,7 +6,7 @@ import CustomGrowInput from '../CustomGrowInput'
 
 export default function Todos(props) {
   const [isEditing, setIsEditing] = useState(false)
-  const [cardText, setText] = useState(props.text)
+  const [cardText, setText] = useState(props.title)
 
   React.useEffect(() => {
     if (props.inputRef && props.inputRef.current) {

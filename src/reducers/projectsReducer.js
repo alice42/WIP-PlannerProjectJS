@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
 
     case CONSTANTS.ADD_CARD:
       const newCard = {
-        text: action.payload.text,
+        title: action.payload.text,
         id: `todo_${uuid()}`,
         isComplete: false
       }
@@ -135,7 +135,7 @@ const reducer = (state = initialState, action) => {
           if (list.id === action.payload.listID) {
             list.cards.map(card => {
               if (card.id === action.payload.id) {
-                card.text = action.payload.newText
+                card.title = action.payload.newText
               }
             })
           }

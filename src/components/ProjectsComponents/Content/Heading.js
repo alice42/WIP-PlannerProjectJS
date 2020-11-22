@@ -94,7 +94,7 @@ export default function Heading(props) {
                     {...props}
                     todo={card}
                     key={card.id}
-                    text={card.text}
+                    title={card.title}
                     id={card.id}
                     index={index}
                     listID={props.listID}
