@@ -31,36 +31,51 @@ export default function Options(props) {
     props.handleAddTags()
   }
 
-  const optionsProject = [
-    {
-      title: 'Complete Project',
-      icon: 'check_circle_outline',
-      action: props.handleCompleteProject
-    },
-    { title: 'When', icon: 'event', action: handleModalCalendar },
-    { title: 'Tags', icon: 'local_offer', action: handleTags },
-    {
-      title: 'Add Deadline',
-      icon: 'calendar_today',
-      action: handleModalCalendarDeaLine
-    },
-    {
-      title: 'Delete Project',
-      icon: 'delete',
-      action: props.handleRemoveProject
-    },
-    {
-      title: 'Duplicate Project',
-      icon: 'file_copy',
-      action: props.handleCompleteProject
-    },
-    {
-      title: 'Share',
-      icon: 'share',
-      action: props.handleCompleteProject
-    }
-  ]
-  // const optionsHeading = []
+  const optionsProject = () => {
+    const options = [
+      { title: 'When', icon: 'date_range', action: handleModalCalendar },
+      { title: 'Tags', icon: 'local_offer', action: handleTags },
+      {
+        title: 'Add Deadline',
+        icon: 'schedule',
+        action: handleModalCalendarDeaLine
+      },
+      {
+        title: 'Delete Project',
+        icon: 'delete',
+        action: props.handleRemoveProject
+      },
+      {
+        title: 'Duplicate Project',
+        icon: 'file_copy',
+        action: props.handleCompleteProject
+      },
+      {
+        title: 'Share',
+        icon: 'share',
+        action: props.handleCompleteProject
+      }
+    ]
+    props.currentProject.isCompleted ||
+      options.unshift({
+        title: 'Complete Project',
+        icon: 'check_circle_outline',
+        action: props.handleCompleteProject
+      })
+    return options
+  }
+
+  const ListItems = ({ option, index }) => (
+    <>
+      <li>
+        <Icon className={'icon-list-options'}>{option.icon}</Icon>
+        <span className={'label-list-options'} onClick={option.action}>
+          {option.title}
+        </span>
+      </li>
+      {index === 3 && <Divider style={{ margin: '3px' }} />}
+    </>
+  )
 
   const bodyCalendar = (
     <BodyCalendar>
@@ -77,16 +92,8 @@ export default function Options(props) {
   const bodyOptions = (
     <Body>
       <ul style={{ margin: '5px', listStyle: 'none', padding: 0 }}>
-        {optionsProject.map((option, index) => (
-          <>
-            <li key={`option_${index}`}>
-              <Icon className={'icon-list-options'}>{option.icon}</Icon>
-              <span className={'label-list-options'} onClick={option.action}>
-                {option.title}
-              </span>
-            </li>
-            {index === 3 && <Divider style={{ margin: '3px' }} />}
-          </>
+        {optionsProject().map((option, index) => (
+          <ListItems key={`option_${index}`} option={option} index={index} />
         ))}
       </ul>
     </Body>
