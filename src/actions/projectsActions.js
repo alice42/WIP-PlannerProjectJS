@@ -8,7 +8,8 @@ export const CONSTANTS = {
   EDIT_CARD: 'EDIT_CARD',
   DELETE_CARD: 'DELETE_CARD',
   EDIT_LIST_TITLE: 'EDIT_LIST_TITLE',
-  DELETE_LIST: 'DELETE_LIST'
+  DELETE_LIST: 'DELETE_LIST',
+  UPDATE_TODO: 'UPDATE_TODO'
 }
 
 export const addProject = newProject => {
@@ -97,5 +98,16 @@ export const deleteList = (listID, currentProject) => {
     type: CONSTANTS.DELETE_LIST,
     project: currentProject,
     payload: { listID }
+  }
+}
+
+export const updateTodo = (todo, value, typeValue, project, list) => {
+  return {
+    type: CONSTANTS.UPDATE_TODO,
+    todo,
+    value,
+    typeValue,
+    project,
+    list
   }
 }

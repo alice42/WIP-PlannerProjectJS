@@ -185,9 +185,23 @@ const reducer = (state = initialState, action) => {
           )
         }
       })
+
+    case CONSTANTS.UPDATE_TODO:
+      const newStateUpdateTodo = state.all
+      newStateUpdateTodo
+        .find(project => project.id === action.project.id)
+        .lists.map(list => {
+          if (list.id === action.list) {
+            list.cards.map(card => {
+              if (card.id === action.todo.id) {
+                card[`${action.typeValue}`] = action.value
+              }
+            })
+          }
+        })
       return {
         ...state,
-        all: newStateDeleteList
+        all: newStateUpdateTodo
       }
 
     default:
