@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyledProjectSettingsList } from './styles/todosStyles'
+import { StyledProjectSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
 const TodosSettingsList = props => (

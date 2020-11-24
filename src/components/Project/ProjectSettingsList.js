@@ -1,7 +1,7 @@
 import { Divider, ListItem } from '@material-ui/core'
 import * as React from 'react'
-import Tags from '../Tags'
-import { StyledProjectSettingsList } from './styles/projectStyles'
+import Tags from '../Tags/Tags'
+import { StyledProjectSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
 const ProjectSettingsList = props => (

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
-import { FormControlLabel, List } from '@material-ui/core'
+import { FormControlLabel } from '@material-ui/core'
 
 export const StyledWhenInfo = styled.div`
   padding: 3px;
@@ -16,16 +16,6 @@ export const StyledDeadlineInfo = styled.div`
     font-size: 13px;
     margin-right: 3px;
   }
-`
-
-export const StyledTodoContainer = styled.div`
-  display: flex;
-  outline: none;
-  margin-bottom: 5px;
-  text-align: -webkit-auto;
-  text-align-last: left;
-  line-break: anywhere;
-  overflow-wrap: anywhere;
 `
 
 export const useStyles = makeStyles({
@@ -72,47 +62,12 @@ export const StyledFormControlLabel = withStyles({
   }
 })(FormControlLabel)
 
-export const StyledProjectSettingsList = styled(List)`
-  font-size: 12px;
-  .each {
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-  .tags {
-    padding-top: 3px;
-    padding-bottom: 0;
-  }
-  .date {
-    padding: 3px;
-    border-radius: 3px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    :hover {
-      opacity: 0.5;
-      background: grey;
-      text-color: white;
-    }
-    .date-icon-close {
-      font-size: 15px;
-      font-weight: bold;
-    }
-  }
-  .deadline {
-    margin-left: 10px;
-    opacity: 0.5;
-  }
-`
-
 export const StyledTodosSettingsNotExpanded = styled.div`
   width: -webkit-fill-available;
   display: flex;
   font-size: 10px;
   justify-content: space-between;
   align-items: center;
-`
-export const StyledInputWrapperLeft = styled.div`
-  text-align: left;
 `
 export const StyledTodosNotesWrapper = styled.div`
   display: flex;

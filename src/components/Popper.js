@@ -3,7 +3,7 @@ import Popper from '@material-ui/core/Popper'
 import { PopperBodyA, BodyCalendar, BodyTags } from './styles/componentsStyles'
 import ListItems from './Options/TitleOptionsItem'
 import Calendar from './Calendar/Calendar'
-import TagsList from './TagsList'
+import TagsList from './Tags/TagsList'
 
 export const PopperBody = props => {
   const type =

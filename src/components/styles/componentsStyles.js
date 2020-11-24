@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { List } from '@material-ui/core'
 
 //POPPER
 export const PopperBodyA = styled.div`
@@ -69,45 +70,6 @@ export const BodyTags = styled.div`
     }
   }
 `
-
-// TAGS
-export const StyledTagWrapper = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-export const StyledTagButton = styled.div`
-  font-size: 15px;
-  margin-left: 3px;
-  margin-bottom: 3px;
-  padding: 3px;
-  border-radius: 3px;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  opacity: 0.5;
-  background: grey;
-  text-color: white;
-  overflow-wrap: anywhere;
-  : focus {
-    outline: none;
-    background: lightsteelblue;
-  }
-`
-export const StyledTagButtonInput = styled.input`
-  margin-left: 3px;
-  margin-bottom: 3px;
-  padding: 3px;
-  background: none;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  font: inherit;
-  text-align: -webkit-auto;
-  text-align-last: left;
-  line-break: anywhere;
-  overflow-wrap: anywhere;
-`
-
 //
 export const StyledInputWrapperLeft = styled.div`
   text-align: left;
@@ -149,3 +111,65 @@ export const StyledHeadingContainer = styled.div`
       `}
   }
 `
+export const StyledProjectSettingsList = styled(List)`
+  font-size: 12px;
+  .each {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  .tags {
+    padding-top: 3px;
+    padding-bottom: 0;
+  }
+  .date {
+    padding: 3px;
+    border-radius: 3px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    :hover {
+      opacity: 0.5;
+      background: grey;
+      text-color: white;
+    }
+    .date-icon-close {
+      font-size: 15px;
+      font-weight: bold;
+    }
+  }
+  .deadline {
+    margin-left: 10px;
+    opacity: 0.5;
+  }
+`
+// export const StyledProjectSettingsList = styled(List)` //PROJECT
+//   font-size: 15px;
+//   .each {
+//     padding-top: 3px;
+//     padding-bottom: 3px;
+//   }
+//   .tags {
+//     padding-top: 3px;
+//     padding-bottom: 0;
+//   }
+//   .date {
+//     padding: 3px;
+//     border-radius: 3px;
+//     width: fit-content;
+//     display: flex;
+//     align-items: center;
+//     :hover {
+//       opacity: 0.5;
+//       background: grey;
+//       text-color: white;
+//     }
+//     .date-icon-close {
+//       font-size: 15px;
+//       font-weight: bold;
+//     }
+//   }
+//   .deadline {
+//     margin-left: 10px;
+//     opacity: 0.5;
+//   }
+// `

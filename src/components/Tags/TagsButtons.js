@@ -1,8 +1,5 @@
 import * as React from 'react'
-import {
-  StyledTagButton,
-  StyledTagButtonInput
-} from './styles/componentsStyles'
+import { StyledTagButton, StyledTagButtonInput } from './styles/tagsStyles'
 
 export const TagButton = props => (
   <StyledTagButton
