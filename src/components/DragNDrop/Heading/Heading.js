@@ -78,7 +78,6 @@ const Heading = props => {
                         <div onClick={() => setIsEditing(true)}>
                           {listTitle}
                         </div>
-                        {/* <Options /> */}
                       </h4>
                     )}
 
