@@ -15,7 +15,12 @@ import {
 } from './utils'
 
 const Calendar = props => {
-  const calendarRef = React.createRef()
+  const calendarRef = React.createRef(null)
+
+  React.useEffect(() => {
+    calendarRef.current &&
+      calendarRef.current._calendarApi.changeView(props.dateType)
+  }, [props.dateType])
 
   const INITIAL_EVENTS = [
     {

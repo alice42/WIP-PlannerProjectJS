@@ -9,20 +9,10 @@ const TodosOptions = props => {
   const [open, setOpen] = React.useState(false)
   const [placement, setPlacement] = React.useState()
   const [expanded, setExpanded] = React.useState({})
-  const [body, setBody] = React.useState(null)
+  const [bodyType, setBodyType] = React.useState(null)
 
   React.useEffect(() => {
-    isMounted &&
-      setBody(
-        <PopperBody
-          {...props}
-          bodyType={Object.keys(expanded)[0]}
-          options={[]}
-          handleUpdate={handleUpdateTodo}
-          toUpdate={props.currentTodo}
-          handleClose={handleClose}
-        />
-      )
+    setBodyType(Object.keys(expanded)[0])
   }, [expanded])
 
   const handleClickAway = () => {
@@ -43,7 +33,7 @@ const TodosOptions = props => {
 
   const handleClose = () => {
     setOpen(false)
-    setBody(null)
+    setBodyType(null)
     setExpanded({})
   }
 
@@ -59,19 +49,31 @@ const TodosOptions = props => {
   }
 
   const options = setOptionsTodos()
+  const body = (
+    <PopperBody
+      {...props}
+      bodyType={bodyType}
+      options={[]}
+      handleUpdate={handleUpdateTodo}
+      toUpdate={props.currentTodo}
+      handleClose={handleClose}
+    />
+  )
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <span>
         {options.map((option, index) => (
-          <TodosOptionsItem
-            key={index}
-            option={option}
-            expanded={expanded}
-            currentTodo={props.currentTodo}
-            handleClose={handleClose}
-            handleClick={handleClick}
-          />
+          <div key={index}>
+            <TodosOptionsItem
+              key={index}
+              option={option}
+              expanded={expanded}
+              currentTodo={props.currentTodo}
+              handleClose={handleClose}
+              handleClick={handleClick}
+            />
+          </div>
         ))}
         <PopperContainer
           open={open}

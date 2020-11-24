@@ -1,8 +1,6 @@
 import { Divider } from '@material-ui/core'
 import * as React from 'react'
-import styled from 'styled-components'
-
-import ProjectsList from '../ProjectsComponents/ProjectsList'
+import ProjectsList from '../ProjectsList'
 import { StyledSidebar } from './styles/layoutStyles'
 
 const SideBar = props => (
