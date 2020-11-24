@@ -1,19 +1,3 @@
-import * as React from 'react'
-
-export const isMounted = () => {
-  const isMounted = React.useRef(false)
-  React.useEffect(() => {
-    isMounted.current = true
-    return function cleanup() {
-      isMounted.current = false
-    }
-  }, [])
-  const checker = React.useCallback(() => {
-    return isMounted.current
-  }, [])
-  return checker
-}
-
 export const setOptionsTitle = (
   currentProject,
   handleCompleteProject,

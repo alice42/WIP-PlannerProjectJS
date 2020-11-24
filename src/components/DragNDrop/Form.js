@@ -1,5 +1,5 @@
 import React from 'react'
-import TodoAccordion from './Todos/TodoAccordion'
+import TodoAccordion from '../Todos/TodoAccordion'
 import {
   StyledTodoContainer,
   StyledHeadingContainer,

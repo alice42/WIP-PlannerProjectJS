@@ -10,12 +10,15 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     background: 'gray',
-    padding: '0 3px 0 3px',
-    margin: '0 3px 0 3px',
+    padding: '0 4px 0 4px',
+    margin: '0 4px 0 4px',
     borderRadius: '3px'
   },
+  content: {
+    fontSize: '17px'
+  },
   label: {
-    padding: '3px 0 3px 0',
+    padding: '4px 0 4px 0',
     margin: '0'
   },
   inputWrapper: {
@@ -36,7 +39,7 @@ export default function ExpandInput(props) {
         className={classes.label}
         control={
           <Icon
-            fontSize="small"
+            style={{ fontSize: '17px' }}
             id={props.id}
             onClick={e => props.handleClick(e.currentTarget.id, 'bottom', e)}
           >
@@ -51,6 +54,7 @@ export default function ExpandInput(props) {
         unmountOnExit
       >
         <InputBase
+          type="text"
           className={classes.inputWrapper}
           placeholder={props.option}
         />

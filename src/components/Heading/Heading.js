@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Todos from '../Todos/Todos'
-import Create from '../Create'
+import Create from '../DragNDrop/Create'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import {
   StyledHeadingContainer,
   StyledInputWrapperLeft
-} from '../styles/dndStyles'
-import InlineGrownInput from '../../InlineGrownInput'
+} from './styles/headingStyles'
+import InlineGrownInput from '../InlineGrownInput'
 
 const Heading = props => {
   const inputRefHeading = React.useRef(null)
