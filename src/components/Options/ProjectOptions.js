@@ -3,7 +3,7 @@ import { Icon, ClickAwayListener } from '@material-ui/core'
 import { PopperContainer, PopperBody } from '../Popper'
 import { setOptionsTitle } from './utils'
 
-const TitleOptions = props => {
+const ProjectOptions = props => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [open, setOpen] = React.useState(false)
   const [placement, setPlacement] = React.useState()
@@ -84,4 +84,4 @@ const TitleOptions = props => {
   )
 }
 
-export default TitleOptions
+export default ProjectOptions

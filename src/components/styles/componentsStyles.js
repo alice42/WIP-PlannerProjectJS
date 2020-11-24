@@ -11,7 +11,7 @@ const PopperBody = styled.div`
   padding: 15px 5px 15px 5px;
 `
 
-export const PopperBodyListOtions = styled(PopperBody)`
+export const PopperBodyList = styled(PopperBody)`
   ul {
     list-style: none;
     padding: 0;

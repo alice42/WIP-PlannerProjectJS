@@ -3,12 +3,16 @@ import React from 'react'
 import { defaultTagsList } from './utils'
 
 const TagsList = props => {
-  return defaultTagsList.map((tag, index) => (
-    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-      <Icon style={{ fontSize: '17px' }}>local_offer</Icon>
-      {tag}
-    </div>
-  ))
+  return (
+    <ul>
+      {defaultTagsList.map((tag, index) => (
+        <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+          <Icon style={{ fontSize: '17px' }}>local_offer</Icon>
+          {tag}
+        </div>
+      ))}
+    </ul>
+  )
 }
 
 export default TagsList

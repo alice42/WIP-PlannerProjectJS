@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Divider } from '@material-ui/core'
 
-const TitleOptionsItem = props => {
+const ProjectOptionsItem = props => {
   return (
     <>
       <li>
@@ -18,4 +18,4 @@ const TitleOptionsItem = props => {
   )
 }
 
-export default TitleOptionsItem
+export default ProjectOptionsItem
