@@ -95,7 +95,7 @@ const Calendar = props => {
         buttonText={{
           today: 'Back to Today'
         }}
-        aspectRatio={props.dateType === 'when' ? 1.75 : 1.25}
+        aspectRatio={props.dateType === 'when' ? 1.55 : 1.05}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}

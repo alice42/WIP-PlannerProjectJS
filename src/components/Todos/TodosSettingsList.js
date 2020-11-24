@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { StyledProjectSettingsList } from '../styles/componentsStyles'
+import { StyledSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
 const TodosSettingsList = props => (
-  <StyledProjectSettingsList todos={'true'}>
+  <StyledSettingsList todos={'true'}>
     {props.currentTodo && props.currentTodo.when && (
       <SettingsListItemDate
         {...props}
@@ -22,7 +22,7 @@ const TodosSettingsList = props => (
         handleRemoveEvent={props.handleRemoveEvent}
       />
     )}
-  </StyledProjectSettingsList>
+  </StyledSettingsList>
 )
 
 export default TodosSettingsList

@@ -1,6 +1,10 @@
 import React from 'react'
 import Popper from '@material-ui/core/Popper'
-import { PopperBodyA, BodyCalendar, BodyTags } from './styles/componentsStyles'
+import {
+  PopperBodyListOtions,
+  PopperBodyCalendar,
+  PopperBodyListTags
+} from './styles/componentsStyles'
 import ListItems from './Options/TitleOptionsItem'
 import Calendar from './Calendar/Calendar'
 import TagsList from './Tags/TagsList'
@@ -12,7 +16,7 @@ export const PopperBody = props => {
       : props.bodyType
   const bodies = {
     options: (
-      <PopperBodyA>
+      <PopperBodyListOtions>
         <ul>
           {props.options.map((option, index) => (
             <ListItems
@@ -23,10 +27,10 @@ export const PopperBody = props => {
             />
           ))}
         </ul>
-      </PopperBodyA>
+      </PopperBodyListOtions>
     ),
     calendar: (
-      <BodyCalendar>
+      <PopperBodyCalendar>
         <Calendar
           {...props}
           dateType={props.bodyType}
@@ -34,12 +38,12 @@ export const PopperBody = props => {
           toUpdate={props.toUpdate}
           handleClose={props.handleClose}
         />
-      </BodyCalendar>
+      </PopperBodyCalendar>
     ),
     tag: (
-      <BodyTags>
+      <PopperBodyListTags>
         <TagsList {...props} />
-      </BodyTags>
+      </PopperBodyListTags>
     )
   }
   return bodies[type] || null

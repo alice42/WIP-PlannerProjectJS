@@ -4,6 +4,16 @@ import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import { FormControlLabel } from '@material-ui/core'
 
+export const StyledTodoContainer = styled.div`
+  display: flex;
+  outline: none;
+  margin-bottom: 5px;
+  text-align: -webkit-auto;
+  text-align-last: left;
+  line-break: anywhere;
+  overflow-wrap: anywhere;
+`
+
 export const StyledWhenInfo = styled.div`
   padding: 3px;
   opacity: 0.5;

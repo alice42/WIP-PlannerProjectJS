@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import TodoAccordion from './TodoAccordion'
-import {
-  StyledTodoContainer,
-  StyledInputWrapperLeft
-} from '../styles/componentsStyles'
+import { StyledInputWrapperLeft } from '../styles/componentsStyles'
+import { StyledTodoContainer } from './styles/todosStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 const Todos = props => {

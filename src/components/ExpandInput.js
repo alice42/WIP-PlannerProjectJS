@@ -13,7 +13,6 @@ const ExpandInput = props => {
         className={classes.label}
         control={
           <Icon
-            style={{ fontSize: '17px' }}
             id={props.id}
             onClick={e => props.handleClick(e.currentTarget.id, 'bottom', e)}
           >
