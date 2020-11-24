@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { StyledProjectSettingsList } from '../styles/dndStyles'
-import SettingsListItemDate from '../../SettingsListItemDate'
+import { StyledProjectSettingsList } from './styles/todosStyles'
+import SettingsListItemDate from '../SettingsListItemDate'
 
 const TodosSettingsList = props => (
   <StyledProjectSettingsList>
     {props.currentTodo && props.currentTodo.when && (
       <SettingsListItemDate
         {...props}
+        todos
         type={'when'}
         typeSettings={props.currentTodo}
         handleRemoveEvent={props.handleRemoveEvent}
@@ -15,6 +16,7 @@ const TodosSettingsList = props => (
     {props.currentTodo && props.currentTodo.deadline && (
       <SettingsListItemDate
         {...props}
+        todos
         type={'deadline'}
         typeSettings={props.currentTodo}
         handleRemoveEvent={props.handleRemoveEvent}

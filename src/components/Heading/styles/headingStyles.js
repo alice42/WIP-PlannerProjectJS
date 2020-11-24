@@ -1,15 +1,5 @@
 import styled from 'styled-components'
 
-export const StyledTodoContainer = styled.div`
-  display: flex;
-  outline: none;
-  margin-bottom: 5px;
-  text-align: -webkit-auto;
-  text-align-last: left;
-  line-break: anywhere;
-  overflow-wrap: anywhere;
-`
-
 export const StyledHeadingContainer = styled.div`
   border-radius: 3px;
   padding: 8px;
@@ -36,11 +26,6 @@ export const StyledHeadingContainer = styled.div`
       overflow-wrap: anywhere;
       `}
   }
-`
-export const StyledOpenForm = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 8px;
 `
 export const StyledInputWrapperLeft = styled.div`
   text-align: left;

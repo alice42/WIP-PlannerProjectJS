@@ -1,5 +1,5 @@
 import React from 'react'
-import Heading from './Heading/Heading'
+import Heading from '../Heading/Heading'
 import Create from './Create'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 

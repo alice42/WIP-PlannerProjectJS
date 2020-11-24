@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import TodoAccordion from '../Todos/TodoAccordion'
+import TodoAccordion from './TodoAccordion'
 import {
   StyledTodoContainer,
   StyledInputWrapperLeft
-} from '../styles/dndStyles'
-import InlineGrownInput from '../../InlineGrownInput'
+} from './styles/todosStyles'
+import InlineGrownInput from '../InlineGrownInput'
 
 const Todos = props => {
   const inputRefTodo = React.useRef(null)

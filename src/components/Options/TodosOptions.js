@@ -33,8 +33,14 @@ const TodosOptions = props => {
 
   const handleClose = () => {
     setOpen(false)
-    setBodyType(null)
+    handleClosePopper()
     setExpanded({})
+  }
+
+  const handleClosePopper = () => {
+    console.log('close poppper')
+    setOpen(false)
+    setBodyType(null)
   }
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
@@ -62,7 +68,7 @@ const TodosOptions = props => {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <span>
+      <span style={{ display: 'flex' }}>
         {options.map((option, index) => (
           <div key={index}>
             <TodosOptionsItem
@@ -72,6 +78,7 @@ const TodosOptions = props => {
               currentTodo={props.currentTodo}
               handleClose={handleClose}
               handleClick={handleClick}
+              handleClosePopper={handleClosePopper}
             />
           </div>
         ))}
