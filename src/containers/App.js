@@ -2,10 +2,10 @@ import * as React from 'react'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import LayoutRoute from '../components/LayoutComponents/LayoutRoute'
-import Layout from '../components/LayoutComponents/Layout'
+import LayoutRoute from '../components/Layout/LayoutRoute'
+import Layout from '../components/Layout/Layout'
 import * as projectsActions from '../actions/projectsActions'
-import Content from '../components/ContentComponents/Content'
+import Projects from './Projects'
 
 const App = () => {
   return (
@@ -17,13 +17,13 @@ const App = () => {
         <LayoutRouteConnected
           exact
           path={'/projects/'}
-          component={Content}
+          component={Projects}
           layout={Layout}
         />
         <LayoutRouteConnected
           exact
           path={'/projects/:id'}
-          component={Content}
+          component={Projects}
           layout={Layout}
         />
         <Redirect to="/" />
@@ -38,9 +38,10 @@ const actionsMapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  const { projects } = state
+  const { projects, lists } = state
   return {
-    projects
+    projects,
+    lists
   }
 }
 

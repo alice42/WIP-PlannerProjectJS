@@ -1,52 +1,113 @@
-export const ADD_PROJECT = 'ADD_PROJECT'
+export const CONSTANTS = {
+  ADD_PROJECT: 'ADD_PROJECT',
+  UPDATE_PROJECT: 'UPDATE_PROJECT',
+  REMOVE_PROJECT: 'REMOVE_PROJECT',
+  ADD_CARD: 'ADD_CARD',
+  ADD_LIST: 'ADD_LIST',
+  DRAG_HAPPENED: 'DRAG_HAPPENED',
+  EDIT_CARD: 'EDIT_CARD',
+  DELETE_CARD: 'DELETE_CARD',
+  EDIT_LIST_TITLE: 'EDIT_LIST_TITLE',
+  DELETE_LIST: 'DELETE_LIST',
+  UPDATE_TODO: 'UPDATE_TODO'
+}
 
-export const addProject = data => ({
-  type: ADD_PROJECT,
-  newProject: data
+export const addProject = newProject => {
+  return {
+    type: CONSTANTS.ADD_PROJECT,
+    newProject
+  }
+}
+
+export const removeProject = projectToRemove => ({
+  type: CONSTANTS.REMOVE_PROJECT,
+  projectToRemove
 })
 
-export const UPDATE_PROJECT = 'UPDATE_PROJECT'
+export const updateProject = (projectToUpdate, newValue, keyToUpdate) => ({
+  type: CONSTANTS.UPDATE_PROJECT,
+  updatedProject: { ...projectToUpdate, [`${keyToUpdate}`]: newValue }
+})
 
-export const updateProject = data => {
+export const addCard = (listID, text, project) => ({
+  type: CONSTANTS.ADD_CARD,
+  project,
+  payload: { text, listID }
+})
+
+export const addList = (title, project) => {
   return {
-    type: UPDATE_PROJECT,
-    updatedProject: data
+    type: CONSTANTS.ADD_LIST,
+    project,
+    payload: title
   }
 }
 
-export const SAVE_CHANGE = 'SAVE_CHANGE'
-
-export const saveChange = data => {
+export const editCard = (id, listID, newText, currentProject) => {
   return {
-    type: SAVE_CHANGE,
-    data: data
+    type: CONSTANTS.EDIT_CARD,
+    project: currentProject,
+    payload: { id, listID, newText }
   }
 }
 
-export const AUTHORIZE_RENAME = 'AUTHORIZE_RENAME'
-
-export const authorizeRename = currentProject => {
+export const deleteCard = (id, listID, currentProject) => {
   return {
-    type: AUTHORIZE_RENAME,
-    data: currentProject
+    type: CONSTANTS.DELETE_CARD,
+    project: currentProject,
+    payload: { id, listID }
   }
 }
 
-export const REMOVE_PROJECT = 'REMOVE_PROJECT'
-
-export const removeProject = data => {
-  console.log(data)
+export const sort = (
+  droppableIdStart,
+  droppableIdEnd,
+  droppableIndexStart,
+  droppableIndexEnd,
+  draggableId,
+  type,
+  currentProject
+) => {
   return {
-    type: REMOVE_PROJECT,
-    projectToRemove: data
+    type: CONSTANTS.DRAG_HAPPENED,
+    project: currentProject,
+    payload: {
+      droppableIdStart,
+      droppableIdEnd,
+      droppableIndexEnd,
+      droppableIndexStart,
+      draggableId,
+      type
+    }
   }
 }
 
-export const COMPLETE_PROJECT = 'COMPLETE_PROJECT'
-
-export const completeProject = data => {
+export const editTitle = (listID, newTitle, currentProject) => {
   return {
-    type: COMPLETE_PROJECT,
-    projectToComplete: data
+    type: CONSTANTS.EDIT_LIST_TITLE,
+    project: currentProject,
+    payload: {
+      listID,
+      newTitle
+    }
+  }
+}
+
+export const deleteList = (listID, currentProject) => {
+  return {
+    type: CONSTANTS.DELETE_LIST,
+    project: currentProject,
+    payload: { listID }
+  }
+}
+
+export const updateTodo = (todo, value, typeValue, project, list) => {
+  return {
+    type: CONSTANTS.UPDATE_TODO,
+    todo,
+    value,
+    typeValue,
+    project,
+    list
   }
 }
