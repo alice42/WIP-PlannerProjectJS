@@ -19,9 +19,17 @@ const TodosAccordion = props => {
       >
         <FormControlLabel
           aria-label="Acknowledge"
-          style={{ pointerEvents: 'none' }}
+          onClick={e => e.stopPropagation()}
           control={<Checkbox style={{ pointerEvents: 'auto' }} />}
-          label={props.label}
+          label={
+            <div
+              onClick={e => {
+                e.preventDefault()
+              }}
+            >
+              {props.label}
+            </div>
+          }
         />
       </StyledAccordionSummary>
       <AccordionDetails>

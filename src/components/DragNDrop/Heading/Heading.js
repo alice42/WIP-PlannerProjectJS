@@ -9,14 +9,14 @@ import {
 import InlineGrownInput from '../../InlineGrownInput'
 
 const Heading = props => {
-  const inputRefTodo = React.useRef(null)
+  const inputRefHeading = React.useRef(null)
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
 
   React.useEffect(() => {
-    if (props.inputRef && props.inputRef.current) {
-      props.inputRef.current.textContent = listTitle || ''
-      props.inputRef.current.focus()
+    if (inputRefHeading && inputRefHeading.current) {
+      inputRefHeading.current.textContent = listTitle || ''
+      if (!listTitle) inputRefHeading.current.focus()
     }
   }, [isEditing])
 
@@ -45,7 +45,7 @@ const Heading = props => {
       <StyledInputWrapperLeft>
         <InlineGrownInput
           {...props}
-          inputRef={props.inputRef}
+          inputRef={inputRefHeading}
           value={listTitle}
           typeValue={'heading'}
           placeholder={'New Heading'}
@@ -84,7 +84,6 @@ const Heading = props => {
 
                 {props.cards.map((card, index) => (
                   <Todos
-                    inputRef={inputRefTodo}
                     {...props}
                     todo={card}
                     key={card.id}
@@ -95,11 +94,7 @@ const Heading = props => {
                   />
                 ))}
                 {provided.placeholder}
-                <Create
-                  {...props}
-                  listID={props.listID}
-                  inputRef={inputRefTodo}
-                />
+                <Create {...props} listID={props.listID} />
               </div>
             )}
           </Droppable>

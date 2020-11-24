@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-
+import { setCaret } from './utilsDates'
 const StyledInputContext = styled.span`
   .input {
     background: none;
@@ -38,10 +38,10 @@ const InlineGrownInput = props => {
       inputRef.current.selectionEnd = 0
     }
   }
-
   return (
     <StyledInputContext>
       <span
+        id={'editable'}
         spellCheck={'false'}
         autoComplete={'off'}
         autoCorrect={'off'}

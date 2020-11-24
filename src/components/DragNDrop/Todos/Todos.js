@@ -8,13 +8,14 @@ import {
 import InlineGrownInput from '../../InlineGrownInput'
 
 const Todos = props => {
+  const inputRefTodo = React.useRef(null)
   const [isEditing, setIsEditing] = useState(false)
   const [cardText, setText] = useState(props.title)
 
   React.useEffect(() => {
-    if (props.inputRef && props.inputRef.current) {
-      props.inputRef.current.textContent = cardText || ''
-      props.inputRef.current.focus()
+    if (inputRefTodo && inputRefTodo.current) {
+      inputRefTodo.current.textContent = cardText || ''
+      if (!cardText) inputRefTodo.current.focus()
     }
   }, [isEditing])
 
@@ -46,7 +47,7 @@ const Todos = props => {
       <StyledInputWrapperLeft>
         <InlineGrownInput
           {...props}
-          inputRef={props.inputRef}
+          inputRef={inputRefTodo}
           value={cardText}
           typeValue={'todo'}
           placeholder={'New To-do'}

@@ -3,6 +3,7 @@ import Form from './Form'
 import OpenForm from './OpenForm'
 
 export default function Create(props) {
+  const inputCreateRef = React.useRef(null)
   const [text, setText] = React.useState('')
   const [formOpen, setformOpen] = React.useState(false)
 
@@ -39,7 +40,7 @@ export default function Create(props) {
     <Form
       list={props.listID === 'list-0' ? null : props.list}
       text={text}
-      inputRef={props.inputRef}
+      inputRef={inputCreateRef}
       handleInputChange={handleInputChange}
       closeForm={closeForm}
       typeValue={props.list ? 'heading' : 'todo'}
