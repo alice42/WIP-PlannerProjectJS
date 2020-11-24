@@ -3,7 +3,20 @@ import { makeStyles, withStyles } from '@material-ui/core/styles'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import { FormControlLabel, List } from '@material-ui/core'
-import { red } from '@material-ui/core/colors'
+
+export const StyledWhenInfo = styled.div`
+  padding: 3px;
+  opacity: 0.5;
+  background: grey;
+  border-radius: 3px;
+`
+export const StyledDeadlineInfo = styled.div`
+  display: flex;
+  span {
+    font-size: 13px;
+    margin-right: 3px;
+  }
+`
 
 export const StyledTodoContainer = styled.div`
   display: flex;
