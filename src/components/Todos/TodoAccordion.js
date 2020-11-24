@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography'
 import Accordion from '@material-ui/core/Accordion'
 import Checkbox from '@material-ui/core/Checkbox'
 import {
-  useStyles,
+  useStyledTodoWrapper,
   StyledAccordionSummary,
   StyledFormControlLabel,
   StyledTodosNotesWrapper,
@@ -16,18 +16,8 @@ import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
 
 const TodosAccordion = props => {
   const [expanded, setExpanded] = React.useState(false)
-  const classes = useStyles()
-
-  const label = (
-    <div
-      style={{ width: 'max-content' }}
-      onClick={e => {
-        e.preventDefault()
-      }}
-    >
-      {props.label}
-    </div>
-  )
+  const classes = useStyledTodoWrapper()
+  const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
   return (
     <Accordion className={classes.root} onChange={() => setExpanded(!expanded)}>
       <StyledAccordionSummary

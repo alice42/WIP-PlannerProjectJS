@@ -18,7 +18,7 @@ export const StyledDeadlineInfo = styled.div`
   }
 `
 
-export const useStyles = makeStyles({
+export const useStyledTodoWrapper = makeStyles({
   root: {
     width: '100%',
     marginLeft: '5px',
@@ -59,6 +59,9 @@ export const StyledAccordionSummary = withStyles({
 export const StyledFormControlLabel = withStyles({
   root: {
     marginRight: '5px'
+  },
+  label: {
+    width: 'max-content'
   }
 })(FormControlLabel)
 
@@ -66,8 +69,16 @@ export const StyledTodosSettingsNotExpanded = styled.div`
   width: -webkit-fill-available;
   display: flex;
   font-size: 10px;
-  justify-content: space-between;
   align-items: center;
+  &.info-flex-align-start {
+    justify-content: flex-start;
+  }
+  &.info-flex-align-end {
+    justify-content: flex-end;
+  }
+  &.info-flex-align-spacebetween {
+    justify-content: space-between;
+  }
 `
 export const StyledTodosNotesWrapper = styled.div`
   display: flex;

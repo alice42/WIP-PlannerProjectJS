@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { List } from '@material-ui/core'
-
+import { List, Icon } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 //POPPER
 export const PopperBodyA = styled.div`
   width: 200px;
@@ -112,10 +112,12 @@ export const StyledHeadingContainer = styled.div`
   }
 `
 export const StyledProjectSettingsList = styled(List)`
-  font-size: 12px;
+  font-size: ${props => (props.todos ? '12px' : '15px')};
+  ${props => props.todos && 'padding: 0;'}
   .each {
     padding-top: 3px;
     padding-bottom: 3px;
+    ${props => props.todos && 'padding: 0;'}
   }
   .tags {
     padding-top: 3px;
@@ -142,34 +144,35 @@ export const StyledProjectSettingsList = styled(List)`
     opacity: 0.5;
   }
 `
-// export const StyledProjectSettingsList = styled(List)` //PROJECT
-//   font-size: 15px;
-//   .each {
-//     padding-top: 3px;
-//     padding-bottom: 3px;
-//   }
-//   .tags {
-//     padding-top: 3px;
-//     padding-bottom: 0;
-//   }
-//   .date {
-//     padding: 3px;
-//     border-radius: 3px;
-//     width: fit-content;
-//     display: flex;
-//     align-items: center;
-//     :hover {
-//       opacity: 0.5;
-//       background: grey;
-//       text-color: white;
-//     }
-//     .date-icon-close {
-//       font-size: 15px;
-//       font-weight: bold;
-//     }
-//   }
-//   .deadline {
-//     margin-left: 10px;
-//     opacity: 0.5;
-//   }
-// `
+
+export const StyledIconSettingsList = styled(Icon)`
+  margin-right: 5px;
+  font-size: ${props => (props.todos ? '15px' : '20px')};
+`
+
+//EXPAND INPUT
+
+export const useStyledExpandedInput = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    background: 'gray',
+    padding: '0 4px 0 4px',
+    margin: '0 4px 0 4px',
+    borderRadius: '3px'
+  },
+  content: {
+    fontSize: '17px'
+  },
+  label: {
+    padding: '4px 0 4px 0',
+    margin: '0'
+  },
+  inputWrapper: {
+    width: '90%',
+    '& .MuiInputBase-input': {
+      padding: '0',
+      margin: '0'
+    }
+  }
+}))

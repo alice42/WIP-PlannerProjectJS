@@ -3,7 +3,7 @@ import { StyledProjectSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
 const TodosSettingsList = props => (
-  <StyledProjectSettingsList>
+  <StyledProjectSettingsList todos={'true'}>
     {props.currentTodo && props.currentTodo.when && (
       <SettingsListItemDate
         {...props}
