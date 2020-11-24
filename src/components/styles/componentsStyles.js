@@ -48,6 +48,28 @@ export const BodyCalendar = styled.div`
     }
   }
 `
+
+export const BodyTags = styled.div`
+  width: 230px;
+  min-height: 290px;
+  background: #5b5b5b;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 2px;
+  font-family: monospace;
+  li {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    .label-list-options {
+      padding-left: 15px;
+    }
+    .icon-list-options {
+      padding-left: 5;
+    }
+  }
+`
+
 // TAGS
 export const StyledTagWrapper = styled.div`
   display: flex;

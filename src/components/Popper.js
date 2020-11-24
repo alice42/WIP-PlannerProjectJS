@@ -1,8 +1,9 @@
 import React from 'react'
 import Popper from '@material-ui/core/Popper'
-import { PopperBodyA, BodyCalendar } from './styles/componentsStyles'
+import { PopperBodyA, BodyCalendar, BodyTags } from './styles/componentsStyles'
 import ListItems from './Options/TitleOptionsItem'
 import Calendar from './Calendar/Calendar'
+import TagsList from './TagsList'
 
 export const PopperBody = props => {
   const type =
@@ -34,6 +35,11 @@ export const PopperBody = props => {
           handleClose={props.handleClose}
         />
       </BodyCalendar>
+    ),
+    tag: (
+      <BodyTags>
+        <TagsList {...props} />
+      </BodyTags>
     )
   }
   return bodies[type] || null
