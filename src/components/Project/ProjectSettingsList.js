@@ -1,11 +1,11 @@
 import { Divider, ListItem } from '@material-ui/core'
 import * as React from 'react'
-import Tags from '../Tags'
-import { StyledProjectSettingsList } from './styles/projectStyles'
+import Tags from '../Tags/Tags'
+import { StyledSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
 const ProjectSettingsList = props => (
-  <StyledProjectSettingsList>
+  <StyledSettingsList>
     {(props.currentProject.when ||
       props.currentProject.deadline ||
       props.tags) && <Divider />}
@@ -37,7 +37,7 @@ const ProjectSettingsList = props => (
         <Divider />
       </>
     )}
-  </StyledProjectSettingsList>
+  </StyledSettingsList>
 )
 
 export default ProjectSettingsList

@@ -12,37 +12,6 @@ export const StyledTitleCheckbox = styled(Checkbox)`
   vertical-align: text-top;
 `
 
-export const StyledProjectSettingsList = styled(List)`
-  font-size: 15px;
-  .each {
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-  .tags {
-    padding-top: 3px;
-    padding-bottom: 0;
-  }
-  .date {
-    padding: 3px;
-    border-radius: 3px;
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    :hover {
-      opacity: 0.5;
-      background: grey;
-      text-color: white;
-    }
-    .date-icon-close {
-      font-size: 15px;
-      font-weight: bold;
-    }
-  }
-  .deadline {
-    margin-left: 10px;
-    opacity: 0.5;
-  }
-`
 export const StyledNotesContainer = styled.div`
   text-align: left;
   padding-left: 20px;

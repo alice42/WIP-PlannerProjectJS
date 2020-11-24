@@ -33,15 +33,14 @@ const TodosOptions = props => {
 
   const handleClose = () => {
     setOpen(false)
-    handleClosePopper()
+    // handleClosePopper()
     setExpanded({})
   }
 
-  const handleClosePopper = () => {
-    console.log('close poppper')
-    setOpen(false)
-    setBodyType(null)
-  }
+  // const handleClosePopper = () => {
+  //   setOpen(false)
+  //   setBodyType(null)
+  // }
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
     props.projectsActions.updateTodo(
@@ -78,7 +77,7 @@ const TodosOptions = props => {
               currentTodo={props.currentTodo}
               handleClose={handleClose}
               handleClick={handleClick}
-              handleClosePopper={handleClosePopper}
+              // handleClosePopper={handleClosePopper}
             />
           </div>
         ))}

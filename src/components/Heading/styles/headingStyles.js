@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-
+// HEADING & TODOS CONTAINERS
 export const StyledHeadingContainer = styled.div`
   border-radius: 3px;
   padding: 8px;
@@ -26,7 +26,4 @@ export const StyledHeadingContainer = styled.div`
       overflow-wrap: anywhere;
       `}
   }
-`
-export const StyledInputWrapperLeft = styled.div`
-  text-align: left;
 `

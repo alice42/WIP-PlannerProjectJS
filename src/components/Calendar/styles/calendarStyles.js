@@ -86,7 +86,7 @@ export const StyleWrapper = styled.div`
     }
   }
   .fc-today-button.fc-button-primary {
-    width: 130px;
+    width: 100%;
     display: flex;
     border: unset;
     margin: 0;
@@ -98,6 +98,7 @@ export const StyleWrapper = styled.div`
     }
   }
   .fc-footer-toolbar {
+    min-width: 200px;
     display: flex;
     align-items: baseline;
   }

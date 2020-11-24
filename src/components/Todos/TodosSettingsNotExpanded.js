@@ -18,10 +18,18 @@ const DeadlineInfo = ({ deadline }) => (
 )
 
 const TodosSettingsNotExpanded = props => {
-  const settingsInfo = props.currentTodo && (
-    <StyledTodosSettingsNotExpanded>
-      {props.currentTodo.when && <WhenInfo when={props.currentTodo.when} />}
-      {props.currentTodo.deadline && (
+  const displayWhen = props.currentTodo && props.currentTodo.when
+  const displayDeadline = props.currentTodo && props.currentTodo.deadline
+  const display = () => {
+    if (displayWhen && !displayDeadline) return 'info-flex-align-start'
+    else if (displayDeadline && !displayWhen) return 'info-flex-align-end'
+    else if (displayWhen && displayWhen) return 'info-flex-align-spacebetween'
+    else return null
+  }
+  const settingsInfo = display && (
+    <StyledTodosSettingsNotExpanded className={`${display()}`}>
+      {displayWhen && <WhenInfo when={props.currentTodo.when} />}
+      {displayDeadline && (
         <DeadlineInfo deadline={props.currentTodo.deadline} />
       )}
     </StyledTodosSettingsNotExpanded>

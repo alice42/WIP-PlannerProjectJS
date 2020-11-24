@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyledTagWrapper } from './styles/componentsStyles'
+import { StyledTagWrapper } from './styles/tagsStyles'
 import { TagButton, AddTagButton } from './TagsButtons'
 
 const Tags = props => {

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { setCaret } from './utilsDates'
+
 const StyledInputContext = styled.span`
   .input {
     background: none;

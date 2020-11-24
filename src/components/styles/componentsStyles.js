@@ -1,109 +1,107 @@
 import styled from 'styled-components'
+import { List, Icon } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 //POPPER
-export const PopperBodyA = styled.div`
-  width: 200px;
+const PopperBody = styled.div`
   background: #5b5b5b;
   border: 2px solid black;
   border-radius: 5px;
-  padding: 0;
   font-family: monospace;
+  padding: 15px 5px 15px 5px;
+`
+
+export const PopperBodyList = styled(PopperBody)`
   ul {
-    margin: 5px;
     list-style: none;
     padding: 0;
+    margin: 0;
   }
   li {
     display: flex;
     align-items: center;
-    flex-direction: row;
-    padding: 3px;
     .label-list-title-options {
-      padding-left: 15px;
-      font-size: 14px;
+      padding-left: 10px;
+      font-size: 13px;
     }
     .icon-list-title-options {
-      font-size: 1rem;
-      padding-left: 5;
+      font-size: 20px;
     }
   }
 `
-export const BodyCalendar = styled.div`
-  width: 230px;
-  min-height: 290px;
-  background: #5b5b5b;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 2px;
-  font-family: monospace;
-  li {
+export const PopperBodyCalendar = styled(PopperBody)`
+  width: min-content;
+`
+
+export const PopperBodyListTags = styled(PopperBody)``
+
+//EXPAND INPUT
+export const useStyledExpandedInput = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    background: 'gray',
+    padding: '0 4px 0 4px',
+    margin: '0 4px 0 4px',
+    borderRadius: '3px'
+  },
+  content: {
+    fontSize: '17px'
+  },
+  label: {
+    '& .material-icons': { fontSize: '17px' },
+    padding: '4px 0 4px 0',
+    margin: '0'
+  },
+  inputWrapper: {
+    width: '90%',
+    '& .MuiInputBase-input': {
+      padding: '0',
+      margin: '0'
+    }
+  }
+}))
+
+//SETTINGS
+export const StyledSettingsList = styled(List)`
+  font-size: ${props => (props.todos ? '12px' : '15px')};
+  ${props => props.todos && 'padding: 0;'}
+  .each {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    ${props => props.todos && 'padding: 0;'}
+  }
+  .tags {
+    padding-top: 3px;
+    padding-bottom: 0;
+  }
+  .date {
+    padding: 3px;
+    border-radius: 3px;
+    width: fit-content;
     display: flex;
     align-items: center;
-    flex-direction: row;
-    .label-list-options {
-      padding-left: 15px;
+    :hover {
+      opacity: 0.5;
+      background: grey;
+      text-color: white;
     }
-    .icon-list-options {
-      padding-left: 5;
+    .date-icon-close {
+      font-size: 15px;
+      font-weight: bold;
     }
+  }
+  .deadline {
+    margin-left: 10px;
+    opacity: 0.5;
   }
 `
 
-export const BodyTags = styled.div`
-  width: 230px;
-  min-height: 290px;
-  background: #5b5b5b;
-  border: 2px solid black;
-  border-radius: 5px;
-  padding: 2px;
-  font-family: monospace;
-  li {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    .label-list-options {
-      padding-left: 15px;
-    }
-    .icon-list-options {
-      padding-left: 5;
-    }
-  }
+export const StyledIconSettingsList = styled(Icon)`
+  margin-right: 5px;
+  font-size: ${props => (props.todos ? '15px' : '20px')};
 `
-
-// TAGS
-export const StyledTagWrapper = styled.div`
-  display: flex;
-  flex-flow: wrap;
-`
-export const StyledTagButton = styled.div`
-  font-size: 15px;
-  margin-left: 3px;
-  margin-bottom: 3px;
-  padding: 3px;
-  border-radius: 3px;
-  width: fit-content;
-  display: flex;
-  align-items: center;
-  opacity: 0.5;
-  background: grey;
-  text-color: white;
-  overflow-wrap: anywhere;
-  : focus {
-    outline: none;
-    background: lightsteelblue;
-  }
-`
-export const StyledTagButtonInput = styled.input`
-  margin-left: 3px;
-  margin-bottom: 3px;
-  padding: 3px;
-  background: none;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  font: inherit;
-  text-align: -webkit-auto;
-  text-align-last: left;
-  line-break: anywhere;
-  overflow-wrap: anywhere;
+// MISC
+export const StyledInputWrapperLeft = styled.div`
+  text-align: left;
 `

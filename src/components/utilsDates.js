@@ -31,6 +31,5 @@ export const shortDate = date => {
     day: 'numeric',
     month: 'short'
   })
-  console.log(newDate)
   return newDate
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Title from './ProjectTitle'
-import TitleOptions from '../Options/TitleOptions'
+import ProjectOptions from '../Options/ProjectOptions'
 import ProjectSettingsList from './ProjectSettingsList'
 import ProjectNotes from './ProjectNotes'
 import DragDropContext from '../DragNDrop/DragDropContext'
@@ -45,7 +45,7 @@ const ProjectContent = props => {
           onChange={handleCompleteProject}
         />
         <Title {...props} handleInputEditing={handleInputEditing} />
-        <TitleOptions
+        <ProjectOptions
           {...props}
           handleCompleteProject={handleCompleteProject}
           handleRemoveProject={handleRemoveProject}

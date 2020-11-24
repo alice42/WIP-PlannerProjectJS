@@ -1,10 +1,8 @@
 import React from 'react'
 import TodoAccordion from '../Todos/TodoAccordion'
-import {
-  StyledTodoContainer,
-  StyledHeadingContainer,
-  StyledInputWrapperLeft
-} from './styles/dndStyles'
+import { StyledInputWrapperLeft } from '../styles/componentsStyles'
+import { StyledTodoContainer } from '../Todos/styles/todosStyles'
+import { StyledHeadingContainer } from '../Heading/styles/headingStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 export default function Form({
