@@ -5,7 +5,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd'
 import {
   StyledHeadingContainer,
   StyledInputWrapperLeft
-} from './styles/headingStyles'
+} from '../styles/componentsStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 const Heading = props => {

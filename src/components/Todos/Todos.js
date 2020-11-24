@@ -4,7 +4,7 @@ import TodoAccordion from './TodoAccordion'
 import {
   StyledTodoContainer,
   StyledInputWrapperLeft
-} from './styles/todosStyles'
+} from '../styles/componentsStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 const Todos = props => {

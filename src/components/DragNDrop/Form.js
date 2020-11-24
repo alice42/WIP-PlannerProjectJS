@@ -4,7 +4,7 @@ import {
   StyledTodoContainer,
   StyledHeadingContainer,
   StyledInputWrapperLeft
-} from './styles/dndStyles'
+} from '../styles/componentsStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 export default function Form({
