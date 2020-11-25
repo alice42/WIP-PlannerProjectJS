@@ -10,7 +10,7 @@ const TodosSettingsList = props => (
         todos
         type={'when'}
         typeSettings={props.currentTodo}
-        handleRemoveEvent={props.handleRemoveEvent}
+        // handleRemoveEvent={props.handleRemoveEvent}
       />
     )}
     {props.currentTodo && props.currentTodo.deadline && (
@@ -19,7 +19,16 @@ const TodosSettingsList = props => (
         todos
         type={'deadline'}
         typeSettings={props.currentTodo}
-        handleRemoveEvent={props.handleRemoveEvent}
+        // handleRemoveEvent={props.handleRemoveEvent}
+      />
+    )}
+    {props.currentTodo && props.currentTodo.tags && (
+      <SettingsListItemDate
+        {...props}
+        todos
+        type={'tags'}
+        typeSettings={props.currentTodo}
+        // handleRemoveEvent={props.handleRemoveEvent}
       />
     )}
   </StyledSettingsList>
