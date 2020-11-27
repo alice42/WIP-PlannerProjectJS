@@ -28,11 +28,7 @@ const ProjectSettingsList = props => (
     {props.tags && (
       <>
         <ListItem className={'each tags'}>
-          <Tags
-            addTags={props.tags}
-            handleNoTags={props.handleNoTags}
-            {...props}
-          />
+          <Tags {...props} />
         </ListItem>
         <Divider />
       </>

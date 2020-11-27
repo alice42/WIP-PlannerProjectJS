@@ -3,33 +3,28 @@ import { StyledTagWrapper } from './styles/tagsStyles'
 import { TagButton, AddTagButton } from './TagsButtons'
 
 const Tags = props => {
-  const [inputvalue, setinputvalue] = React.useState('')
-  const inputRefTags = React.useRef(null)
+  const [value, setValue] = React.useState(null)
+  const [inputValue, setInputValue] = React.useState('')
 
   React.useEffect(() => {
-    if (inputRefTags && inputRefTags.current) inputRefTags.current.focus()
-  }, [props.currentProject.tags.length === 0])
-
-  const handleInput = e => {
-    e.target.value === ',' || setinputvalue(e.target.value)
-  }
+    if (value === inputValue) onPressValidNewTag()
+  }, [value])
 
   const onPressValidNewTag = () => {
     const tags = props.currentProject.tags
-    const valueCheckRegex = /(?=.*[a-zA-Z1-9])/
-    if (
-      valueCheckRegex.test(inputvalue) &&
-      !tags.find(value => value === inputvalue)
-    ) {
-      tags.push(inputvalue)
+    if (value && !tags.find(tag => tag === value)) {
+      tags.push(value)
       props.projectsActions.updateProject(props.currentProject, tags, 'tags')
     }
-    setinputvalue('')
-    if (tags.length === 0) {
+    setValue(null)
+  }
+
+  const checkTags = () => {
+    const tags = props.currentProject.tags
+    if (tags.length === 0 && !value && !inputValue) {
       props.handleCloseTags()
     }
   }
-
   const onPressDeleteTag = tag => {
     const tags = props.currentProject.tags
     var newTags = tags.filter(value => value !== tag)
@@ -49,15 +44,17 @@ const Tags = props => {
     ))
 
   return (
-    props.addTags && (
+    props.tags && (
       <StyledTagWrapper>
         {allTags()}
         <AddTagButton
-          inputRefTags={inputRefTags}
-          inputvalue={inputvalue}
-          handleInput={handleInput}
+          {...props}
+          value={value}
+          setValue={setValue}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
           onPressValidNewTag={onPressValidNewTag}
-          handleCloseTags={props.handleCloseTags}
+          checkTags={checkTags}
         />
       </StyledTagWrapper>
     )
