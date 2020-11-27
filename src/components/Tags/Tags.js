@@ -25,17 +25,24 @@ const Tags = props => {
       props.handleCloseTags()
     }
   }
-  const onPressDeleteTag = tag => {
-    const tags = props.currentProject.tags
+  const onPressDeleteTag = (tag, test) => {
+    const tags = test ? props.currentProject.tags : props.todo.tags
     var newTags = tags.filter(value => value !== tag)
-    props.projectsActions.updateProject(props.currentProject, newTags, 'tags')
+    test
+      ? props.projectsActions.updateProject(
+          props.currentProject,
+          newTags,
+          'tags'
+        )
+      : props.handleUpdateTodo(props.todo, newTags, 'tags')
   }
 
-  const allTags = () =>
-    props.currentProject.tags.map((tag, i) => (
+  const AllTags = ({ tags, test }) =>
+    tags &&
+    tags.map((tag, i) => (
       <TagButton
         onPressDeleteTag={() => {
-          onPressDeleteTag(tag)
+          onPressDeleteTag(tag, test)
         }}
         index={i}
         key={i}
@@ -44,18 +51,20 @@ const Tags = props => {
     ))
 
   return (
-    props.tags && (
+    props.open && (
       <StyledTagWrapper>
-        {allTags()}
-        <AddTagButton
-          {...props}
-          value={value}
-          setValue={setValue}
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-          onPressValidNewTag={onPressValidNewTag}
-          checkTags={checkTags}
-        />
+        <AllTags {...props} />
+        {props.test && (
+          <AddTagButton
+            {...props}
+            value={value}
+            setValue={setValue}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            onPressValidNewTag={onPressValidNewTag}
+            checkTags={checkTags}
+          />
+        )}
       </StyledTagWrapper>
     )
   )

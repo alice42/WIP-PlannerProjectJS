@@ -50,6 +50,7 @@ const reducer = (state = initialState, action) => {
       const newCard = {
         title: action.payload.text,
         id: `todo_${uuid()}`,
+        tags: [],
         isComplete: false
       }
       const newStateAddCard = state.all

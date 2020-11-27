@@ -54,7 +54,7 @@ const ProjectContent = props => {
       </StyledTitleContainer>
       <ProjectSettingsList
         {...props}
-        tags={tagsOpen}
+        openProjectTags={tagsOpen}
         handleCloseTags={handleCloseTags}
         handleRemoveEvent={handleRemoveEvent}
       />

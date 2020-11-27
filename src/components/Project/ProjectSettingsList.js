@@ -8,7 +8,7 @@ const ProjectSettingsList = props => (
   <StyledSettingsList>
     {(props.currentProject.when ||
       props.currentProject.deadline ||
-      props.tags) && <Divider />}
+      props.openProjectTags) && <Divider />}
     {props.currentProject.when && (
       <SettingsListItemDate
         {...props}
@@ -25,10 +25,15 @@ const ProjectSettingsList = props => (
         handleRemoveEvent={props.handleRemoveEvent}
       />
     )}
-    {props.tags && (
+    {props.openProjectTags && (
       <>
         <ListItem className={'each tags'}>
-          <Tags {...props} />
+          <Tags
+            test={true}
+            open={props.openProjectTags}
+            tags={props.currentProject.tags}
+            {...props}
+          />
         </ListItem>
         <Divider />
       </>

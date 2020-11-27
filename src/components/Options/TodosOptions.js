@@ -1,7 +1,7 @@
 import React from 'react'
 import TodosOptionsItem from './TodosOptionsItem'
 import { PopperContainer, PopperBody } from '../Popper'
-import { setOptionsTodos, isMounted } from './utils'
+import { optionsTodos, isMounted } from './utils'
 import { ClickAwayListener } from '@material-ui/core'
 
 const TodosOptions = props => {
@@ -53,40 +53,42 @@ const TodosOptions = props => {
     handleClose()
   }
 
-  const options = setOptionsTodos()
-  const body = (
-    <PopperBody
-      {...props}
-      bodyType={bodyType}
-      options={[]}
-      handleUpdate={handleUpdateTodo}
-      toUpdate={props.currentTodo}
-      handleClose={handleClose}
-    />
-  )
+  // const body = (
+  //   <PopperBody
+  //     {...props}
+  //     bodyType={bodyType}
+  //     options={[]}
+  //     handleUpdate={handleUpdateTodo}
+  //     toUpdate={props.currentTodo}
+  //     handleClose={handleClose}
+  //   />
+  // )
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
       <span style={{ display: 'flex' }}>
-        {options.map((option, index) => (
+        {optionsTodos.map((option, index) => (
           <div key={index}>
             <TodosOptionsItem
+              {...props}
               key={index}
               option={option}
               expanded={expanded}
               currentTodo={props.currentTodo}
               handleClose={handleClose}
               handleClick={handleClick}
+              bodyType={bodyType}
+              handleUpdate={handleUpdateTodo}
               // handleClosePopper={handleClosePopper}
             />
           </div>
         ))}
-        <PopperContainer
+        {/* <PopperContainer
           open={open}
           anchorEl={anchorEl}
           placement={placement}
           body={body}
-        />
+        /> */}
       </span>
     </ClickAwayListener>
   )

@@ -1,6 +1,5 @@
 import * as React from 'react'
 import ProjectContent from '../components/Project/ProjectContent'
-import A from '../components/a'
 
 const Projects = props => {
   const [currentProject, setcurrentProject] = React.useState(null)

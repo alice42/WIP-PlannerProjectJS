@@ -6,6 +6,7 @@ import { defaultTagsList } from './utils'
 export const TagButton = props => (
   <StyledTagButton
     tabIndex={props.index}
+    onClick={e => e.currentTarget.focus()}
     onKeyDown={e => {
       if (e.key === 'Backspace') props.onPressDeleteTag()
     }}
@@ -16,6 +17,7 @@ export const TagButton = props => (
 
 export const AddTagButton = props => {
   const [open, setOpen] = React.useState(false)
+
   React.useEffect(() => {
     setOpen(false)
   }, [props.value])
