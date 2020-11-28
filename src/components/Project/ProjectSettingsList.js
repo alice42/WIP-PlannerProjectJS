@@ -29,9 +29,10 @@ const ProjectSettingsList = props => (
       <>
         <ListItem className={'each tags'}>
           <Tags
-            test={true}
+            withButton
             open={props.openProjectTags}
-            tags={props.currentProject.tags}
+            toUpdate={props.currentProject}
+            handleUpdate={props.handleUpdateProject}
             {...props}
           />
         </ListItem>

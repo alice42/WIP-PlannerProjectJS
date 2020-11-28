@@ -37,6 +37,10 @@ const ProjectContent = props => {
   const handleRemoveEvent = type => {
     props.projectsActions.updateProject(props.currentProject, null, type)
   }
+
+  const handleUpdateProject = (toUpdate, newValue, valueType) => {
+    props.projectsActions.updateProject(toUpdate, newValue, valueType)
+  }
   return (
     <>
       <StyledTitleContainer>
@@ -55,6 +59,7 @@ const ProjectContent = props => {
       <ProjectSettingsList
         {...props}
         openProjectTags={tagsOpen}
+        handleUpdateProject={handleUpdateProject}
         handleCloseTags={handleCloseTags}
         handleRemoveEvent={handleRemoveEvent}
       />
