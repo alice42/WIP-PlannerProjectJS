@@ -3,41 +3,37 @@ import { StyledTagWrapper } from './styles/tagsStyles'
 import { TagButton, AddTagButton } from './TagsButtons'
 
 const Tags = props => {
-  const [inputvalue, setinputvalue] = React.useState('')
-  const inputRefTags = React.useRef(null)
+  const [value, setValue] = React.useState(null)
+  const [inputValue, setInputValue] = React.useState('')
 
   React.useEffect(() => {
-    if (inputRefTags && inputRefTags.current) inputRefTags.current.focus()
-  }, [props.currentProject.tags.length === 0])
-
-  const handleInput = e => {
-    e.target.value === ',' || setinputvalue(e.target.value)
-  }
+    if (value === inputValue) onPressValidNewTag()
+  }, [value])
 
   const onPressValidNewTag = () => {
-    const tags = props.currentProject.tags
-    const valueCheckRegex = /(?=.*[a-zA-Z1-9])/
-    if (
-      valueCheckRegex.test(inputvalue) &&
-      !tags.find(value => value === inputvalue)
-    ) {
-      tags.push(inputvalue)
-      props.projectsActions.updateProject(props.currentProject, tags, 'tags')
+    const tags = props.toUpdate.tags
+    if (value && !tags.find(tag => tag === value)) {
+      tags.push(value)
+      props.handleUpdate(props.toUpdate, tags, 'tags')
     }
-    setinputvalue('')
-    if (tags.length === 0) {
+    setValue(null)
+  }
+
+  const checkTags = () => {
+    const tags = props.toUpdate.tags
+    if (tags.length === 0 && !value && !inputValue) {
       props.handleCloseTags()
     }
   }
 
   const onPressDeleteTag = tag => {
-    const tags = props.currentProject.tags
+    const tags = props.toUpdate.tags
     var newTags = tags.filter(value => value !== tag)
-    props.projectsActions.updateProject(props.currentProject, newTags, 'tags')
+    props.handleUpdate(props.toUpdate, newTags, 'tags')
   }
 
-  const allTags = () =>
-    props.currentProject.tags.map((tag, i) => (
+  const allTags = tags =>
+    tags.map((tag, i) => (
       <TagButton
         onPressDeleteTag={() => {
           onPressDeleteTag(tag)
@@ -49,19 +45,97 @@ const Tags = props => {
     ))
 
   return (
-    props.addTags && (
+    props.open && (
       <StyledTagWrapper>
-        {allTags()}
-        <AddTagButton
-          inputRefTags={inputRefTags}
-          inputvalue={inputvalue}
-          handleInput={handleInput}
-          onPressValidNewTag={onPressValidNewTag}
-          handleCloseTags={props.handleCloseTags}
-        />
+        {allTags(props.toUpdate.tags)}
+        {props.withButton && (
+          <AddTagButton
+            {...props}
+            value={value}
+            setValue={setValue}
+            inputValue={inputValue}
+            setInputValue={setInputValue}
+            onPressValidNewTag={onPressValidNewTag}
+            checkTags={checkTags}
+          />
+        )}
       </StyledTagWrapper>
     )
   )
 }
 
 export default Tags
+
+// import * as React from 'react'
+// import { StyledTagWrapper } from './styles/tagsStyles'
+// import { TagButton, AddTagButton } from './TagsButtons'
+
+// const Tags = props => {
+//   const [value, setValue] = React.useState(null)
+//   const [inputValue, setInputValue] = React.useState('')
+
+//   React.useEffect(() => {
+//     if (value === inputValue) onPressValidNewTag()
+//   }, [value])
+
+//   const onPressValidNewTag = () => {
+//     const tags = props.tags
+//     if (value && !tags.find(tag => tag === value)) {
+//       tags.push(value)
+//       props.projectsActions.updateProject(props.currentProject, tags, 'tags')
+//     }
+//     setValue(null)
+//   }
+
+//   const checkTags = () => {
+//     const tags = props.tags
+//     if (tags.length === 0 && !value && !inputValue) {
+//       props.handleCloseTags()
+//     }
+//   }
+//   const onPressDeleteTag = (tag, test) => {
+//     const tags = test ? props.tags : props.todo.tags
+//     var newTags = tags.filter(value => value !== tag)
+//     test
+//       ? props.projectsActions.updateProject(
+//           props.currentProject,
+//           newTags,
+//           'tags'
+//         )
+//       : props.handleUpdateTodo(props.todo, newTags, 'tags')
+//   }
+
+//   const AllTags = ({ tags, test }) =>
+//     tags &&
+//     tags.map((tag, i) => (
+//       <TagButton
+//         onPressDeleteTag={() => {
+//           onPressDeleteTag(tag, test)
+//         }}
+//         index={i}
+//         key={i}
+//         title={tag}
+//       />
+//     ))
+
+//   return (
+//     props.open && (
+//       <StyledTagWrapper>
+//         <AllTags {...props} />
+//         {props.test && (
+//           <AddTagButton
+//             {...props}
+//             value={value}
+//             setValue={setValue}
+//             inputValue={inputValue}
+//             setInputValue={setInputValue}
+//             onPressValidNewTag={onPressValidNewTag}
+//             checkTags={checkTags}
+//           />
+//         )}
+//       </StyledTagWrapper>
+//     )
+//   )
+// }
+
+// export default Tags

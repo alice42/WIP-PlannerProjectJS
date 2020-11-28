@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { Divider, ListItem } from '@material-ui/core'
 import { StyledSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
-
+import Tags from '../Tags/Tags'
 const TodosSettingsList = props => (
   <StyledSettingsList todos={'true'}>
     {props.currentTodo && props.currentTodo.when && (
@@ -10,7 +11,7 @@ const TodosSettingsList = props => (
         todos
         type={'when'}
         typeSettings={props.currentTodo}
-        handleRemoveEvent={props.handleRemoveEvent}
+        // handleRemoveEvent={props.handleRemoveEvent}
       />
     )}
     {props.currentTodo && props.currentTodo.deadline && (
@@ -19,8 +20,18 @@ const TodosSettingsList = props => (
         todos
         type={'deadline'}
         typeSettings={props.currentTodo}
-        handleRemoveEvent={props.handleRemoveEvent}
+        // handleRemoveEvent={props.handleRemoveEvent}
       />
+    )}
+    {props.currentTodo && props.currentTodo.tags && (
+      <ListItem className={'each tags'}>
+        <Tags
+          {...props}
+          open={true}
+          toUpdate={props.currentTodo}
+          handleUpdate={props.handleUpdateTodo}
+        />
+      </ListItem>
     )}
   </StyledSettingsList>
 )

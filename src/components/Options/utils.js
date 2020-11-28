@@ -54,28 +54,25 @@ export const setOptionsTitle = (
   return optionsTitle
 }
 
-export const setOptionsTodos = () => {
-  const optionsTodos = [
-    {
-      id: 'when',
-      title: 'When',
-      icon: 'date_range'
-    },
-    {
-      id: 'tag',
-      title: 'Tags',
-      icon: 'local_offer'
-    },
-    {
-      id: 'checklist',
-      title: 'Checklist',
-      icon: 'format_list_bulleted'
-    },
-    {
-      id: 'deadline',
-      title: 'Add Deadline',
-      icon: 'schedule'
-    }
-  ]
-  return optionsTodos
-}
+export const optionsTodos = [
+  {
+    id: 'when',
+    title: 'When',
+    icon: 'date_range'
+  },
+  {
+    id: 'tag',
+    title: 'Tags',
+    icon: 'local_offer'
+  },
+  {
+    id: 'checklist',
+    title: 'Checklist',
+    icon: 'format_list_bulleted'
+  },
+  {
+    id: 'deadline',
+    title: 'Add Deadline',
+    icon: 'schedule'
+  }
+]

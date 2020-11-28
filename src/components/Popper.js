@@ -29,12 +29,12 @@ export const PopperBody = props => {
           handleClose={props.handleClose}
         />
       </PopperBodyCalendar>
-    ),
-    tag: (
-      <PopperBodyList>
-        <TagsList {...props} />
-      </PopperBodyList>
     )
+    // tag: (
+    //   <PopperBodyList>
+    //     <TagsList {...props} />
+    //   </PopperBodyList>
+    // )
   }
   return bodies[type] || null
 }
