@@ -9,6 +9,39 @@ import { defaultTagsList } from './Tags/utils'
 import Calendar from './Calendar/Calendar'
 import { PopperBodyCalendar } from './styles/componentsStyles'
 import { Popper } from '@material-ui/core'
+import { AddTagButton } from './Tags/TagsButtons'
+
+const Test = React.forwardRef(function ListboxComponent(props, ref) {
+  return (
+    <div ref={ref}>
+      {(props.bodyType === 'when' || props.bodyType === 'deadline') && (
+        <Calendar
+          {...props}
+          dateType={props.bodyType}
+          handleUpdate={props.handleUpdate}
+          toUpdate={props.todo}
+          handleClose={props.handleClose}
+        />
+      )}
+      {props.bodyType === 'tag' && <ul role={'listbox'}>{props.children}</ul>}
+    </div>
+  )
+})
+const TestA = React.forwardRef(function PopperComponent(props, ref) {
+  return (
+    <Popper
+      ref={ref}
+      open={props.open}
+      anchorEl={props.anchorEl}
+      placement={'bottom-start'}
+    >
+      {props.children}
+    </Popper>
+  )
+})
+const TestB = React.forwardRef(function PaperComponent(props, ref) {
+  return <PopperBodyCalendar ref={ref}>{props.children}</PopperBodyCalendar>
+})
 
 export default function CustomInputAutocomplete(props) {
   const classes = useStyledExpandedInput()
@@ -39,38 +72,6 @@ export default function CustomInputAutocomplete(props) {
     }
   }, [props.expanded[props.id]])
 
-  const Test = React.forwardRef(function ListboxComponent(props, ref) {
-    return (
-      <div ref={ref}>
-        {(props.bodyType === 'when' || props.bodyType === 'deadline') && (
-          <Calendar
-            {...props}
-            dateType={props.bodyType}
-            handleUpdate={props.handleUpdate}
-            toUpdate={props.todo}
-            handleClose={props.handleClose}
-          />
-        )}
-        {props.bodyType === 'tag' && <ul role={'listbox'}>{props.children}</ul>}
-      </div>
-    )
-  })
-  const TestA = React.forwardRef(function PopperComponent(props, ref) {
-    return (
-      <Popper
-        ref={ref}
-        open={props.open}
-        anchorEl={props.anchorEl}
-        placement={'bottom-start'}
-      >
-        {props.children}
-      </Popper>
-    )
-  })
-  const TestB = React.forwardRef(function PaperComponent(props, ref) {
-    return <PopperBodyCalendar ref={ref}>{props.children}</PopperBodyCalendar>
-  })
-
   return (
     <div className={classes.root}>
       <FormControlLabel
@@ -100,7 +101,6 @@ export default function CustomInputAutocomplete(props) {
           clearOnBlur
           blurOnSelect
           value={value}
-          // noOptionsText={'AAAAAA'}
           filterOptions={options => {
             const filtered = options.filter(
               option => !props.todo.tags.includes(option)
@@ -110,7 +110,6 @@ export default function CustomInputAutocomplete(props) {
           onChange={(event, newValue) => {
             setValue(newValue)
           }}
-          // inputValue={inputValue}
           onInputChange={(event, newInputValue) => {
             setInputValue(newInputValue)
           }}
