@@ -1,6 +1,10 @@
+import styled from 'styled-components'
+import Toolbar from '@material-ui/core/Toolbar'
+
 const drawerWidth = 240
+
 export const styles = theme => ({
-  appBarSpacer: theme.mixins.toolbar,
+  // appBarSpacer: theme.mixins.toolbar,
   root: {
     display: 'flex'
   },
@@ -31,3 +35,8 @@ export const styles = theme => ({
     padding: theme.spacing(3)
   }
 })
+
+export const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
+`
