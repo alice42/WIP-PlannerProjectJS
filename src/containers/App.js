@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import LayoutRoute from '../components/Layout/LayoutRoute'
@@ -7,13 +7,12 @@ import Layout from '../components/Layout/Layout'
 import * as projectsActions from '../actions/projectsActions'
 import Projects from './Projects'
 
+import SignIn from './SignIn'
+
 const App = () => {
   return (
     <BrowserRouter basename="/">
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/projects/" />
-        </Route>
         <LayoutRouteConnected
           exact
           path={'/projects/'}
@@ -26,7 +25,9 @@ const App = () => {
           component={Projects}
           layout={Layout}
         />
-        <Redirect to="/" />
+        <Route path="/">
+          <SignIn />
+        </Route>
       </Switch>
     </BrowserRouter>
   )
@@ -38,10 +39,12 @@ const actionsMapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  const { projects, lists } = state
+  const { projects, lists, firebase, firestore } = state
   return {
     projects,
-    lists
+    lists,
+    firebase,
+    firestore
   }
 }
 
