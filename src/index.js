@@ -45,16 +45,16 @@ const rrfProps = {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-        <ReactReduxFirebaseProvider {...rrfProps}>
-          <StylesProvider injectFirst>
-            <App />
-          </StylesProvider>
-        </ReactReduxFirebaseProvider>
-      </Provider>
-    </MuiThemeProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...rrfProps}>
+        <StylesProvider injectFirst>
+          <App />
+        </StylesProvider>
+      </ReactReduxFirebaseProvider>
+    </Provider>
+  </MuiThemeProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 )

@@ -9,17 +9,10 @@ import { styles } from './styles/layoutStyles'
 const drawerWidth = 240
 const useStyles = makeStyles(styles)
 
-function ResponsiveDrawer(props) {
-  console.log(props)
+function ResponsiveDrawer({ handleDrawerToggle, mobileOpen, ...props }) {
   const { window } = props
   const classes = useStyles(styles)
   const theme = useTheme()
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />

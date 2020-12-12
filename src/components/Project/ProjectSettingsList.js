@@ -4,36 +4,38 @@ import Tags from '../Tags/Tags'
 import { StyledSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
 
-const ProjectSettingsList = props => (
+const ProjectSettingsList = ({
+  project,
+  openProjectTags,
+  handleUpdateProject,
+  handleCloseTags,
+  handleRemoveEvent
+}) => (
   <StyledSettingsList>
-    {(props.currentProject.when ||
-      props.currentProject.deadline ||
-      props.openProjectTags) && <Divider />}
-    {props.currentProject.when && (
+    {(project.when || project.deadline || openProjectTags) && <Divider />}
+    {project.when && (
       <SettingsListItemDate
-        {...props}
         type={'when'}
-        typeSettings={props.currentProject}
-        handleRemoveEvent={props.handleRemoveEvent}
+        project={project}
+        handleRemoveEvent={handleRemoveEvent}
       />
     )}
-    {props.currentProject.deadline && (
+    {project.deadline && (
       <SettingsListItemDate
-        {...props}
         type={'deadline'}
-        typeSettings={props.currentProject}
-        handleRemoveEvent={props.handleRemoveEvent}
+        project={project}
+        handleRemoveEvent={handleRemoveEvent}
       />
     )}
-    {props.openProjectTags && (
+    {openProjectTags && (
       <>
         <ListItem className={'each tags'}>
           <Tags
             withButton
-            open={props.openProjectTags}
-            toUpdate={props.currentProject}
-            handleUpdate={props.handleUpdateProject}
-            {...props}
+            open={openProjectTags}
+            project={project}
+            handleUpdate={handleUpdateProject}
+            handleCloseTags={handleCloseTags}
           />
         </ListItem>
         <Divider />

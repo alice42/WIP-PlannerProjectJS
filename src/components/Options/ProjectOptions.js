@@ -3,7 +3,13 @@ import { Icon, ClickAwayListener } from '@material-ui/core'
 import { PopperContainer, PopperBody } from '../Popper'
 import { setOptionsTitle } from './utils'
 
-const ProjectOptions = props => {
+const ProjectOptions = ({
+  project,
+  handleCompleteProject,
+  handleRemoveProject,
+  handleOpenTags,
+  updateProject
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [open, setOpen] = React.useState(false)
   const [placement, setPlacement] = React.useState()
@@ -11,7 +17,7 @@ const ProjectOptions = props => {
 
   React.useEffect(() => {
     setOpen(false)
-  }, [props.currentProject])
+  }, [project])
 
   const handleClose = () => {
     setOpen(false)
@@ -36,12 +42,12 @@ const ProjectOptions = props => {
   }
 
   const handleTags = () => {
-    props.handleOpenTags()
+    handleOpenTags()
     handleClose()
   }
 
   const handleUpdateProject = (itemType, newValue, valueType) => {
-    props.projectsActions.updateProject(itemType, newValue, valueType)
+    updateProject(itemType, newValue, valueType)
   }
 
   const handleClickAway = () => {
@@ -50,9 +56,9 @@ const ProjectOptions = props => {
   }
 
   const options = setOptionsTitle(
-    props.currentProject,
-    props.handleCompleteProject,
-    props.handleRemoveProject,
+    project,
+    handleCompleteProject,
+    handleRemoveProject,
     handleTags,
     handleCalendar,
     handleCalendarDeadline
@@ -60,11 +66,10 @@ const ProjectOptions = props => {
 
   const body = (
     <PopperBody
-      {...props}
       bodyType={bodyType}
       options={options}
       handleUpdate={handleUpdateProject}
-      toUpdate={props.currentProject}
+      toUpdate={project}
       handleClose={handleClose}
     />
   )
