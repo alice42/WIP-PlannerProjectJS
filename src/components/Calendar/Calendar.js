@@ -43,11 +43,11 @@ const Calendar = props => {
         allDay: true,
         display: 'background'
       })
-      props.handleUpdate(props.toUpdate, startStr, props.dateType)
+      props.handleUpdate(startStr, props.dateType)
     } else if (props.toUpdate.title && props.toUpdate[props.dateType]) {
       const event = calendarApi.getEventById(props.toUpdate.id)
       event.setStart(startStr, { maintainDuration: true })
-      props.handleUpdate(props.toUpdate, startStr, props.dateType)
+      props.handleUpdate(startStr, props.dateType)
     }
     props.handleClose()
   }
@@ -60,7 +60,7 @@ const Calendar = props => {
       )
     ) {
       clickInfo.event.remove()
-      props.handleUpdate(props.toUpdate, null, [props.dateType])
+      props.handleUpdate(null, [props.dateType])
     }
   }
 

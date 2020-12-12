@@ -14,7 +14,7 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
     const tags = [...project.tags]
     if (value && !tags.find(tag => tag === value)) {
       tags.push(value)
-      handleUpdate(project, tags, 'tags')
+      handleUpdate(tags, 'tags')
     }
     setValue(null)
   }
@@ -29,7 +29,7 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
   const onPressDeleteTag = tag => {
     const tags = project.tags
     var newTags = tags.filter(value => value !== tag)
-    handleUpdate(project, newTags, 'tags')
+    handleUpdate(newTags, 'tags')
   }
 
   const allTags = tags =>
