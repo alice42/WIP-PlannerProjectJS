@@ -8,8 +8,7 @@ const ProjectSettingsList = ({
   project,
   openProjectTags,
   handleUpdateProject,
-  handleCloseTags,
-  handleRemoveEvent
+  handleCloseTags
 }) => (
   <StyledSettingsList>
     {(project.when || project.deadline || openProjectTags) && <Divider />}
@@ -17,30 +16,28 @@ const ProjectSettingsList = ({
       <SettingsListItemDate
         type={'when'}
         project={project}
-        handleRemoveEvent={handleRemoveEvent}
+        handleUpdateProject={handleUpdateProject}
       />
     )}
     {project.deadline && (
       <SettingsListItemDate
         type={'deadline'}
         project={project}
-        handleRemoveEvent={handleRemoveEvent}
+        handleUpdateProject={handleUpdateProject}
       />
     )}
     {openProjectTags && (
-      <>
-        <ListItem className={'each tags'}>
-          <Tags
-            withButton
-            open={openProjectTags}
-            project={project}
-            handleUpdate={handleUpdateProject}
-            handleCloseTags={handleCloseTags}
-          />
-        </ListItem>
-        <Divider />
-      </>
+      <ListItem className={'each tags'}>
+        <Tags
+          withButton
+          open={openProjectTags}
+          project={project}
+          handleUpdate={handleUpdateProject}
+          handleCloseTags={handleCloseTags}
+        />
+      </ListItem>
     )}
+    {openProjectTags && <Divider />}
   </StyledSettingsList>
 )
 

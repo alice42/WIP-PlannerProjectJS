@@ -16,11 +16,24 @@ import { useHistory } from 'react-router-dom'
 const ProjectContent = ({ inputRefNotes, projectID }) => {
   const firestore = useFirestore()
   const history = useHistory()
+
+  const { uid } = useSelector(state => state.firebase.auth)
   const project = useSelector(
     ({ firestore: { data } }) => data.projects && data.projects[projectID]
   )
 
-  const { uid } = useSelector(state => state.firebase.auth)
+  const [tagsOpen, setTagsOpen] = React.useState()
+
+  React.useEffect(() => {
+    setTagsOpen(project.tags && project.tags.length !== 0 ? true : false)
+  }, [project])
+
+  const handleOpenTags = () => {
+    setTagsOpen(true)
+  }
+  const handleCloseTags = () => {
+    setTagsOpen(false)
+  }
 
   const handleCompleteProject = () => {
     return firestore
@@ -33,8 +46,8 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
       })
   }
 
-  const handleRemoveProject = event => {
-    return firestore
+  const handleRemoveProject = () =>
+    firestore
       .collection('users')
       .doc(uid)
       .collection('projects')
@@ -47,25 +60,13 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
       .catch(function(error) {
         console.error('Error removing document: ', error)
       })
-  }
 
-  const [tagsOpen, setTagsOpen] = React.useState(
-    project && project.tags && project.tags.length !== 0 ? true : false
-  )
+  // const handleRemoveEvent = type => {
+  //   props.projectsActions.updateProject(props.currentProject, null, type)
+  // }
 
-  const handleOpenTags = () => {
-    setTagsOpen(true)
-  }
-  const handleCloseTags = () => {
-    setTagsOpen(false)
-  }
-
-  const handleRemoveEvent = type => {
-    props.projectsActions.updateProject(props.currentProject, null, type)
-  }
-
-  const handleInputEditing = (value, type) => {
-    return firestore
+  const handleInputEditing = (value, type) =>
+    firestore
       .collection('users')
       .doc(uid)
       .collection('projects')
@@ -73,19 +74,16 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
       .update({
         [`${type}`]: value
       })
-  }
 
-  const handleUpdateProject = (toUpdate, newValue, valueType) => {
-    // console.log(toUpdate, newValue, valueType)
+  const handleUpdateProject = (newValue, valueType) =>
     firestore
       .collection('users')
       .doc(uid)
       .collection('projects')
-      .doc(toUpdate.projectID)
+      .doc(projectID)
       .update({
         [`${valueType}`]: newValue
       })
-  }
 
   console.log(project)
   return (
@@ -96,7 +94,7 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
             checked={project.isCompleted}
             onChange={handleCompleteProject}
           />
-          <Title project={project} handleInputEditing={handleInputEditing} />
+          <Title project={project} handleUpdateProject={handleUpdateProject} />
           <ProjectOptions
             project={project}
             handleCompleteProject={handleCompleteProject}
@@ -110,7 +108,7 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
           openProjectTags={tagsOpen}
           handleUpdateProject={handleUpdateProject}
           handleCloseTags={handleCloseTags}
-          handleRemoveEvent={handleRemoveEvent}
+          // handleRemoveEvent={handleRemoveEvent}
         />
         {/*    // <ProjectNotes
       //   // {...props}

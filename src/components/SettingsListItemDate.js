@@ -17,7 +17,7 @@ const IconsDate = ({ todos, type }) =>
     </StyledIconSettingsList>
   )
 
-const SettingsListItemDate = ({ type, project, handleRemoveEvent }) => {
+const SettingsListItemDate = ({ type, project, handleUpdateProject }) => {
   const [hover, sethover] = React.useState(false)
   return (
     <>
@@ -32,7 +32,7 @@ const SettingsListItemDate = ({ type, project, handleRemoveEvent }) => {
           {hover && (
             <Icon
               className={'date-icon-close'}
-              onClick={() => handleRemoveEvent(type)}
+              onClick={() => handleUpdateProject(null, type)}
             >
               close
             </Icon>

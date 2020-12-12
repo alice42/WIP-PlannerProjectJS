@@ -1,7 +1,7 @@
 import * as React from 'react'
 import InlineGrownInput from '../InlineGrownInput'
 
-const ProjectTitle = ({ handleInputEditing, project }) => {
+const ProjectTitle = ({ handleUpdateProject, project }) => {
   const { title } = project
   const inputRefTitle = React.useRef(null)
 
@@ -18,7 +18,7 @@ const ProjectTitle = ({ handleInputEditing, project }) => {
       typeValue={'title'}
       value={title}
       placeholder={'New Project'}
-      handleInputEditing={handleInputEditing}
+      handleUpdateProject={handleUpdateProject}
     />
   )
 }

@@ -46,8 +46,8 @@ const ProjectOptions = ({
     handleClose()
   }
 
-  const handleUpdateProject = (itemType, newValue, valueType) => {
-    updateProject(itemType, newValue, valueType)
+  const handleUpdateProject = (newValue, valueType) => {
+    updateProject(newValue, valueType)
   }
 
   const handleClickAway = () => {
