@@ -34,7 +34,7 @@ export default function Form({
           inputRef={inputRef}
           typeValue={typeValue}
           placeholder={placeholder}
-          handleInputEditing={handleTypeEditing}
+          handleUpdateProject={handleTypeEditing}
         />
       </StyledInputWrapperLeft>
     )

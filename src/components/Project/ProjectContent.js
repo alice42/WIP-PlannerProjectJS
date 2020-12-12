@@ -108,16 +108,15 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
           openProjectTags={tagsOpen}
           handleUpdateProject={handleUpdateProject}
           handleCloseTags={handleCloseTags}
-          // handleRemoveEvent={handleRemoveEvent}
         />
-        {/*    // <ProjectNotes
-      //   // {...props}
-      //   handleInputEditing={handleInputEditing}
-      // />
-      // <DragDropContext
-      //   //  {...props}
-      //   updateProject={handleUpdateProject}
-      // /> */}
+        <ProjectNotes
+          project={project}
+          handleUpdateProject={handleUpdateProject}
+        />
+        {/* <DragDropContext
+          project={project}
+          updateProject={handleUpdateProject}
+        /> */}
       </>
     )
   )
