@@ -1,8 +1,9 @@
 import React from 'react'
 import Form from './Form'
 import OpenForm from './OpenForm'
+import uuid from 'react-uuid'
 
-export default function Create(props) {
+export default function Create({ list, project, handleUpdateProject, listID }) {
   const inputCreateRef = React.useRef(null)
   const [text, setText] = React.useState('')
   const [formOpen, setformOpen] = React.useState(false)
@@ -23,32 +24,38 @@ export default function Create(props) {
   const handleAddList = value => {
     if (value) {
       setText('')
-      props.projectsActions.addList(value, props.currentProject)
+      const newList = {
+        title: value,
+        cards: [],
+        id: `heading_${uuid()}`
+      }
+      const lists = [...project.lists, newList]
+      handleUpdateProject(lists, 'lists')
     }
     closeForm()
   }
 
-  const handleAddCard = value => {
-    if (value) {
-      setText('')
-      props.projectsActions.addCard(props.listID, value, props.currentProject)
-    }
-    closeForm()
-  }
+  // const handleAddCard = value => {
+  //   if (value) {
+  //     setText('')
+  //     projectsActions.addCard(listID, value, project)
+  //   }
+  //   closeForm()
+  // }
 
   return formOpen ? (
     <Form
-      list={props.listID === 'list-0' ? null : props.list}
+      list={listID === 'list-0' ? null : list}
       text={text}
       inputRef={inputCreateRef}
       handleInputChange={handleInputChange}
       closeForm={closeForm}
-      typeValue={props.list ? 'heading' : 'todo'}
+      typeValue={list ? 'heading' : 'todo'}
     />
   ) : (
-    (!props.listID || props.listID === 'list-0') && (
-      <OpenForm list={props.list} onClick={openForm}>
-        {props.list ? 'Add Heading' : 'Add To-do'}
+    (!listID || listID === 'list-0') && (
+      <OpenForm list={list} onClick={openForm}>
+        {list ? 'Add Heading' : 'Add To-do'}
       </OpenForm>
     )
   )

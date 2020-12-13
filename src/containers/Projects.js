@@ -7,7 +7,6 @@ import { useFirestore } from 'react-redux-firebase'
 
 const Projects = props => {
   const [project, setProject] = React.useState()
-  const inputRefNotes = React.useRef(null)
 
   React.useEffect(() => {
     const existingProject =
@@ -15,20 +14,13 @@ const Projects = props => {
       Object.values(props.firestore.data.projects).find(
         project => project && project.id === props.match.params.id
       )
+    // props.projectsActions.cleanLists()
     setProject(existingProject)
   })
 
-  React.useEffect(() => {
-    if (inputRefNotes && inputRefNotes.current)
-      inputRefNotes.current.textContent = project.notes || ''
-  }, [project])
-
   return (
     (project && (
-      <ProjectContent
-        inputRefNotes={inputRefNotes}
-        projectID={project.projectID}
-      />
+      <ProjectContent {...props} projectID={project.projectID} />
     )) || <div>NO PROJECT SELECTED</div>
   )
 }

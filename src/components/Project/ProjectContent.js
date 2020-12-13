@@ -8,12 +8,12 @@ import {
   StyledTitleContainer,
   StyledTitleCheckbox
 } from './styles/projectStyles'
-import { useFirestoreConnect } from 'react-redux-firebase'
+import { isLoaded, useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { useFirestore } from 'react-redux-firebase'
 import { useHistory } from 'react-router-dom'
 
-const ProjectContent = ({ inputRefNotes, projectID }) => {
+const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
   const firestore = useFirestore()
   const history = useHistory()
 
@@ -25,7 +25,9 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
   const [tagsOpen, setTagsOpen] = React.useState()
 
   React.useEffect(() => {
-    setTagsOpen(project.tags && project.tags.length !== 0 ? true : false)
+    setTagsOpen(
+      project && project.tags && project.tags.length !== 0 ? true : false
+    )
   }, [project])
 
   const handleOpenTags = () => {
@@ -61,22 +63,8 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
         console.error('Error removing document: ', error)
       })
 
-  // const handleRemoveEvent = type => {
-  //   props.projectsActions.updateProject(props.currentProject, null, type)
-  // }
-
-  const handleInputEditing = (value, type) =>
-    firestore
-      .collection('users')
-      .doc(uid)
-      .collection('projects')
-      .doc(projectID)
-      .update({
-        [`${type}`]: value
-      })
-
-  const handleUpdateProject = (newValue, valueType) =>
-    firestore
+  const handleUpdateProject = (newValue, valueType) => {
+    return firestore
       .collection('users')
       .doc(uid)
       .collection('projects')
@@ -84,8 +72,11 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
       .update({
         [`${valueType}`]: newValue
       })
+  }
 
-  console.log(project)
+  if (!isLoaded(project)) {
+    return 'Loading...'
+  }
   return (
     project && (
       <>
@@ -113,10 +104,11 @@ const ProjectContent = ({ inputRefNotes, projectID }) => {
           project={project}
           handleUpdateProject={handleUpdateProject}
         />
-        {/* <DragDropContext
+        <DragDropContext
+          {...restProps}
           project={project}
-          updateProject={handleUpdateProject}
-        /> */}
+          handleUpdateProject={handleUpdateProject}
+        />
       </>
     )
   )

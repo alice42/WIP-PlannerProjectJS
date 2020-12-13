@@ -2,8 +2,26 @@ import React from 'react'
 import Heading from '../Heading/Heading'
 import Create from './Create'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { useSelector } from 'react-redux'
 
-export default function DnDContext(props) {
+export default function DnDContext({
+  project,
+  handleUpdateProject,
+  projectsActions
+}) {
+  const listsState = useSelector(state => state.projects.lists)
+
+  React.useEffect(() => {
+    if (listsState) {
+      handleUpdateProject(listsState, 'lists')
+    }
+  }, [listsState])
+
+  React.useEffect(() => {
+    projectsActions.cleanLists()
+    projectsActions.initLists(project)
+  }, [project])
+
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result
     if (
@@ -12,37 +30,39 @@ export default function DnDContext(props) {
     ) {
       return
     }
-
-    props.projectsActions.sort(
+    projectsActions.sort(
       source.droppableId,
       destination.droppableId,
       source.index,
       destination.index,
       draggableId,
       type,
-      props.currentProject
+      project
     )
   }
-
-  const { lists } = props.currentProject
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="all-lists" type="list">
         {provided => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            {lists.map((list, index) => (
-              <Heading
-                {...props}
-                listID={list.id}
-                key={list.id}
-                title={list.title}
-                cards={list.cards}
-                index={index}
-              />
-            ))}
+            {listsState &&
+              listsState.map((list, index) => (
+                <Heading
+                  listID={list.id}
+                  key={list.id}
+                  title={list.title}
+                  cards={list.cards}
+                  index={index}
+                  project={project}
+                  handleUpdateProject={handleUpdateProject}
+                />
+              ))}
             {provided.placeholder}
-            <Create {...props} list />
+            <Create
+              list
+              project={project}
+              handleUpdateProject={handleUpdateProject}
+            />
           </div>
         )}
       </Droppable>
