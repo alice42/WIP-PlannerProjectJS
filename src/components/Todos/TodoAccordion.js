@@ -52,7 +52,7 @@ const TodosAccordion = props => {
           <Typography color="textSecondary">notes</Typography>
         </StyledTodosNotesWrapper>
         <StyledTodosOptionsWrapper>
-          <TodosOptions
+          {/* <TodosOptions
             {...props}
             list={props.list}
             currentTodo={props.currentTodo}
@@ -63,7 +63,7 @@ const TodosAccordion = props => {
             todos
             currentTodo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
-          />
+          /> */}
         </StyledTodosOptionsWrapper>
       </StyledAccordionDetails>
     </Accordion>

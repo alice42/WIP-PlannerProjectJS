@@ -23,21 +23,12 @@ const Todos = props => {
   }
 
   const saveCard = value => {
-    props.projectsActions.editCard(
-      props.id,
-      props.listID,
-      value,
-      props.currentProject
-    )
+    props.projectsActions.editCard(props.id, props.listID, value, props.project)
     setIsEditing(false)
   }
 
   const handleDeleteCard = () => {
-    props.projectsActions.deleteCard(
-      props.id,
-      props.listID,
-      props.currentProject
-    )
+    props.projectsActions.deleteCard(props.id, props.listID, props.project)
   }
 
   const renderEditForm = () => {
@@ -49,7 +40,7 @@ const Todos = props => {
           value={cardText}
           typeValue={'todo'}
           placeholder={'New To-do'}
-          handleInputEditing={handleTypeEditing}
+          handleUpdateProject={handleTypeEditing}
         />
       </StyledInputWrapperLeft>
     )

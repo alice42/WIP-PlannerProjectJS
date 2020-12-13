@@ -45,18 +45,18 @@ export const addList = (title, project) => {
   }
 }
 
-export const editCard = (id, listID, newText, currentProject) => {
+export const editCard = (id, listID, newText, project) => {
   return {
     type: CONSTANTS.EDIT_CARD,
-    project: currentProject,
+    project,
     payload: { id, listID, newText }
   }
 }
 
-export const deleteCard = (id, listID, currentProject) => {
+export const deleteCard = (id, listID, project) => {
   return {
     type: CONSTANTS.DELETE_CARD,
-    project: currentProject,
+    project,
     payload: { id, listID }
   }
 }

@@ -12,6 +12,7 @@ export default function DnDContext({
   const listsState = useSelector(state => state.projects.lists)
 
   React.useEffect(() => {
+    console.log('state changed')
     if (listsState) {
       handleUpdateProject(listsState, 'lists')
     }
@@ -54,6 +55,7 @@ export default function DnDContext({
                   cards={list.cards}
                   index={index}
                   project={project}
+                  projectsActions={projectsActions}
                   handleUpdateProject={handleUpdateProject}
                 />
               ))}

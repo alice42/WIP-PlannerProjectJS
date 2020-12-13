@@ -3,7 +3,13 @@ import Form from './Form'
 import OpenForm from './OpenForm'
 import uuid from 'react-uuid'
 
-export default function Create({ list, project, handleUpdateProject, listID }) {
+export default function Create({
+  list,
+  project,
+  handleUpdateProject,
+  listID,
+  projectsActions
+}) {
   const inputCreateRef = React.useRef(null)
   const [text, setText] = React.useState('')
   const [formOpen, setformOpen] = React.useState(false)
@@ -35,13 +41,13 @@ export default function Create({ list, project, handleUpdateProject, listID }) {
     closeForm()
   }
 
-  // const handleAddCard = value => {
-  //   if (value) {
-  //     setText('')
-  //     projectsActions.addCard(listID, value, project)
-  //   }
-  //   closeForm()
-  // }
+  const handleAddCard = value => {
+    if (value) {
+      setText('')
+      projectsActions.addCard(listID, value, project)
+    }
+    closeForm()
+  }
 
   return formOpen ? (
     <Form

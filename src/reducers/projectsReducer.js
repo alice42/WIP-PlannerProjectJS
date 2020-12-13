@@ -47,31 +47,25 @@ const reducer = (state = initialState, action) => {
     //     all: newStateAddList
     //   }
 
-    // case CONSTANTS.ADD_CARD:
-    //   const newCard = {
-    //     title: action.payload.text,
-    //     id: `todo_${uuid()}`,
-    //     tags: [],
-    //     isComplete: false
-    //   }
-    //   const newStateAddCard = state.all
-    //   newStateAddCard.map(
-    //     project =>
-    //       (project =
-    //         project.id === action.project.id
-    //           ? (project.lists = project.lists.map(
-    //               list =>
-    //                 (list =
-    //                   list.id === action.payload.listID
-    //                     ? { ...list, cards: [...list.cards, newCard] }
-    //                     : list)
-    //             ))
-    //           : project)
-    //   )
-    //   return {
-    //     ...state,
-    //     all: newStateAddCard
-    //   }
+    case CONSTANTS.ADD_CARD:
+      const newCard = {
+        title: action.payload.text,
+        id: `todo_${uuid()}`,
+        tags: [],
+        isComplete: false
+      }
+      const newStateAddCard = action.project.lists.map(
+        list =>
+          (list =
+            list.id === action.payload.listID
+              ? { ...list, cards: [...list.cards, newCard] }
+              : list)
+      )
+
+      return {
+        ...state,
+        lists: newStateAddCard
+      }
 
     case CONSTANTS.DRAG_HAPPENED:
       const {
@@ -82,17 +76,12 @@ const reducer = (state = initialState, action) => {
         type,
         project
       } = action.payload
-      // const newStateDrag = state.all
+
       const newState = [...project.lists]
 
       if (type === 'list') {
         const list = newState.splice(droppableIndexStart, 1)
         newState.splice(droppableIndexEnd, 0, ...list)
-        // newStateDrag.map(project =>
-        //   project.id === action.project.id
-        //     ? (action.project.lists = newState)
-        //     : project
-        // )
         return {
           ...state,
           lists: newState
@@ -100,42 +89,72 @@ const reducer = (state = initialState, action) => {
       }
 
       if (droppableIdStart === droppableIdEnd) {
-        const list = project.lists.find(list => droppableIdStart === list.id)
-        const card = list.cards.splice(droppableIndexStart, 1)
-        list.cards.splice(droppableIndexEnd, 0, ...card)
+        const tmpStateList = [...newState]
+        const newStateCards = tmpStateList.map(list => {
+          if (droppableIdStart === list.id) {
+            const cards = [...list.cards]
+            const card = cards.splice(droppableIndexStart, 1)
+            cards.splice(droppableIndexEnd, 0, ...card)
+            return { ...list, cards: cards }
+          }
+          return list
+        })
+        return {
+          ...state,
+          lists: newStateCards
+        }
       }
 
       if (droppableIdStart !== droppableIdEnd) {
-        const listStart = project.lists.find(
-          list => droppableIdStart === list.id
-        )
-        const card = listStart.cards.splice(droppableIndexStart, 1)
-        const listEnd = project.lists.find(list => droppableIdEnd === list.id)
+        const tmpStateList = [...newState]
+        let card
+        const removeCard = tmpStateList.map(list => {
+          if (droppableIdStart === list.id) {
+            const cardsStart = [...list.cards]
+            card = cardsStart.splice(droppableIndexStart, 1)
+            return { ...list, cards: cardsStart.splice(droppableIndexStart, 1) }
+          } else return list
+        })
 
-        listEnd.cards.splice(droppableIndexEnd, 0, ...card)
+        const newStateCard = removeCard.map(list => {
+          if (droppableIdEnd === list.id && card) {
+            const cardsEnd = [...list.cards]
+            cardsEnd.splice(droppableIndexEnd, 0, ...card)
+            return {
+              ...list,
+              cards: cardsEnd
+            }
+          } else return list
+        })
+        return {
+          ...state,
+          lists: newStateCard
+        }
       }
 
       return {
         ...state,
         lists: newState
       }
-    // case CONSTANTS.EDIT_CARD:
-    //   const newStateEditCard = state.all
-    //   newStateEditCard
-    //     .find(project => project.id === action.project.id)
-    //     .lists.map(list => {
-    //       if (list.id === action.payload.listID) {
-    //         list.cards.map(card => {
-    //           if (card.id === action.payload.id) {
-    //             card.title = action.payload.newText
-    //           }
-    //         })
-    //       }
-    //     })
-    //   return {
-    //     ...state,
-    //     all: newStateEditCard
-    //   }
+    case CONSTANTS.EDIT_CARD:
+      const a = action.project.lists
+      const newStateEditCard = a.map(list => {
+        if (list.id === action.payload.listID) {
+          return {
+            ...list,
+            cards: list.cards.map(card => {
+              if (card.id === action.payload.id) {
+                return { ...card, title: action.payload.newText }
+              } else return card
+            })
+          }
+        } else return list
+      })
+      console.log(newStateEditCard)
+      return {
+        ...state,
+        lists: newStateEditCard
+      }
 
     // case CONSTANTS.DELETE_CARD:
     //   const newStateDeleteCard = state.all

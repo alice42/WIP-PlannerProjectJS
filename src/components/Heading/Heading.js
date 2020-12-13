@@ -22,29 +22,26 @@ const Heading = props => {
   }, [isEditing])
 
   const handleTypeEditing = (value, type) => {
-    console.log('BBBB')
     if (type === 'heading') {
       const newLists = props.project.lists.map(list => {
         if (list.id === props.listID) {
           return { ...list, title: value }
         } else return list
       })
-      console.log(newLists)
       props.handleUpdateProject(newLists, 'lists')
       setListTitle(value)
     }
     setIsEditing(false)
   }
 
-  const handledeleteList = () => {
-    props.projectsActions.deleteList(props.listID, props.currentProject)
-  }
+  // const handledeleteList = () => {
+  //   props.projectsActions.deleteList(props.listID, props.currentProject)
+  // }
 
   const renderEditInput = () => {
     return (
       <StyledInputWrapperLeft>
         <InlineGrownInput
-          // {...props}
           project={props.project}
           inputRef={inputRefHeading}
           value={listTitle}
@@ -91,10 +88,16 @@ const Heading = props => {
                     id={card.id}
                     index={index}
                     listID={props.listID}
+                    handleUpdateProject={props.handleUpdateProject}
                   />
                 ))}
                 {provided.placeholder}
-                <Create {...props} listID={props.listID} />
+                <Create
+                  {...props}
+                  listID={props.listID}
+                  handleUpdateProject={props.handleUpdateProject}
+                  project={props.project}
+                />
               </div>
             )}
           </Droppable>

@@ -25,7 +25,6 @@ const StyledInputContext = styled.span`
 const InlineGrownInput = props => {
   const handleInputUpdate = (value, type) => {
     const newValue = value || props.placeholder
-    console.log('AAAA')
     props.handleUpdateProject(newValue, type)
   }
 
