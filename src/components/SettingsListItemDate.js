@@ -17,7 +17,12 @@ const IconsDate = ({ todos, type }) =>
     </StyledIconSettingsList>
   )
 
-const SettingsListItemDate = ({ type, project, handleUpdateProject }) => {
+const SettingsListItemDate = ({
+  type,
+  project,
+  handleUpdateProject,
+  todos
+}) => {
   const [hover, sethover] = React.useState(false)
   return (
     <>
@@ -27,7 +32,7 @@ const SettingsListItemDate = ({ type, project, handleUpdateProject }) => {
           onMouseLeave={() => sethover(false)}
           onMouseEnter={() => sethover(true)}
         >
-          {/* <IconsDate todos={todos} type={type} /> */}
+          <IconsDate todos={todos} type={type} />
           {dateString(project[`${type}`], type)}
           {hover && (
             <Icon
@@ -38,8 +43,7 @@ const SettingsListItemDate = ({ type, project, handleUpdateProject }) => {
             </Icon>
           )}
         </span>
-        {/* {!todos && !hover && ( */}
-        {!hover && (
+        {!todos && !hover && (
           <span
             className={'deadline'}
             onMouseLeave={() => sethover(false)}

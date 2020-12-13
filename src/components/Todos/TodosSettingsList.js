@@ -28,8 +28,8 @@ const TodosSettingsList = props => (
         <Tags
           {...props}
           open={true}
-          toUpdate={props.currentTodo}
-          handleUpdate={props.handleUpdateTodo}
+          project={props.currentTodo}
+          handleUpdateProject={props.handleUpdateTodo}
         />
       </ListItem>
     )}

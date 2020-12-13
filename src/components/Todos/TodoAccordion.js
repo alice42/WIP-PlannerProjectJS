@@ -18,12 +18,14 @@ const TodosAccordion = props => {
   const [expanded, setExpanded] = React.useState(false)
   const classes = useStyledTodoWrapper()
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
+
   const handleUpdateTodo = (itemType, newValue, valueType) => {
+    console.log('A')
     props.projectsActions.updateTodo(
       itemType,
       newValue,
       valueType,
-      props.currentProject,
+      props.project,
       props.list
     )
   }
@@ -42,7 +44,7 @@ const TodosAccordion = props => {
         />
         {!expanded && (
           <TodosSettingsNotExpanded
-            {...props}
+            // {...props}
             currentTodo={props.currentTodo}
           />
         )}
@@ -52,7 +54,7 @@ const TodosAccordion = props => {
           <Typography color="textSecondary">notes</Typography>
         </StyledTodosNotesWrapper>
         <StyledTodosOptionsWrapper>
-          {/* <TodosOptions
+          <TodosOptions
             {...props}
             list={props.list}
             currentTodo={props.currentTodo}
@@ -63,7 +65,7 @@ const TodosAccordion = props => {
             todos
             currentTodo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
-          /> */}
+          />
         </StyledTodosOptionsWrapper>
       </StyledAccordionDetails>
     </Accordion>

@@ -89,6 +89,7 @@ const reducer = (state = initialState, action) => {
       }
 
       if (droppableIdStart === droppableIdEnd) {
+        // console.log('A')
         const tmpStateList = [...newState]
         const newStateCards = tmpStateList.map(list => {
           if (droppableIdStart === list.id) {
@@ -106,15 +107,18 @@ const reducer = (state = initialState, action) => {
       }
 
       if (droppableIdStart !== droppableIdEnd) {
+        console.log('B')
         const tmpStateList = [...newState]
         let card
         const removeCard = tmpStateList.map(list => {
           if (droppableIdStart === list.id) {
             const cardsStart = [...list.cards]
             card = cardsStart.splice(droppableIndexStart, 1)
-            return { ...list, cards: cardsStart.splice(droppableIndexStart, 1) }
+            return { ...list, cards: cardsStart }
           } else return list
         })
+
+        console.log(removeCard)
 
         const newStateCard = removeCard.map(list => {
           if (droppableIdEnd === list.id && card) {
@@ -137,6 +141,7 @@ const reducer = (state = initialState, action) => {
         lists: newState
       }
     case CONSTANTS.EDIT_CARD:
+      console.log('A')
       const a = action.project.lists
       const newStateEditCard = a.map(list => {
         if (list.id === action.payload.listID) {
@@ -150,7 +155,6 @@ const reducer = (state = initialState, action) => {
           }
         } else return list
       })
-      console.log(newStateEditCard)
       return {
         ...state,
         lists: newStateEditCard
@@ -197,30 +201,31 @@ const reducer = (state = initialState, action) => {
     //     }
     //   })
 
-    // case CONSTANTS.UPDATE_TODO:
-    //   const newStateUpdateTodo = state.all
-    //   newStateUpdateTodo
-    //     .find(project => project.id === action.project.id)
-    //     .lists.map(list => {
-    //       if (list.id === action.list) {
-    //         list.cards.map(card => {
-    //           if (card.id === action.todo.id) {
-    //             card[`${action.typeValue}`] = action.value
-    //           }
-    //         })
-    //       }
-    //     })
-    //   return {
-    //     ...state,
-    //     all: newStateUpdateTodo
-    //   }
+    case CONSTANTS.UPDATE_TODO:
+      const newStateUpdateTodo = action.project.lists.map(list => {
+        if (list.id === action.list) {
+          return {
+            ...list,
+            cards: list.cards.map(card => {
+              if (card.id === action.todo.id) {
+                return { ...card, [`${action.typeValue}`]: action.value }
+              } else return card
+            })
+          }
+        } else return list
+      })
+
+      console.log(newStateUpdateTodo)
+      return {
+        ...state,
+        lists: newStateUpdateTodo
+      }
 
     case CONSTANTS.CLEAN_LISTS:
       return initialState
     case CONSTANTS.INIT_LISTS:
       return {
         ...state,
-        projectID: action.project.projectID,
         lists: [...action.project.lists]
       }
 

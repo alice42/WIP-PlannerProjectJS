@@ -55,14 +55,18 @@ export default function CustomInputAutocomplete(props) {
   }, [value])
 
   const onPressValidNewTag = () => {
-    const tags = props.todo.tags
+    const tags = [...props.todo.tags]
     if (value && !tags.find(tag => tag === value)) {
       tags.push(value)
       props.handleUpdate(props.todo, tags, 'tags')
     }
     setValue(null)
   }
-  const options = [...defaultTagsList, ...props.currentProject.tags]
+  const options = [
+    ...defaultTagsList,
+    ...props.project.tags.filter(item => defaultTagsList.indexOf(item) < 0)
+  ]
+
   React.useEffect(() => {
     if (!open && props.expanded[props.id]) {
       setOpen(true)

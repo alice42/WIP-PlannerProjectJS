@@ -17,7 +17,7 @@ const Projects = props => {
 
   React.useEffect(() => {
     listsState && props.projectsActions.cleanLists()
-  }, [project])
+  }, [props.match.params.id])
 
   return (
     (project && (

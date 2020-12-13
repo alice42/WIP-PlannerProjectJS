@@ -43,11 +43,12 @@ const TodosOptions = props => {
   // }
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
+    console.log('B')
     props.projectsActions.updateTodo(
       itemType,
       newValue,
       valueType,
-      props.currentProject,
+      props.project,
       props.list
     )
     handleClose()
