@@ -1,12 +1,10 @@
 import * as React from 'react'
 import ProjectContent from '../components/Project/ProjectContent'
-import { useFirestoreConnect } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
-import { isLoaded, isEmpty } from 'react-redux-firebase'
-import { useFirestore } from 'react-redux-firebase'
 
 const Projects = props => {
   const [project, setProject] = React.useState()
+  const listsState = useSelector(state => state.projects.lists)
 
   React.useEffect(() => {
     const existingProject =
@@ -14,9 +12,12 @@ const Projects = props => {
       Object.values(props.firestore.data.projects).find(
         project => project && project.id === props.match.params.id
       )
-    // props.projectsActions.cleanLists()
     setProject(existingProject)
   })
+
+  React.useEffect(() => {
+    listsState && props.projectsActions.cleanLists()
+  }, [project])
 
   return (
     (project && (

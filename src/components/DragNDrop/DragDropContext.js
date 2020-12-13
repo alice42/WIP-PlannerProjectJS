@@ -12,16 +12,18 @@ export default function DnDContext({
   const listsState = useSelector(state => state.projects.lists)
 
   React.useEffect(() => {
-    console.log('state changed')
-    if (listsState) {
-      handleUpdateProject(listsState, 'lists')
-    }
-  }, [listsState])
-
-  React.useEffect(() => {
     projectsActions.cleanLists()
     projectsActions.initLists(project)
   }, [project])
+
+  React.useEffect(() => {
+    if (listsState) {
+      handleUpdateProject(listsState, 'lists')
+    } else {
+      projectsActions.cleanLists()
+      projectsActions.initLists(project)
+    }
+  }, [listsState])
 
   const onDragEnd = result => {
     const { destination, source, draggableId, type } = result

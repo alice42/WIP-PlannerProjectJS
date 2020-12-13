@@ -2,7 +2,7 @@ import { CONSTANTS } from '../actions/projectsActions'
 import uuid from 'react-uuid'
 
 const initialState = {
-  all: [],
+  projectID: null,
   lists: null
 }
 
@@ -220,6 +220,7 @@ const reducer = (state = initialState, action) => {
     case CONSTANTS.INIT_LISTS:
       return {
         ...state,
+        projectID: action.project.projectID,
         lists: [...action.project.lists]
       }
 
