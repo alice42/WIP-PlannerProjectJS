@@ -29,7 +29,7 @@ const TodosSettingsList = props => (
           {...props}
           open={true}
           project={props.currentTodo}
-          handleUpdateProject={props.handleUpdateTodo}
+          handleUpdate={props.handleUpdateTodo}
         />
       </ListItem>
     )}
