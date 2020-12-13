@@ -4,7 +4,9 @@ import Toolbar from '@material-ui/core/Toolbar'
 const drawerWidth = 240
 
 export const styles = theme => ({
-  // appBarSpacer: theme.mixins.toolbar,
+  flex: {
+    flexGrow: 1
+  },
   root: {
     display: 'flex'
   },
