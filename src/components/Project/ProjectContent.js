@@ -63,7 +63,7 @@ const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
         console.error('Error removing document: ', error)
       })
 
-  const handleUpdateProject = (newValue, valueType) => {
+  const handleUpdateProject = (_project, newValue, valueType) => {
     return firestore
       .collection('users')
       .doc(uid)

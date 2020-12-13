@@ -28,7 +28,7 @@ const Heading = props => {
           return { ...list, title: value }
         } else return list
       })
-      props.handleUpdateProject(newLists, 'lists')
+      props.handleUpdateProject(props.project, newLists, 'lists')
       setListTitle(value)
     }
     setIsEditing(false)

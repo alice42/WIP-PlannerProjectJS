@@ -37,7 +37,7 @@ const SettingsListItemDate = ({
           {hover && (
             <Icon
               className={'date-icon-close'}
-              onClick={() => handleUpdateProject(null, type)}
+              onClick={() => handleUpdateProject(project, null, type)}
             >
               close
             </Icon>

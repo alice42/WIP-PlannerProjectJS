@@ -18,7 +18,7 @@ export default function DnDContext({
 
   React.useEffect(() => {
     if (listsState) {
-      handleUpdateProject(listsState, 'lists')
+      handleUpdateProject(project, listsState, 'lists')
     } else {
       projectsActions.cleanLists()
       projectsActions.initLists(project)

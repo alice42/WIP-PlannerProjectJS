@@ -36,7 +36,7 @@ export default function Create({
         id: `heading_${uuid()}`
       }
       const lists = [...project.lists, newList]
-      handleUpdateProject(lists, 'lists')
+      handleUpdateProject(project, lists, 'lists')
     }
     closeForm()
   }
