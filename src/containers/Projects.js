@@ -1,33 +1,27 @@
 import * as React from 'react'
 import ProjectContent from '../components/Project/ProjectContent'
+import { useSelector } from 'react-redux'
 
 const Projects = props => {
-  const [currentProject, setcurrentProject] = React.useState(null)
+  const [project, setProject] = React.useState()
+  const listsState = useSelector(state => state.projects.lists)
 
   React.useEffect(() => {
-    const existingProject = props.projects.all.find(
-      project => project.id === props.match.params.id
-    )
-    props.match.params.id && !existingProject
-      ? props.history.push('/projects/')
-      : setcurrentProject(existingProject)
+    const existingProject =
+      props.firestore.data.projects &&
+      Object.values(props.firestore.data.projects).find(
+        project => project && project.id === props.match.params.id
+      )
+    setProject(existingProject)
   })
 
-  const inputRefNotes = React.useRef(null)
-
   React.useEffect(() => {
-    if (inputRefNotes && inputRefNotes.current)
-      inputRefNotes.current.textContent = currentProject.notes || ''
-  }, [currentProject])
+    listsState && props.projectsActions.cleanLists()
+  }, [props.match.params.id])
 
   return (
-    (currentProject && (
-      <ProjectContent
-        {...props}
-        inputRefNotes={inputRefNotes}
-        all={props.projects.all}
-        currentProject={currentProject}
-      />
+    (project && (
+      <ProjectContent {...props} projectID={project.projectID} />
     )) || <div>NO PROJECT SELECTED</div>
   )
 }

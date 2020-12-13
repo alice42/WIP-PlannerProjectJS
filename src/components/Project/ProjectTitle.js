@@ -1,24 +1,24 @@
 import * as React from 'react'
 import InlineGrownInput from '../InlineGrownInput'
 
-const ProjectTitle = props => {
+const ProjectTitle = ({ handleUpdateProject, project }) => {
+  const { title } = project
   const inputRefTitle = React.useRef(null)
 
   React.useEffect(() => {
     if (inputRefTitle && inputRefTitle.current) {
-      inputRefTitle.current.textContent = props.currentProject.title || ''
-      if (!props.currentProject.title) inputRefTitle.current.focus()
+      inputRefTitle.current.textContent = title || ''
+      if (!title) inputRefTitle.current.focus()
     }
-  }, [props.currentProject])
+  }, [project])
 
   return (
     <InlineGrownInput
-      {...props}
       inputRef={inputRefTitle}
       typeValue={'title'}
-      value={props.currentProject.title}
+      value={title}
       placeholder={'New Project'}
-      handleInputEditing={props.handleInputEditing}
+      handleUpdateProject={handleUpdateProject}
     />
   )
 }

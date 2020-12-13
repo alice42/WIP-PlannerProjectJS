@@ -8,9 +8,27 @@ import {
   StyledTitleContainer,
   StyledTitleCheckbox
 } from './styles/projectStyles'
+import { isLoaded, useFirestoreConnect } from 'react-redux-firebase'
+import { useSelector } from 'react-redux'
+import { useFirestore } from 'react-redux-firebase'
+import { useHistory } from 'react-router-dom'
 
-const ProjectContent = props => {
-  const [tagsOpen, setTagsOpen] = React.useState(false)
+const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
+  const firestore = useFirestore()
+  const history = useHistory()
+
+  const { uid } = useSelector(state => state.firebase.auth)
+  const project = useSelector(
+    ({ firestore: { data } }) => data.projects && data.projects[projectID]
+  )
+
+  const [tagsOpen, setTagsOpen] = React.useState()
+
+  React.useEffect(() => {
+    setTagsOpen(
+      project && project.tags && project.tags.length !== 0 ? true : false
+    )
+  }, [project])
 
   const handleOpenTags = () => {
     setTagsOpen(true)
@@ -20,68 +38,80 @@ const ProjectContent = props => {
   }
 
   const handleCompleteProject = () => {
-    props.projectsActions.updateProject(
-      props.currentProject,
-      !props.currentProject.isCompleted,
-      'isCompleted'
-    )
-  }
-  const handleRemoveProject = () => {
-    props.projectsActions.removeProject(props.currentProject)
-  }
-
-  const handleInputEditing = (value, type) => {
-    props.projectsActions.updateProject(props.currentProject, value, type)
+    return firestore
+      .collection('users')
+      .doc(uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({
+        isCompleted: !project.isCompleted
+      })
   }
 
-  const handleRemoveEvent = type => {
-    props.projectsActions.updateProject(props.currentProject, null, type)
+  const handleRemoveProject = () =>
+    firestore
+      .collection('users')
+      .doc(uid)
+      .collection('projects')
+      .doc(projectID)
+      .delete()
+      .then(function() {
+        console.log('Document successfully deleted!')
+        history.push('/projects')
+      })
+      .catch(function(error) {
+        console.error('Error removing document: ', error)
+      })
+
+  const handleUpdateProject = (_project, newValue, valueType) => {
+    return firestore
+      .collection('users')
+      .doc(uid)
+      .collection('projects')
+      .doc(projectID)
+      .update({
+        [`${valueType}`]: newValue
+      })
   }
 
-  const handleUpdateProject = (toUpdate, newValue, valueType) => {
-    props.projectsActions.updateProject(toUpdate, newValue, valueType)
+  if (!isLoaded(project)) {
+    return 'Loading...'
   }
   return (
-    <>
-      <StyledTitleContainer>
-        <StyledTitleCheckbox
-          checked={props.currentProject.isCompleted}
-          onChange={handleCompleteProject}
+    project && (
+      <>
+        <StyledTitleContainer>
+          <StyledTitleCheckbox
+            checked={project.isCompleted}
+            onChange={handleCompleteProject}
+          />
+          <Title project={project} handleUpdateProject={handleUpdateProject} />
+          <ProjectOptions
+            project={project}
+            handleCompleteProject={handleCompleteProject}
+            handleRemoveProject={handleRemoveProject}
+            handleOpenTags={handleOpenTags}
+            updateProject={handleUpdateProject}
+          />
+        </StyledTitleContainer>
+        <ProjectSettingsList
+          project={project}
+          openProjectTags={tagsOpen}
+          handleUpdateProject={handleUpdateProject}
+          handleCloseTags={handleCloseTags}
         />
-        <Title {...props} handleInputEditing={handleInputEditing} />
-        <ProjectOptions
-          {...props}
-          handleCompleteProject={handleCompleteProject}
-          handleRemoveProject={handleRemoveProject}
-          handleOpenTags={handleOpenTags}
+        <ProjectNotes
+          project={project}
+          handleUpdateProject={handleUpdateProject}
         />
-      </StyledTitleContainer>
-      <ProjectSettingsList
-        {...props}
-        openProjectTags={tagsOpen}
-        handleUpdateProject={handleUpdateProject}
-        handleCloseTags={handleCloseTags}
-        handleRemoveEvent={handleRemoveEvent}
-      />
-      <ProjectNotes {...props} handleInputEditing={handleInputEditing} />
-      <DragDropContext {...props} />
-    </>
+        <DragDropContext
+          {...restProps}
+          project={project}
+          handleUpdateProject={handleUpdateProject}
+        />
+      </>
+    )
   )
 }
 
 export default ProjectContent
-
-//   header
-//        title
-//            options
-//        showListOptions
-//   body
-//        notes
-//        dragNdrop
-//            todos
-//                notes
-//                options
-//                showListOptions
-//            heading
-//                options
-//                showListOptions

@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import Todos from '../Todos/Todos'
+import { useSelector } from 'react-redux'
 import Create from '../DragNDrop/Create'
+import { useFirestoreConnect } from 'react-redux-firebase'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledInputWrapperLeft } from '../styles/componentsStyles'
 import { StyledHeadingContainer } from './styles/headingStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 const Heading = props => {
+  const { uid } = useSelector(state => state.firebase.auth)
   const inputRefHeading = React.useRef(null)
   const [isEditing, setIsEditing] = useState(false)
   const [listTitle, setListTitle] = useState(props.title)
@@ -20,34 +23,31 @@ const Heading = props => {
 
   const handleTypeEditing = (value, type) => {
     if (type === 'heading') {
+      const newLists = props.project.lists.map(list => {
+        if (list.id === props.listID) {
+          return { ...list, title: value }
+        } else return list
+      })
+      props.handleUpdateProject(props.project, newLists, 'lists')
       setListTitle(value)
     }
-    handleFinishEditing()
-  }
-
-  const handleFinishEditing = () => {
     setIsEditing(false)
-    props.projectsActions.editTitle(
-      props.listID,
-      listTitle,
-      props.currentProject
-    )
   }
 
-  const handledeleteList = () => {
-    props.projectsActions.deleteList(props.listID, props.currentProject)
-  }
+  // const handledeleteList = () => {
+  //   props.projectsActions.deleteList(props.listID, props.currentProject)
+  // }
 
   const renderEditInput = () => {
     return (
       <StyledInputWrapperLeft>
         <InlineGrownInput
-          {...props}
+          project={props.project}
           inputRef={inputRefHeading}
           value={listTitle}
           typeValue={'heading'}
           placeholder={'New Heading'}
-          handleInputEditing={handleTypeEditing}
+          handleUpdateProject={handleTypeEditing}
         />
       </StyledInputWrapperLeft>
     )
@@ -88,10 +88,16 @@ const Heading = props => {
                     id={card.id}
                     index={index}
                     listID={props.listID}
+                    handleUpdateProject={props.handleUpdateProject}
                   />
                 ))}
                 {provided.placeholder}
-                <Create {...props} listID={props.listID} />
+                <Create
+                  {...props}
+                  listID={props.listID}
+                  handleUpdateProject={props.handleUpdateProject}
+                  project={props.project}
+                />
               </div>
             )}
           </Droppable>

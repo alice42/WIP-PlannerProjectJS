@@ -2,23 +2,22 @@ import * as React from 'react'
 import InlineGrownInput from '../InlineGrownInput'
 import { StyledNotesContainer } from './styles/projectStyles'
 
-const ProjectNotes = props => {
+const ProjectNotes = ({ project, handleUpdateProject }) => {
   const inputRefNotes = React.useRef(null)
 
   React.useEffect(() => {
     if (inputRefNotes && inputRefNotes.current)
-      inputRefNotes.current.textContent = props.currentProject.notes || ''
-  }, [props.currentProject])
+      inputRefNotes.current.textContent = project.notes || ''
+  }, [project])
 
   return (
     <StyledNotesContainer>
       <InlineGrownInput
-        {...props}
         inputRef={inputRefNotes}
-        value={props.currentProject.notes}
+        value={project.notes}
         typeValue={'notes'}
         placeholder={'Notes'}
-        handleTypeEditing={props.handleTypeEditing}
+        handleUpdateProject={handleUpdateProject}
       />
     </StyledNotesContainer>
   )

@@ -1,23 +1,41 @@
 import styled from 'styled-components'
+import Toolbar from '@material-ui/core/Toolbar'
 
-export const StyledSection = styled.div`
-  font-family: monospace;
-  font-size: 20px;
-  text-align: center;
-  height: inherit;
-  display: flex;
-`
+const drawerWidth = 240
 
-export const StyledContent = styled.div`
-  background-color: #575757;
-  min-width: 75%;
-`
-
-export const StyledSidebar = styled.div`
-  background-color: #a2a2a2;
-  min-width: 25%;
-  ul {
-    list-style: none;
-    padding: 0;
+export const styles = theme => ({
+  flex: {
+    flexGrow: 1
+  },
+  root: {
+    display: 'flex'
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3)
   }
+})
+
+export const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
 `

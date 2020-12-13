@@ -3,24 +3,31 @@ import { StyledTagButton, StyledTagButtonInput } from './styles/tagsStyles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './utils'
 
-export const TagButton = props => (
+export const TagButton = ({ index, title, onPressDeleteTag }) => (
   <StyledTagButton
-    tabIndex={props.index}
+    tabIndex={index}
     onClick={e => e.currentTarget.focus()}
     onKeyDown={e => {
-      if (e.key === 'Backspace') props.onPressDeleteTag()
+      if (e.key === 'Backspace') onPressDeleteTag()
     }}
   >
-    <span>{props.title}</span>
+    <span>{title}</span>
   </StyledTagButton>
 )
 
-export const AddTagButton = props => {
+export const AddTagButton = ({
+  project,
+  value,
+  setValue,
+  inputValue,
+  setInputValue,
+  checkTags
+}) => {
   const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     setOpen(false)
-  }, [props.value])
+  }, [value])
   return (
     <Autocomplete
       id="tag-autocomplete"
@@ -33,18 +40,18 @@ export const AddTagButton = props => {
       options={defaultTagsList}
       filterOptions={options => {
         const filtered = options.filter(
-          option => !props.currentProject.tags.includes(option)
+          option => !project.tags.includes(option)
         )
         return filtered
       }}
-      value={props.value}
+      value={value}
       onChange={(event, newValue) => {
-        props.setValue(newValue)
+        setValue(newValue)
       }}
-      inputValue={props.inputValue}
+      inputValue={inputValue}
       onInputChange={(event, newInputValue) => {
         setOpen(true)
-        props.setInputValue(newInputValue)
+        setInputValue(newInputValue)
       }}
       renderInput={params => {
         React.useEffect(() => {
@@ -52,7 +59,7 @@ export const AddTagButton = props => {
             setOpen(false)
             params.inputProps.ref.current.focus()
           }
-        }, [props.currentProject.tags.length === 0])
+        }, [project.tags.length === 0])
         return (
           <div ref={params.InputProps.ref}>
             <StyledTagButtonInput
@@ -61,7 +68,7 @@ export const AddTagButton = props => {
               placeholder={'add tag'}
               onBlur={() => {
                 setOpen(false)
-                props.checkTags()
+                checkTags()
               }}
             />
           </div>

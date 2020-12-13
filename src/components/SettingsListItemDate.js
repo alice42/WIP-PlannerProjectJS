@@ -17,7 +17,12 @@ const IconsDate = ({ todos, type }) =>
     </StyledIconSettingsList>
   )
 
-const ListProjectHeader = props => {
+const SettingsListItemDate = ({
+  type,
+  project,
+  handleUpdateProject,
+  todos
+}) => {
   const [hover, sethover] = React.useState(false)
   return (
     <>
@@ -27,25 +32,24 @@ const ListProjectHeader = props => {
           onMouseLeave={() => sethover(false)}
           onMouseEnter={() => sethover(true)}
         >
-          <IconsDate todos={props.todos} type={props.type} />
-          {dateString(props.typeSettings[`${props.type}`], props.type)}
+          <IconsDate todos={todos} type={type} />
+          {dateString(project[`${type}`], type)}
           {hover && (
             <Icon
               className={'date-icon-close'}
-              onClick={() => props.handleRemoveEvent(props.type)}
+              onClick={() => handleUpdateProject(project, null, type)}
             >
               close
             </Icon>
           )}
         </span>
-        {!props.todos && !hover && (
+        {!todos && !hover && (
           <span
             className={'deadline'}
             onMouseLeave={() => sethover(false)}
             onMouseEnter={() => sethover(false)}
           >
-            {props.type === 'deadline' &&
-              daysFromToday(props.typeSettings[`${props.type}`])}
+            {type === 'deadline' && daysFromToday(project[`${type}`])}
           </span>
         )}
       </ListItem>
@@ -54,4 +58,4 @@ const ListProjectHeader = props => {
   )
 }
 
-export default ListProjectHeader
+export default SettingsListItemDate

@@ -9,7 +9,9 @@ export const CONSTANTS = {
   DELETE_CARD: 'DELETE_CARD',
   EDIT_LIST_TITLE: 'EDIT_LIST_TITLE',
   DELETE_LIST: 'DELETE_LIST',
-  UPDATE_TODO: 'UPDATE_TODO'
+  UPDATE_TODO: 'UPDATE_TODO',
+  CLEAN_LISTS: 'CLEAN_LISTS',
+  INIT_LISTS: 'INIT_LISTS'
 }
 
 export const addProject = newProject => {
@@ -43,18 +45,18 @@ export const addList = (title, project) => {
   }
 }
 
-export const editCard = (id, listID, newText, currentProject) => {
+export const editCard = (id, listID, newText, project) => {
   return {
     type: CONSTANTS.EDIT_CARD,
-    project: currentProject,
+    project,
     payload: { id, listID, newText }
   }
 }
 
-export const deleteCard = (id, listID, currentProject) => {
+export const deleteCard = (id, listID, project) => {
   return {
     type: CONSTANTS.DELETE_CARD,
-    project: currentProject,
+    project,
     payload: { id, listID }
   }
 }
@@ -66,12 +68,12 @@ export const sort = (
   droppableIndexEnd,
   draggableId,
   type,
-  currentProject
+  project
 ) => {
   return {
     type: CONSTANTS.DRAG_HAPPENED,
-    project: currentProject,
     payload: {
+      project,
       droppableIdStart,
       droppableIdEnd,
       droppableIndexEnd,
@@ -111,3 +113,12 @@ export const updateTodo = (todo, value, typeValue, project, list) => {
     list
   }
 }
+
+export const cleanLists = () => ({
+  type: CONSTANTS.CLEAN_LISTS
+})
+
+export const initLists = project => ({
+  type: CONSTANTS.INIT_LISTS,
+  project
+})

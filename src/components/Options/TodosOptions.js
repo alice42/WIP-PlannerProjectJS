@@ -42,12 +42,17 @@ const TodosOptions = props => {
   //   setBodyType(null)
   // }
 
-  const handleUpdateTodo = (itemType, newValue, valueType) => {
+  const handleUpdateTodo = (
+    { itemType = props.currentTodo },
+    newValue,
+    valueType
+  ) => {
+    console.log(itemType, newValue, valueType)
     props.projectsActions.updateTodo(
       itemType,
       newValue,
       valueType,
-      props.currentProject,
+      props.project,
       props.list
     )
     handleClose()

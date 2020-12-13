@@ -10,8 +10,8 @@ const TodosSettingsList = props => (
         {...props}
         todos
         type={'when'}
-        typeSettings={props.currentTodo}
-        // handleRemoveEvent={props.handleRemoveEvent}
+        project={props.currentTodo}
+        handleUpdateProject={props.handleUpdateTodo}
       />
     )}
     {props.currentTodo && props.currentTodo.deadline && (
@@ -19,8 +19,8 @@ const TodosSettingsList = props => (
         {...props}
         todos
         type={'deadline'}
-        typeSettings={props.currentTodo}
-        // handleRemoveEvent={props.handleRemoveEvent}
+        project={props.currentTodo}
+        handleUpdateProject={props.handleUpdateTodo}
       />
     )}
     {props.currentTodo && props.currentTodo.tags && (
@@ -28,7 +28,7 @@ const TodosSettingsList = props => (
         <Tags
           {...props}
           open={true}
-          toUpdate={props.currentTodo}
+          project={props.currentTodo}
           handleUpdate={props.handleUpdateTodo}
         />
       </ListItem>
