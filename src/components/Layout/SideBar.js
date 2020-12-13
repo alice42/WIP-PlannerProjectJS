@@ -16,7 +16,6 @@ function ResponsiveDrawer({ handleDrawerToggle, mobileOpen, ...props }) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-      <Divider />
       <ul>
         <li>
           <a href="A">A</a>
@@ -37,6 +36,7 @@ function ResponsiveDrawer({ handleDrawerToggle, mobileOpen, ...props }) {
     <nav className={classes.drawer} aria-label="mailbox folders">
       <Hidden smUp implementation="css">
         <Drawer
+          style={{ zIndex: '1200' }}
           container={container}
           variant="temporary"
           anchor={theme.direction === 'rtl' ? 'right' : 'left'}

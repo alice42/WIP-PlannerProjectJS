@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { styles } from './styles/layoutStyles'
 import { makeStyles } from '@material-ui/core/styles'
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth'
 import Header from './Header'
 import Sidebar from './SideBar'
 
@@ -13,6 +14,8 @@ const Layout = props => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
+
+  if (isWidthUp('sm', props.width) && mobileOpen) setMobileOpen(false)
 
   return (
     <div className={classes.root}>
@@ -30,4 +33,4 @@ const Layout = props => {
   )
 }
 
-export default Layout
+export default withWidth()(Layout)

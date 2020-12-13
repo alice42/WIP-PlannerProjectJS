@@ -105,3 +105,10 @@ export const StyledIconSettingsList = styled(Icon)`
 export const StyledInputWrapperLeft = styled.div`
   text-align: left;
 `
+
+//ProjectsList
+export const StyledProjectsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`

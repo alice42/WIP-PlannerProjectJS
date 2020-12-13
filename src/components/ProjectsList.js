@@ -2,10 +2,12 @@ import * as React from 'react'
 import uuid from 'react-uuid'
 import { Link } from 'react-router-dom'
 import { Checkbox } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import { useFirestore } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 import { useFirebase } from 'react-redux-firebase'
 import { useHistory } from 'react-router-dom'
+import { StyledProjectsList } from './styles/componentsStyles'
 
 const ProjectsList = props => {
   const firestore = useFirestore()
@@ -57,29 +59,33 @@ const ProjectsList = props => {
     text && text.length > 11 ? `${text.slice(0, 10)}...` : text
 
   return (
-    <>
-      <div>
-        <ul style={{ margin: '0', padding: '0' }}>
-          {projects &&
-            Object.values(projects).map(
-              project =>
-                project &&
-                project.id && (
-                  <li key={project.id}>
-                    <Link
-                      style={{ textDecoration: 'none' }}
-                      to={`/projects/${project.id}`}
-                    >
-                      <Checkbox checked={project.isCompleted} />
-                      {handleLongTitle(project.title)}
-                    </Link>
-                  </li>
-                )
-            )}
-        </ul>
-      </div>
-      <button onClick={handleCreateNewProject}>Add</button>
-    </>
+    <StyledProjectsList>
+      <ul style={{ margin: '0', padding: '0', listStyle: 'none' }}>
+        {projects &&
+          Object.values(projects).map(
+            project =>
+              project &&
+              project.id && (
+                <li key={project.id}>
+                  <Link
+                    style={{ textDecoration: 'none' }}
+                    to={`/projects/${project.id}`}
+                  >
+                    <Checkbox checked={project.isCompleted} />
+                    {handleLongTitle(project.title)}
+                  </Link>
+                </li>
+              )
+          )}
+      </ul>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleCreateNewProject}
+      >
+        Add
+      </Button>
+    </StyledProjectsList>
   )
 }
 

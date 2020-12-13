@@ -22,10 +22,6 @@ function Header({ handleDrawerToggle }) {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
 
-  const handleChange = event => {
-    setAuth(event.target.checked)
-  }
-
   const handleMenu = event => {
     setAnchorEl(event.currentTarget)
   }
@@ -60,7 +56,7 @@ function Header({ handleDrawerToggle }) {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap>
-          Responsive drawer
+          Planner
         </Typography>
         <div className={classes.flex} />
         <div>
