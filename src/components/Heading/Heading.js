@@ -2,13 +2,19 @@ import React, { useState } from 'react'
 import Todos from '../Todos/Todos'
 import { useSelector } from 'react-redux'
 import Create from '../DragNDrop/Create'
-import { useFirestoreConnect } from 'react-redux-firebase'
+// import { useFirestoreConnect } from 'react-redux-firebase'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledInputWrapperLeft } from '../styles/componentsStyles'
-import { StyledHeadingContainer } from './styles/headingStyles'
+import { StyledHeadingContainer, styles } from './styles/headingStyles'
 import InlineGrownInput from '../InlineGrownInput'
+// import { Card } from '@material-ui/core'
+
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(styles)
 
 const Heading = props => {
+  const classes = useStyles()
   const { uid } = useSelector(state => state.firebase.auth)
   const inputRefHeading = React.useRef(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -61,6 +67,7 @@ const Heading = props => {
     >
       {provided => (
         <StyledHeadingContainer
+          className={classes.cardHeading}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
