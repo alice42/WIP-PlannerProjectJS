@@ -39,7 +39,7 @@ export const StyledHeadingContainer = styled(Card)`
   }
 `
 export const styles = theme => {
-  console.log(theme)
+  // console.log(theme)
   return {
     cardHeading: {
       background: theme.palette.primary.main,

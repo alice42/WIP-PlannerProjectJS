@@ -7,7 +7,7 @@ import { useStyledExpandedInput } from './styles/componentsStyles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './Tags/utils'
 import Calendar from './Calendar/Calendar'
-import { PopperBodyCalendar } from './styles/componentsStyles'
+// import { div } from './styles/componentsStyles'
 import { Popper } from '@material-ui/core'
 import { AddTagButton } from './Tags/TagsButtons'
 
@@ -40,7 +40,7 @@ const TestA = React.forwardRef(function PopperComponent(props, ref) {
   )
 })
 const TestB = React.forwardRef(function PaperComponent(props, ref) {
-  return <PopperBodyCalendar ref={ref}>{props.children}</PopperBodyCalendar>
+  return <div ref={ref}>{props.children}</div>
 })
 
 export default function CustomInputAutocomplete(props) {

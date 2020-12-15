@@ -1,4 +1,6 @@
+import { Button } from '@material-ui/core'
 import styled from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles'
 
 export const StyleWrapper = styled.div`
   .fc {
@@ -15,39 +17,49 @@ export const StyleWrapper = styled.div`
     }
   }
 
+  .fc th,
+  .fc td {
+    vertical-align: inherit;
+    padding: 0;
+  }
+
+  .fc .fc-col-header-cell-cushion {
+    display: contents;
+  }
+
   .fc-daygrid-day-top {
     display: flex;
     justify-content: center;
     flex-direction: row-reverse;
+  }
+  fc-day {
+    pointerevents: auto;
+  }
+  .today-icon {
+    background: none;
+    color: ${props => props.theme.palette.primary.main};
   }
 
   .fc-daygrid-day.fc-day-today {
     background: none;
   }
 
-  .fc-daygrid-day-number {
-    font-size: 15px;
-    font-weight: bold;
-  }
   .fc-toolbar.fc-header-toolbar {
     margin: 0;
   }
 
   & .fc-bg-event {
-    background: unset;
-    outline: auto;
+    background: ${props => props.theme.palette.primary.main};
+    outline: auto ${props => props.theme.palette.primary.main};
     margin: 2px;
   }
   .fc-highlight {
-    background: #939393;
+    background: ${props => props.theme.palette.primary.main};
     border-radius: 3px;
-  }
-  .test {
-    color: #404040;
   }
   .fc-day-future {
     :hover {
-      background: #404040;
+      background: ${props => props.theme.palette.primary.main};
       border-radius: 3px;
     }
   }
@@ -59,6 +71,12 @@ export const StyleWrapper = styled.div`
     font-family: inherit;
     font-weight: bold;
   }
+  .fc-day-past {
+    :hover {
+      background: ${props => props.theme.palette.primary.main};
+      border-radius: 3px;
+    }
+  }
   .past {
     opacity: 0.4;
   }
@@ -68,7 +86,7 @@ export const StyleWrapper = styled.div`
   .fc-next-button.fc-button-primary,
   .fc-prev-button.fc-button-primary,
   .fc-button-primary {
-    background: unset;
+    background: ${props => props.theme.palette.primary.main};
     border: unset;
     :disabled,
     :hover,
@@ -76,7 +94,7 @@ export const StyleWrapper = styled.div`
     :focus,
     :not(:disabled):active,
     :not(:disabled):active:focus {
-      background: unset;
+      background: ${props => props.theme.palette.primary.main};
       border: unset;
       outline: none;
       box-shadow: unset;
@@ -91,14 +109,14 @@ export const StyleWrapper = styled.div`
     border: unset;
     margin: 0;
     padding: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: ${props => props.theme.palette.primary.main};
     justify-content: center;
     :disabled {
       display: none;
     }
   }
   .fc-footer-toolbar {
-    min-width: 200px;
+    min-width: 220px;
     display: flex;
     align-items: baseline;
   }
@@ -114,20 +132,8 @@ export const StyleWrapper = styled.div`
   }
 `
 
-export const StyledButtonToday = styled.button`
-   {
-    width: 35%;
-    padding: 3px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 17px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-left: 5px;
-    background: none;
-    border: none;
-    outline: none;
-    font-family: inherit;
+export const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1)
   }
-`
+}))

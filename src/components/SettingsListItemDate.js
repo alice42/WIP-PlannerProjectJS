@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Divider, Icon, ListItem } from '@material-ui/core'
+import { Divider, Icon, ListItem, useTheme } from '@material-ui/core'
 import { dateString, daysFromToday } from './utilsDates'
 import { StyledIconSettingsList } from './styles/componentsStyles'
 
@@ -21,13 +21,18 @@ const SettingsListItemDate = ({
   type,
   project,
   handleUpdateProject,
-  todos
+  todos,
+  ...restProps
 }) => {
   const [hover, sethover] = React.useState(false)
+  const theme = useTheme()
+  console.log('AA', theme)
   return (
     <>
-      <ListItem className={'each'}>
+      <ListItem className={'each'} theme={theme}>
         <span
+          dsaada={'dasds'}
+          theme={theme}
           className={'date'}
           onMouseLeave={() => sethover(false)}
           onMouseEnter={() => sethover(true)}

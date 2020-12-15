@@ -1,12 +1,12 @@
-export const setOptionsTitle = (
-  currentProject,
+export const setOptions = (
+  project,
   handleCompleteProject,
   handleRemoveProject,
   handleOpenTags,
   handleCalendar,
   handleCalendarDeadline
 ) => {
-  const optionsTitle = [
+  const options = [
     {
       id: 'when',
       title: 'When',
@@ -44,14 +44,14 @@ export const setOptionsTitle = (
       action: () => console.log('SHARE')
     }
   ]
-  currentProject.isCompleted ||
-    optionsTitle.unshift({
+  project.isCompleted ||
+    options.unshift({
       id: 'complete',
       title: 'Complete Project',
       icon: 'check_circle_outline',
       action: handleCompleteProject
     })
-  return optionsTitle
+  return options
 }
 
 export const optionsTodos = [

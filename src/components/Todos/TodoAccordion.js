@@ -20,7 +20,7 @@ const TodosAccordion = props => {
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
-    console.log('A')
+    // console.log('A')
     props.projectsActions.updateTodo(
       itemType,
       newValue,
@@ -39,14 +39,11 @@ const TodosAccordion = props => {
         <StyledFormControlLabel
           aria-label="Acknowledge"
           onClick={e => e.stopPropagation()}
-          control={<Checkbox style={{ pointerEvents: 'auto' }} />}
+          control={<Checkbox />}
           label={label}
         />
         {!expanded && (
-          <TodosSettingsNotExpanded
-            // {...props}
-            currentTodo={props.currentTodo}
-          />
+          <TodosSettingsNotExpanded currentTodo={props.currentTodo} />
         )}
       </StyledAccordionSummary>
       <StyledAccordionDetails>

@@ -9,36 +9,38 @@ const ProjectSettingsList = ({
   openProjectTags,
   handleUpdateProject,
   handleCloseTags
-}) => (
-  <StyledSettingsList>
-    {(project.when || project.deadline || openProjectTags) && <Divider />}
-    {project.when && (
-      <SettingsListItemDate
-        type={'when'}
-        project={project}
-        handleUpdateProject={handleUpdateProject}
-      />
-    )}
-    {project.deadline && (
-      <SettingsListItemDate
-        type={'deadline'}
-        project={project}
-        handleUpdateProject={handleUpdateProject}
-      />
-    )}
-    {openProjectTags && (
-      <ListItem className={'each tags'}>
-        <Tags
-          withButton
-          open={openProjectTags}
+}) => {
+  return (
+    <StyledSettingsList>
+      {(project.when || project.deadline || openProjectTags) && <Divider />}
+      {project.when && (
+        <SettingsListItemDate
+          type={'when'}
           project={project}
-          handleUpdate={handleUpdateProject}
-          handleCloseTags={handleCloseTags}
+          handleUpdateProject={handleUpdateProject}
         />
-      </ListItem>
-    )}
-    {openProjectTags && <Divider />}
-  </StyledSettingsList>
-)
+      )}
+      {project.deadline && (
+        <SettingsListItemDate
+          type={'deadline'}
+          project={project}
+          handleUpdateProject={handleUpdateProject}
+        />
+      )}
+      {openProjectTags && (
+        <ListItem className={'each tags'}>
+          <Tags
+            withButton
+            open={openProjectTags}
+            project={project}
+            handleUpdate={handleUpdateProject}
+            handleCloseTags={handleCloseTags}
+          />
+        </ListItem>
+      )}
+      {openProjectTags && <Divider />}
+    </StyledSettingsList>
+  )
+}
 
 export default ProjectSettingsList

@@ -41,7 +41,7 @@ export const StyledAccordionSummary = withStyles({
   root: {
     outline: 'none',
     margin: '0',
-    backgroundColor: 'rgba(0, 0, 0, .03)',
+    // backgroundColor: 'rgba(0, 0, 0, .03)',
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
     minHeight: 0,
     '&$expanded': {

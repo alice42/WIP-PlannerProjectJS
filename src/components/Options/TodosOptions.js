@@ -47,7 +47,7 @@ const TodosOptions = props => {
     newValue,
     valueType
   ) => {
-    console.log(itemType, newValue, valueType)
+    // console.log(itemType, newValue, valueType)
     props.projectsActions.updateTodo(
       itemType,
       newValue,

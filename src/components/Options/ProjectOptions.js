@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, ClickAwayListener } from '@material-ui/core'
 import { PopperContainer, PopperBody } from '../Popper'
-import { setOptionsTitle } from './utils'
+import { setOptions } from './utils'
 
 const ProjectOptions = ({
   project,
@@ -55,7 +55,7 @@ const ProjectOptions = ({
     setBodyType('options')
   }
 
-  const options = setOptionsTitle(
+  const options = setOptions(
     project,
     handleCompleteProject,
     handleRemoveProject,
