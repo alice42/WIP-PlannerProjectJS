@@ -1,5 +1,6 @@
 import { Card } from '@material-ui/core'
 import styled from 'styled-components'
+
 // HEADING & TODOS CONTAINERS
 export const StyledHeadingContainer = styled(Card)`
   ${props =>
@@ -38,13 +39,10 @@ export const StyledHeadingContainer = styled(Card)`
       `}
   }
 `
-export const styles = theme => {
-  // console.log(theme)
-  return {
-    cardHeading: {
-      background: theme.palette.primary.main,
-      color: 'white',
-      borderColor: 'white'
-    }
+export const styles = theme => ({
+  cardHeading: {
+    background: theme.palette.primary.main,
+    color: 'white',
+    borderColor: 'white'
   }
-}
+})

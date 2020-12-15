@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { withStyles } from '@material-ui/core/styles'
 
-//POPPER
+//POPPER MENU
 
 export const styles = theme => ({
   menuItem: {
@@ -18,17 +18,13 @@ export const styles = theme => ({
   }
 })
 
-// export const PopperBodyList = styled(PopperBody)``
-// export const PopperBodyCalendar = styled(PopperBody)``
-
-// export const PopperBodyListTags = styled(PopperBody)``
-
-//EXPAND INPUT
+// EXPAND INPUT
 export const useStyledExpandedInput = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    background: 'gray',
+    color: 'white',
+    background: theme.palette.primary.main,
     padding: '0 4px 0 4px',
     margin: '0 4px 0 4px',
     borderRadius: '3px'
@@ -70,7 +66,6 @@ export const StyledSettingsList = styled(List)`
     display: flex;
     align-items: center;
     :hover {
-      // opacity: 0.5;
       background: ${props => props.theme.palette.primary.main};
       color: white;
     }

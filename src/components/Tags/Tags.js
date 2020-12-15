@@ -28,7 +28,7 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
 
   const onPressDeleteTag = tag => {
     const tags = project.tags
-    var newTags = tags.filter(value => value !== tag)
+    var newTags = tags && tags.filter(value => value !== tag)
     handleUpdate(project, newTags, 'tags')
   }
 

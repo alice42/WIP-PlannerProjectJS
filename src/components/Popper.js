@@ -1,9 +1,6 @@
 import React from 'react'
 import Popper from '@material-ui/core/Popper'
-// import { PopperBodyList, PopperBodyCalendar } from './styles/componentsStyles'
 import Calendar from './Calendar/Calendar'
-import TagsList from './Tags/TagsList'
-// import ProjectOptionsList from './Options/ProjectOptionsList'
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
 import { Paper } from '@material-ui/core'
@@ -23,47 +20,57 @@ const StyledMenuItem = withStyles(theme => ({
   }
 }))(MenuItem)
 
+export const OptionsMenu = ({ options, listOptions }) => (
+  <Paper elevation={1}>
+    <MenuList>
+      {options.map((option, index) =>
+        listOptions ? (
+          <StyledMenuItem key={index} onClick={option.action}>
+            <ul style={{ display: 'contents' }}>
+              <ListItemIcon style={{ minWidth: 'unset' }}>
+                <Icon style={{ width: 'unset' }} fontSize="small">
+                  {option.icon}
+                </Icon>
+              </ListItemIcon>
+              {option.title}
+            </ul>
+          </StyledMenuItem>
+        ) : (
+          <StyledMenuItem key={index} onClick={option.action}>
+            <ListItemIcon>
+              <Icon fontSize="small">{option.icon}</Icon>
+            </ListItemIcon>
+            <ListItemText primary={option.title} />
+          </StyledMenuItem>
+        )
+      )}
+    </MenuList>
+  </Paper>
+)
+
+export const CalendarMenu = props => (
+  <Paper
+    elevation={1}
+    style={{ width: 'min-content', padding: '15px 5px 15px 5px' }}
+  >
+    <Calendar
+      {...props}
+      dateType={props.bodyType}
+      handleUpdate={props.handleUpdate}
+      toUpdate={props.toUpdate}
+      handleClose={props.handleClose}
+    />
+  </Paper>
+)
+
 export const PopperBody = props => {
   const type =
     props.bodyType === 'when' || props.bodyType === 'deadline'
       ? 'calendar'
       : props.bodyType
   const bodies = {
-    options: (
-      <Paper elevation={1}>
-        <MenuList>
-          {props.options.map((option, index) => (
-            <StyledMenuItem key={index} onClick={option.action}>
-              <ListItemIcon>
-                <Icon fontSize="small">{option.icon}</Icon>
-              </ListItemIcon>
-              <ListItemText primary={option.title} />
-            </StyledMenuItem>
-          ))}
-        </MenuList>
-      </Paper>
-    ),
-    calendar: (
-      <Paper
-        elevation={1}
-        style={{ width: 'min-content', padding: '15px 5px 15px 5px' }}
-      >
-        {/* <MenuList> */}
-        <Calendar
-          {...props}
-          dateType={props.bodyType}
-          handleUpdate={props.handleUpdate}
-          toUpdate={props.toUpdate}
-          handleClose={props.handleClose}
-        />
-        {/* </MenuList> */}
-      </Paper>
-    )
-    // tag: (
-    //   <PopperBodyList>
-    //     <TagsList {...props} />
-    //   </PopperBodyList>
-    // )
+    options: <OptionsMenu options={props.options} />,
+    calendar: <CalendarMenu {...props} />
   }
   return bodies[type] || null
 }

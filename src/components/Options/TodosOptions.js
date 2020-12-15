@@ -1,13 +1,9 @@
 import React from 'react'
-import TodosOptionsItem from './TodosOptionsItem'
-import { PopperContainer, PopperBody } from '../Popper'
-import { optionsTodos, isMounted } from './utils'
+import ExpandInput from '../ExpandInput'
+import { optionsTodos } from './utils'
 import { ClickAwayListener } from '@material-ui/core'
 
 const TodosOptions = props => {
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const [open, setOpen] = React.useState(false)
-  const [placement, setPlacement] = React.useState()
   const [expanded, setExpanded] = React.useState({})
   const [bodyType, setBodyType] = React.useState(null)
 
@@ -15,39 +11,21 @@ const TodosOptions = props => {
     setBodyType(Object.keys(expanded)[0])
   }, [expanded])
 
-  const handleClickAway = () => {
-    handleClose()
-  }
-
-  const handleClick = (id, newPlacement, event) => {
-    handleClose()
+  const handleClick = id => {
     setExpanded({
       [id]: !expanded[id]
     })
-    if (!expanded[id]) {
-      setAnchorEl(event.currentTarget)
-      setOpen(prev => placement !== newPlacement || !prev)
-      setPlacement(newPlacement)
-    }
   }
 
   const handleClose = () => {
-    setOpen(false)
-    // handleClosePopper()
     setExpanded({})
   }
-
-  // const handleClosePopper = () => {
-  //   setOpen(false)
-  //   setBodyType(null)
-  // }
 
   const handleUpdateTodo = (
     { itemType = props.currentTodo },
     newValue,
     valueType
   ) => {
-    // console.log(itemType, newValue, valueType)
     props.projectsActions.updateTodo(
       itemType,
       newValue,
@@ -58,42 +36,27 @@ const TodosOptions = props => {
     handleClose()
   }
 
-  // const body = (
-  //   <PopperBody
-  //     {...props}
-  //     bodyType={bodyType}
-  //     options={[]}
-  //     handleUpdate={handleUpdateTodo}
-  //     toUpdate={props.currentTodo}
-  //     handleClose={handleClose}
-  //   />
-  // )
-
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
+    <ClickAwayListener onClickAway={handleClose}>
       <span style={{ display: 'flex' }}>
-        {optionsTodos.map((option, index) => (
-          <div key={index}>
-            <TodosOptionsItem
-              {...props}
-              key={index}
-              option={option}
-              expanded={expanded}
-              currentTodo={props.currentTodo}
-              handleClose={handleClose}
-              handleClick={handleClick}
-              bodyType={bodyType}
-              handleUpdate={handleUpdateTodo}
-              // handleClosePopper={handleClosePopper}
-            />
-          </div>
-        ))}
-        {/* <PopperContainer
-          open={open}
-          anchorEl={anchorEl}
-          placement={placement}
-          body={body}
-        /> */}
+        {props.currentTodo &&
+          optionsTodos.map((option, index) => (
+            <div key={index}>
+              <ExpandInput
+                {...props}
+                project={props.project}
+                todo={props.currentTodo}
+                id={option.id}
+                expanded={expanded}
+                icon={option.icon}
+                option={option.title}
+                handleClose={handleClose}
+                handleClick={handleClick}
+                bodyType={bodyType}
+                handleUpdate={handleUpdateTodo}
+              />
+            </div>
+          ))}
       </span>
     </ClickAwayListener>
   )

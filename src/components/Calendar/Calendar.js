@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'

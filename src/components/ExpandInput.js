@@ -6,16 +6,23 @@ import InputBase from '@material-ui/core/InputBase'
 import { useStyledExpandedInput } from './styles/componentsStyles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './Tags/utils'
-import Calendar from './Calendar/Calendar'
-// import { div } from './styles/componentsStyles'
+import { CalendarMenu, OptionsMenu } from './Popper'
 import { Popper } from '@material-ui/core'
-import { AddTagButton } from './Tags/TagsButtons'
 
-const Test = React.forwardRef(function ListboxComponent(props, ref) {
+const ListboxComponent = React.forwardRef(function ListboxComponent(
+  props,
+  ref
+) {
+  const options =
+    props.bodyType === 'tag' &&
+    props.children.map(option => ({
+      title: option,
+      icon: 'local_offer'
+    }))
   return (
     <div ref={ref}>
       {(props.bodyType === 'when' || props.bodyType === 'deadline') && (
-        <Calendar
+        <CalendarMenu
           {...props}
           dateType={props.bodyType}
           handleUpdate={props.handleUpdate}
@@ -23,11 +30,13 @@ const Test = React.forwardRef(function ListboxComponent(props, ref) {
           handleClose={props.handleClose}
         />
       )}
-      {props.bodyType === 'tag' && <ul role={'listbox'}>{props.children}</ul>}
+      {props.bodyType === 'tag' && (
+        <OptionsMenu listOptions role={'listbox'} options={options} />
+      )}
     </div>
   )
 })
-const TestA = React.forwardRef(function PopperComponent(props, ref) {
+const PopperComponent = React.forwardRef(function PopperComponent(props, ref) {
   return (
     <Popper
       ref={ref}
@@ -39,7 +48,7 @@ const TestA = React.forwardRef(function PopperComponent(props, ref) {
     </Popper>
   )
 })
-const TestB = React.forwardRef(function PaperComponent(props, ref) {
+const PaperComponent = React.forwardRef(function PaperComponent(props, ref) {
   return <div ref={ref}>{props.children}</div>
 })
 
@@ -98,18 +107,19 @@ export default function CustomInputAutocomplete(props) {
         <Autocomplete
           id="custom-input-demo"
           options={options}
-          open={open}
+          open={true}
           freeSolo
           autoComplete
           autoSelect
           clearOnBlur
           blurOnSelect
           value={value}
+          getOptionDisabled={option => option === 'add a new tag'}
           filterOptions={options => {
             const filtered = options.filter(
               option => !props.todo.tags.includes(option)
             )
-            return filtered.length === 0 ? ['NO OPTIONS'] : filtered
+            return filtered.length === 0 ? ['add a new tag'] : filtered
           }}
           onChange={(event, newValue) => {
             setValue(newValue)
@@ -134,6 +144,7 @@ export default function CustomInputAutocomplete(props) {
           }}
           renderInput={params => (
             <InputBase
+              style={{ color: 'white' }}
               autoFocus
               ref={params.InputProps.ref}
               type="text"
@@ -142,9 +153,9 @@ export default function CustomInputAutocomplete(props) {
               placeholder={props.option}
             />
           )}
-          ListboxComponent={Test}
-          PopperComponent={TestA}
-          PaperComponent={TestB}
+          ListboxComponent={ListboxComponent}
+          PopperComponent={PopperComponent}
+          PaperComponent={PaperComponent}
           ListboxProps={{ ...props }}
         />
       </Collapse>
