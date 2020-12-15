@@ -3,6 +3,7 @@ import * as React from 'react'
 import Tags from '../Tags/Tags'
 import { StyledSettingsList } from '../styles/componentsStyles'
 import SettingsListItemDate from '../SettingsListItemDate'
+import { useTheme } from '@material-ui/core'
 
 const ProjectSettingsList = ({
   project,
@@ -10,8 +11,9 @@ const ProjectSettingsList = ({
   handleUpdateProject,
   handleCloseTags
 }) => {
+  const theme = useTheme()
   return (
-    <StyledSettingsList>
+    <StyledSettingsList theme={theme}>
       {(project.when || project.deadline || openProjectTags) && <Divider />}
       {project.when && (
         <SettingsListItemDate

@@ -64,16 +64,15 @@ export const StyledSettingsList = styled(List)`
     padding-bottom: 0;
   }
   .date {
-    ${props => console.log('A', props)}
     padding: 3px;
     border-radius: 3px;
     width: fit-content;
     display: flex;
     align-items: center;
     :hover {
-      opacity: 0.5;
-      background: grey;
-      text-color: white;
+      // opacity: 0.5;
+      background: ${props => props.theme.palette.primary.main};
+      color: white;
     }
     .date-icon-close {
       font-size: 15px;

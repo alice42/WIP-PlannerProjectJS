@@ -20,7 +20,6 @@ const TodosAccordion = props => {
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
-    // console.log('A')
     props.projectsActions.updateTodo(
       itemType,
       newValue,

@@ -13,16 +13,16 @@ export const StyledTagButton = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
-  background: ${props => props.theme.palette.primary.light};
+  background: ${props => props.theme.palette.primary.main};
   color: white;
   overflow-wrap: anywhere;
   : hover {
     outline: none;
-    background: ${props => props.theme.palette.primary.main};
+    background: ${props => props.theme.palette.primary.light};
   }
   : focus {
     outline: none;
-    background: ${props => props.theme.palette.primary.main};
+    background: ${props => props.theme.palette.primary.light};
   }
 `
 export const StyledTagButtonInput = styled.input`

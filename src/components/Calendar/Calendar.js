@@ -81,14 +81,6 @@ const Calendar = props => {
         >
           Today
         </Button>
-        // <Button
-        //   theme={theme}
-        //   onClick={() => {
-        //     handleDateSelect(todayStr, calendarRef.current.getApi())
-        //   }}
-        // >
-        //   <Icon style={{ fontSize: '20px' }}>star</Icon>Today
-        // </StyledButtonToday>
       )}
       <FullCalendar
         ref={calendarRef}

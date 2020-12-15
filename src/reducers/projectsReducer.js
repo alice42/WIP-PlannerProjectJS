@@ -197,7 +197,6 @@ const reducer = (state = initialState, action) => {
     //   })
 
     case CONSTANTS.UPDATE_TODO:
-      // console.log(action)
       const newStateUpdateTodo = action.project.lists.map(list => {
         if (list.id === action.list) {
           return {

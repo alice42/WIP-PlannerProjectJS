@@ -16,8 +16,8 @@ export const StyledTodoContainer = styled.div`
 
 export const StyledWhenInfo = styled.div`
   padding: 3px;
-  opacity: 0.5;
-  background: grey;
+  color: white;
+  background: ${props => props.theme.palette.primary.main};
   border-radius: 3px;
 `
 export const StyledDeadlineInfo = styled.div`
@@ -41,7 +41,6 @@ export const StyledAccordionSummary = withStyles({
   root: {
     outline: 'none',
     margin: '0',
-    // backgroundColor: 'rgba(0, 0, 0, .03)',
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
     minHeight: 0,
     '&$expanded': {

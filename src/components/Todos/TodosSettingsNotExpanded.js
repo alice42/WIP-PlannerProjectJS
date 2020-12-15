@@ -1,14 +1,14 @@
 import React from 'react'
 import { shortDate } from '../utilsDates'
-import { Icon } from '@material-ui/core'
+import { Icon, useTheme } from '@material-ui/core'
 import {
   StyledTodosSettingsNotExpanded,
   StyledWhenInfo,
   StyledDeadlineInfo
 } from './styles/todosStyles'
 
-const WhenInfo = ({ when }) => (
-  <StyledWhenInfo>{shortDate(when)}</StyledWhenInfo>
+const WhenInfo = ({ when, theme }) => (
+  <StyledWhenInfo theme={theme}>{shortDate(when)}</StyledWhenInfo>
 )
 const DeadlineInfo = ({ deadline }) => (
   <StyledDeadlineInfo>
@@ -18,8 +18,11 @@ const DeadlineInfo = ({ deadline }) => (
 )
 
 const TodosSettingsNotExpanded = props => {
+  const theme = useTheme()
+
   const displayWhen = props.currentTodo && props.currentTodo.when
   const displayDeadline = props.currentTodo && props.currentTodo.deadline
+
   const display = () => {
     if (displayWhen && !displayDeadline) return 'info-flex-align-start'
     else if (displayDeadline && !displayWhen) return 'info-flex-align-end'
@@ -28,7 +31,7 @@ const TodosSettingsNotExpanded = props => {
   }
   const settingsInfo = display && (
     <StyledTodosSettingsNotExpanded className={`${display()}`}>
-      {displayWhen && <WhenInfo when={props.currentTodo.when} />}
+      {displayWhen && <WhenInfo theme={theme} when={props.currentTodo.when} />}
       {displayDeadline && (
         <DeadlineInfo deadline={props.currentTodo.deadline} />
       )}
