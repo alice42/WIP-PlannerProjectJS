@@ -14,7 +14,7 @@ const ProjectTitle = ({ handleUpdateProject, project }) => {
 
   return (
     <InlineGrownInput
-      style={{ fontSize: '17px' }}
+      project={project}
       inputRef={inputRefTitle}
       typeValue={'title'}
       value={title}

@@ -5,6 +5,8 @@ export const StyledTitleContainer = styled.div`
   padding: 10px;
   display: block;
   text-align: left;
+  font-size: 18px;
+  font-weight: bold;
 `
 
 export const StyledTitleCheckbox = styled(Checkbox)`

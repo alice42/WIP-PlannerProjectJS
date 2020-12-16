@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 import { List, Icon } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import { withStyles } from '@material-ui/core/styles'
 
 //POPPER MENU
 

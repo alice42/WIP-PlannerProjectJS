@@ -44,9 +44,8 @@ const Heading = props => {
 
   const renderEditInput = () => {
     return (
-      <StyledInputWrapperLeft>
+      <StyledInputWrapperLeft style={{ marginBottom: '8px' }}>
         <InlineGrownInput
-          project={props.project}
           inputRef={inputRefHeading}
           value={listTitle}
           typeValue={'heading'}

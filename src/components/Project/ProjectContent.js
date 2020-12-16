@@ -64,6 +64,7 @@ const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
       })
 
   const handleUpdateProject = (_project, newValue, valueType) => {
+    console.log(_project, newValue, valueType)
     return firestore
       .collection('users')
       .doc(uid)

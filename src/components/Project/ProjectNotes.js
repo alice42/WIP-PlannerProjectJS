@@ -13,6 +13,7 @@ const ProjectNotes = ({ project, handleUpdateProject }) => {
   return (
     <StyledNotesContainer>
       <InlineGrownInput
+        project={project}
         inputRef={inputRefNotes}
         value={project.notes}
         typeValue={'notes'}

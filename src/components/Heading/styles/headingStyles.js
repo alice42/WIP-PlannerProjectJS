@@ -24,6 +24,7 @@ export const StyledHeadingContainer = styled(Card)`
     ${props =>
       props['data-rbd-draggable-id'] === 'list-0' ||
       `
+      font-size: 18px;
       display: flex;
       outline: none;
       justify-content: space-between;
