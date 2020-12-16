@@ -49,7 +49,6 @@ const InlineGrownInput = props => {
         className={'input'}
         contentEditable={'true'}
         suppressContentEditableWarning={'true'}
-        //
         ref={props.inputRef}
         typevalue={props.typeValue}
         onBlur={e => {

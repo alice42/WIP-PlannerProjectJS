@@ -3,10 +3,11 @@ import { StyledTagButton, StyledTagButtonInput } from './styles/tagsStyles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './utils'
 import { useTheme } from '@material-ui/core'
-export const TagButton = ({ index, title, onPressDeleteTag }) => {
+export const TagButton = ({ index, title, onPressDeleteTag, withButton }) => {
   const theme = useTheme()
   return (
     <StyledTagButton
+      withButton={withButton}
       theme={theme}
       tabIndex={index}
       onClick={e => e.currentTarget.focus()}
@@ -41,12 +42,6 @@ export const AddTagButton = ({
       clearOnBlur
       blurOnSelect
       options={defaultTagsList}
-      filterOptions={options => {
-        const filtered = options.filter(
-          option => !project.tags.includes(option)
-        )
-        return filtered
-      }}
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue)

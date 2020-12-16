@@ -7,11 +7,9 @@ import {
   StyledAccordionSummary,
   StyledFormControlLabel,
   StyledTodosNotesWrapper,
-  StyledTodosOptionsWrapper,
   StyledAccordionDetails
 } from './styles/todosStyles'
-import TodosOptions from '../Options/TodosOptions'
-import TodosSettingsList from './TodosSettingsList'
+import TodosOptions from './TodosOptions'
 import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
 
 const TodosAccordion = props => {
@@ -49,20 +47,15 @@ const TodosAccordion = props => {
         <StyledTodosNotesWrapper>
           <Typography color="textSecondary">notes</Typography>
         </StyledTodosNotesWrapper>
-        <StyledTodosOptionsWrapper>
+        {props.currentTodo && (
           <TodosOptions
             {...props}
-            list={props.list}
-            currentTodo={props.currentTodo}
-            handleUpdateTodo={handleUpdateTodo}
-          />
-          <TodosSettingsList
-            {...props}
             todos
-            currentTodo={props.currentTodo}
+            list={props.list}
+            todo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
           />
-        </StyledTodosOptionsWrapper>
+        )}
       </StyledAccordionDetails>
     </Accordion>
   )

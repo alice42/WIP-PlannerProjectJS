@@ -29,7 +29,6 @@ const TodosSettingsList = props => {
       {props.currentTodo && props.currentTodo.tags && (
         <ListItem className={'each tags'}>
           <Tags
-            {...props}
             open={true}
             project={props.currentTodo}
             handleUpdate={props.handleUpdateTodo}

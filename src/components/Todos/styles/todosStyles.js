@@ -93,14 +93,37 @@ export const StyledTodosNotesWrapper = styled.div`
   display: flex;
   min-height: 50px;
 `
-export const StyledTodosOptionsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  align-items: flex-end;
-`
 export const StyledAccordionDetails = styled(AccordionDetails)`
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
 `
+
+export const styles = theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column-reverse',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexDirection: 'row-reverse',
+      alignItems: 'flex-end'
+    }
+  },
+  options: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      width: '50%',
+      justifyContent: 'flex-end'
+    }
+  },
+  settings: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      width: '50%',
+      justifyContent: 'flex-start'
+    }
+  }
+})

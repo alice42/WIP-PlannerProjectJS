@@ -27,7 +27,8 @@ export const useStyledExpandedInput = makeStyles(theme => ({
     background: theme.palette.primary.main,
     padding: '0 4px 0 4px',
     margin: '0 4px 0 4px',
-    borderRadius: '3px'
+    borderRadius: '3px',
+    height: '25px'
   },
   content: {
     fontSize: '17px'
@@ -38,6 +39,7 @@ export const useStyledExpandedInput = makeStyles(theme => ({
     margin: '0'
   },
   inputWrapper: {
+    color: 'white',
     width: '90%',
     '& .MuiInputBase-input': {
       padding: '0',
@@ -49,7 +51,7 @@ export const useStyledExpandedInput = makeStyles(theme => ({
 //SETTINGS
 export const StyledSettingsList = styled(List)`
   font-size: ${props => (props.todos ? '12px' : '15px')};
-  ${props => props.todos && 'padding: 0; max-width: 70%;'}
+  ${props => props.todos && 'padding: 0;'}
   .each {
     padding-top: 3px;
     padding-bottom: 3px;

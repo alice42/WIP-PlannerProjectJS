@@ -14,7 +14,6 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 let theme = createMuiTheme()
-// theme = responsiveFontSizes(theme)
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAXl3gF8A_eaw4F3tmYKPmrNKTQ_UEa9RY',
@@ -43,11 +42,10 @@ const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance //since we are using Firestore
+  createFirestoreInstance
 }
 
 ReactDOM.render(
-  // <React.StrictMode>
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
@@ -58,6 +56,5 @@ ReactDOM.render(
       </ReactReduxFirebaseProvider>
     </Provider>
   </MuiThemeProvider>,
-  // </React.StrictMode>,
   document.getElementById('root')
 )

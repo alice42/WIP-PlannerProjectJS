@@ -32,9 +32,10 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
     handleUpdate(project, newTags, 'tags')
   }
 
-  const allTags = tags =>
+  const allTags = (tags, withButton) =>
     tags.map((tag, i) => (
       <TagButton
+        withButton={withButton}
         onPressDeleteTag={() => {
           onPressDeleteTag(tag)
         }}
@@ -47,7 +48,7 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
   return (
     open && (
       <StyledTagWrapper>
-        {allTags(project.tags)}
+        {allTags(project.tags, withButton)}
         {withButton && (
           <AddTagButton
             project={project}

@@ -5,7 +5,7 @@ export const StyledTagWrapper = styled.div`
   flex-flow: wrap;
 `
 export const StyledTagButton = styled.div`
-  font-size: 15px;
+  font-size: ${props => (props.withButton ? '15px' : '11px')};
   margin-left: 3px;
   margin-bottom: 3px;
   padding: 3px;

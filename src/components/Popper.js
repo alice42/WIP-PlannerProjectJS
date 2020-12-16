@@ -29,10 +29,10 @@ export const OptionsMenu = ({ options, listOptions }) => (
             <ul style={{ display: 'contents' }}>
               <ListItemIcon style={{ minWidth: 'unset' }}>
                 <Icon style={{ width: 'unset' }} fontSize="small">
-                  {option.icon}
+                  local_offer
                 </Icon>
               </ListItemIcon>
-              {option.title}
+              {option}
             </ul>
           </StyledMenuItem>
         ) : (
@@ -81,7 +81,7 @@ export const PopperContainer = props => {
       style={{ zIndex: '2' }}
       open={props.open}
       anchorEl={props.anchorEl}
-      placement={props.placement}
+      placement={'bottom-start'}
     >
       {props.body}
     </Popper>

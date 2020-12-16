@@ -33,3 +33,18 @@ export const shortDate = date => {
   })
   return newDate
 }
+
+export const dateRange = (startDate, endDate, steps = 1) => {
+  const dateArray = []
+  let currentDate = new Date(startDate)
+
+  while (currentDate <= new Date(endDate)) {
+    dateArray.push({
+      option: new Date(currentDate).toDateString(),
+      date: new Date(currentDate).toISOString().split('T')[0]
+    })
+    currentDate.setUTCDate(currentDate.getUTCDate() + steps)
+  }
+
+  return dateArray
+}

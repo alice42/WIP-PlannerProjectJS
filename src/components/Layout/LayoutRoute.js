@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-// import { useFirebase } from 'react-redux-firebase'
 import { isLoaded, isEmpty } from 'react-redux-firebase'
 import { useSelector } from 'react-redux'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, ClickAwayListener } from '@material-ui/core'
 import { PopperContainer, PopperBody } from '../Popper'
-import { setOptions } from './utils'
+import { setOptions } from '../utils'
 
 const ProjectOptions = ({
   project,

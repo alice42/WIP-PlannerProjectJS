@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import Todos from '../Todos/Todos'
 import { useSelector } from 'react-redux'
 import Create from '../DragNDrop/Create'
-// import { useFirestoreConnect } from 'react-redux-firebase'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { StyledInputWrapperLeft } from '../styles/componentsStyles'
 import { StyledHeadingContainer, styles } from './styles/headingStyles'
 import InlineGrownInput from '../InlineGrownInput'
-// import { Card } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
 
