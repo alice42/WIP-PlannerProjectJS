@@ -1,14 +1,13 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 import Accordion from '@material-ui/core/Accordion'
 import Checkbox from '@material-ui/core/Checkbox'
 import {
   useStyledTodoWrapper,
   StyledAccordionSummary,
   StyledFormControlLabel,
-  StyledTodosNotesWrapper,
   StyledAccordionDetails
 } from './styles/todosStyles'
+import TodosNotes from './TodosNotes'
 import TodosOptions from './TodosOptions'
 import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
 
@@ -17,7 +16,7 @@ const TodosAccordion = props => {
   const classes = useStyledTodoWrapper()
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
 
-  const handleUpdateTodo = (itemType, newValue, valueType) => {
+  const handleUpdateTodo = (itemType, newValue, valueType) =>
     props.projectsActions.updateTodo(
       itemType,
       newValue,
@@ -25,7 +24,7 @@ const TodosAccordion = props => {
       props.project,
       props.list
     )
-  }
+
   return (
     <Accordion className={classes.root} onChange={() => setExpanded(!expanded)}>
       <StyledAccordionSummary
@@ -44,9 +43,11 @@ const TodosAccordion = props => {
         )}
       </StyledAccordionSummary>
       <StyledAccordionDetails>
-        <StyledTodosNotesWrapper>
-          <Typography color="textSecondary">notes</Typography>
-        </StyledTodosNotesWrapper>
+        <TodosNotes
+          {...props}
+          todo={props.currentTodo}
+          handleUpdateTodo={handleUpdateTodo}
+        />
         {props.currentTodo && (
           <TodosOptions
             {...props}
