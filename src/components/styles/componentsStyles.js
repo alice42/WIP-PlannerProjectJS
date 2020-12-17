@@ -48,7 +48,7 @@ export const useStyledExpandedInput = makeStyles(theme => ({
 //SETTINGS
 export const StyledSettingsList = styled(List)`
   font-size: ${props => (props.todos ? '12px' : '15px')};
-  ${props => props.todos && 'padding: 0;'}
+  ${props => props.todos && 'padding: 0; min-width: fit-content;'}
   .each {
     padding-top: 3px;
     padding-bottom: 3px;

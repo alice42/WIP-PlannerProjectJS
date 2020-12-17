@@ -103,28 +103,13 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 export const styles = theme => ({
   wrapper: {
     display: 'flex',
-    flexDirection: 'column-reverse',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      flexDirection: 'row-reverse',
-      alignItems: 'flex-end'
-    }
+    justifyContent: 'space-between',
+    flexFlow: 'row wrap'
   },
+
   options: {
     display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      width: '50%',
-      justifyContent: 'flex-end'
-    }
-  },
-  settings: {
-    display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-      width: '50%',
-      justifyContent: 'flex-start'
-    }
+    alignItems: 'flex-end',
+    paddingTop: '5px'
   }
 })

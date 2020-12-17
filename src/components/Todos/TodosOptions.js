@@ -4,6 +4,7 @@ import { optionsTodos } from '../utils'
 import { ClickAwayListener, makeStyles } from '@material-ui/core'
 import TodosSettingsList from './TodosSettingsList'
 import { styles } from './styles/todosStyles'
+import Tags from '../Tags/Tags'
 
 const useStyles = makeStyles(styles)
 
@@ -27,10 +28,22 @@ const TodosOptions = props => {
   }
 
   return (
-    <div className={classes.wrapper}>
-      <div className={classes.options}>
+    <div>
+      {props.todo && props.todo.tags && (
+        <Tags
+          open={true}
+          project={props.todo}
+          handleUpdate={props.handleUpdateTodo}
+        />
+      )}
+      <div className={classes.wrapper}>
+        <TodosSettingsList
+          todos
+          currentTodo={props.todo}
+          handleUpdateTodo={props.handleUpdateTodo}
+        />
         <ClickAwayListener onClickAway={handleClose}>
-          <span style={{ display: 'flex' }}>
+          <span className={classes.options}>
             {optionsTodos.map((option, index) => {
               return (
                 <ExpandInput
@@ -48,13 +61,6 @@ const TodosOptions = props => {
             })}
           </span>
         </ClickAwayListener>
-      </div>
-      <div className={classes.settings}>
-        <TodosSettingsList
-          todos
-          currentTodo={props.todo}
-          handleUpdateTodo={props.handleUpdateTodo}
-        />
       </div>
     </div>
   )
