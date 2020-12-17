@@ -73,14 +73,17 @@ export const StyledSettingsList = styled(List)`
       font-weight: bold;
     }
   }
+  .deadlinePast {
+    color: ${props => props.theme.palette.error.main};
+  }
   .deadline {
+    color: black;
     margin-left: 10px;
     opacity: 0.5;
   }
 `
 
 export const StyledIconSettingsList = styled(Icon)`
-  ${props => console.log(props)}
   margin-right: 5px;
   ${props =>
     props.date === 'Today' && `color: ${props.theme.palette.warning.light};`};

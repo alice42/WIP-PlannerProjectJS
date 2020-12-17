@@ -22,6 +22,7 @@ export const StyledWhenInfo = styled.div`
 `
 export const StyledDeadlineInfo = styled.div`
   display: flex;
+  ${props => props.isPast && `color: ${props.theme.palette.error.main}`};
   span {
     font-size: 13px;
     margin-right: 3px;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { shortDate } from '../utilsDates'
+import { shortDate, daysFromToday } from '../utilsDates'
 import { Icon, useTheme } from '@material-ui/core'
 import {
   StyledTodosSettingsNotExpanded,
@@ -10,12 +10,15 @@ import {
 const WhenInfo = ({ when, theme }) => (
   <StyledWhenInfo theme={theme}>{shortDate(when)}</StyledWhenInfo>
 )
-const DeadlineInfo = ({ deadline }) => (
-  <StyledDeadlineInfo>
-    <Icon>schedule</Icon>
-    {shortDate(deadline)}
-  </StyledDeadlineInfo>
-)
+const DeadlineInfo = ({ deadline, theme }) => {
+  const isPast = daysFromToday(deadline).match('ago')
+  return (
+    <StyledDeadlineInfo theme={theme} isPast={isPast}>
+      <Icon>schedule</Icon>
+      {shortDate(deadline)}
+    </StyledDeadlineInfo>
+  )
+}
 
 const TodosSettingsNotExpanded = props => {
   const theme = useTheme()
@@ -33,7 +36,7 @@ const TodosSettingsNotExpanded = props => {
     <StyledTodosSettingsNotExpanded className={`${display()}`}>
       {displayWhen && <WhenInfo theme={theme} when={props.currentTodo.when} />}
       {displayDeadline && (
-        <DeadlineInfo deadline={props.currentTodo.deadline} />
+        <DeadlineInfo theme={theme} deadline={props.currentTodo.deadline} />
       )}
     </StyledTodosSettingsNotExpanded>
   )

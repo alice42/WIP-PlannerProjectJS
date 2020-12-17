@@ -27,9 +27,13 @@ const SettingsListItemDate = ({
   const theme = useTheme()
   const [hover, sethover] = React.useState(false)
   const date = dateString(project[`${type}`], type)
+  const deadlinePast =
+    type === 'deadline' && daysFromToday(project[`${type}`]).match('ago')
+      ? 'deadlinePast'
+      : null
   return (
     <>
-      <ListItem className={'each'}>
+      <ListItem className={`each ${deadlinePast}`}>
         <span
           className={'date'}
           onMouseLeave={() => sethover(false)}
