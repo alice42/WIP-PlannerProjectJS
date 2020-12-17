@@ -199,7 +199,12 @@ export default function Auto({
           timeout="auto"
           unmountOnExit
         >
-          A
+          <InputBase
+            autoFocus
+            type="text"
+            className={classes.inputWrapper}
+            placeholder={option.title}
+          />
         </Collapse>
       </div>
     )
