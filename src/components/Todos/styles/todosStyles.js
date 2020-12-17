@@ -16,12 +16,13 @@ export const StyledTodoContainer = styled.div`
 
 export const StyledWhenInfo = styled.div`
   padding: 3px;
-  opacity: 0.5;
-  background: grey;
+  color: white;
+  background: ${props => props.theme.palette.primary.main};
   border-radius: 3px;
 `
 export const StyledDeadlineInfo = styled.div`
   display: flex;
+  ${props => props.isPast && `color: ${props.theme.palette.error.main}`};
   span {
     font-size: 13px;
     margin-right: 3px;
@@ -41,7 +42,6 @@ export const StyledAccordionSummary = withStyles({
   root: {
     outline: 'none',
     margin: '0',
-    backgroundColor: 'rgba(0, 0, 0, .03)',
     borderBottom: '1px solid rgba(0, 0, 0, .125)',
     minHeight: 0,
     '&$expanded': {
@@ -94,14 +94,22 @@ export const StyledTodosNotesWrapper = styled.div`
   display: flex;
   min-height: 50px;
 `
-export const StyledTodosOptionsWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  align-items: flex-end;
-`
 export const StyledAccordionDetails = styled(AccordionDetails)`
   display: flex;
   flex-direction: column;
   width: -webkit-fill-available;
 `
+
+export const styles = theme => ({
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexFlow: 'row wrap'
+  },
+
+  options: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    paddingTop: '5px'
+  }
+})

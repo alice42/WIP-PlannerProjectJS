@@ -1,10 +1,10 @@
 import React from 'react'
-import { Icon } from '@material-ui/core'
+import { Button, Icon } from '@material-ui/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import { StyleWrapper, StyledButtonToday } from './styles/CalendarStyles'
+import { StyleWrapper, useStyles } from './styles/CalendarStyles'
 import { todayStr } from '../utilsDates'
 import {
   customViewPlugin,
@@ -13,10 +13,13 @@ import {
   handleDayHeaderClassNames,
   handleDayCellDidMount
 } from './utils'
+import { useTheme } from '@material-ui/core/styles'
+import { Star } from '@material-ui/icons'
 
 const Calendar = props => {
   const calendarRef = React.createRef(null)
-
+  const theme = useTheme()
+  const classes = useStyles()
   React.useEffect(() => {
     calendarRef.current &&
       calendarRef.current._calendarApi.changeView(props.dateType)
@@ -65,15 +68,19 @@ const Calendar = props => {
   }
 
   return (
-    <StyleWrapper>
+    <StyleWrapper theme={theme}>
       {props.dateType === 'when' && (
-        <StyledButtonToday
+        <Button
           onClick={() => {
             handleDateSelect(todayStr, calendarRef.current.getApi())
           }}
+          variant="outlined"
+          color="primary"
+          className={classes.button}
+          startIcon={<Star className={classes.startIcon} />}
         >
-          <Icon style={{ fontSize: '20px' }}>star</Icon>Today
-        </StyledButtonToday>
+          Today
+        </Button>
       )}
       <FullCalendar
         ref={calendarRef}

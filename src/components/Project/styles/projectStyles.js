@@ -5,11 +5,12 @@ export const StyledTitleContainer = styled.div`
   padding: 10px;
   display: block;
   text-align: left;
+  font-size: 18px;
+  font-weight: bold;
 `
 
 export const StyledTitleCheckbox = styled(Checkbox)`
   padding: 0px 5px 0px 5px;
-  vertical-align: text-top;
 `
 
 export const StyledNotesContainer = styled.div`

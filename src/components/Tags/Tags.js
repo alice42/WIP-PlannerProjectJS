@@ -28,13 +28,14 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
 
   const onPressDeleteTag = tag => {
     const tags = project.tags
-    var newTags = tags.filter(value => value !== tag)
+    var newTags = tags && tags.filter(value => value !== tag)
     handleUpdate(project, newTags, 'tags')
   }
 
-  const allTags = tags =>
+  const allTags = (tags, withButton) =>
     tags.map((tag, i) => (
       <TagButton
+        withButton={withButton}
         onPressDeleteTag={() => {
           onPressDeleteTag(tag)
         }}
@@ -47,7 +48,7 @@ const Tags = ({ withButton, open, project, handleUpdate, handleCloseTags }) => {
   return (
     open && (
       <StyledTagWrapper>
-        {allTags(project.tags)}
+        {allTags(project.tags, withButton)}
         {withButton && (
           <AddTagButton
             project={project}

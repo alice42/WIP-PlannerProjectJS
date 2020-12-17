@@ -7,11 +7,9 @@ import {
   StyledAccordionSummary,
   StyledFormControlLabel,
   StyledTodosNotesWrapper,
-  StyledTodosOptionsWrapper,
   StyledAccordionDetails
 } from './styles/todosStyles'
-import TodosOptions from '../Options/TodosOptions'
-import TodosSettingsList from './TodosSettingsList'
+import TodosOptions from './TodosOptions'
 import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
 
 const TodosAccordion = props => {
@@ -20,7 +18,6 @@ const TodosAccordion = props => {
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
 
   const handleUpdateTodo = (itemType, newValue, valueType) => {
-    console.log('A')
     props.projectsActions.updateTodo(
       itemType,
       newValue,
@@ -39,34 +36,26 @@ const TodosAccordion = props => {
         <StyledFormControlLabel
           aria-label="Acknowledge"
           onClick={e => e.stopPropagation()}
-          control={<Checkbox style={{ pointerEvents: 'auto' }} />}
+          control={<Checkbox />}
           label={label}
         />
         {!expanded && (
-          <TodosSettingsNotExpanded
-            // {...props}
-            currentTodo={props.currentTodo}
-          />
+          <TodosSettingsNotExpanded currentTodo={props.currentTodo} />
         )}
       </StyledAccordionSummary>
       <StyledAccordionDetails>
         <StyledTodosNotesWrapper>
           <Typography color="textSecondary">notes</Typography>
         </StyledTodosNotesWrapper>
-        <StyledTodosOptionsWrapper>
+        {props.currentTodo && (
           <TodosOptions
             {...props}
-            list={props.list}
-            currentTodo={props.currentTodo}
-            handleUpdateTodo={handleUpdateTodo}
-          />
-          <TodosSettingsList
-            {...props}
             todos
-            currentTodo={props.currentTodo}
+            list={props.list}
+            todo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
           />
-        </StyledTodosOptionsWrapper>
+        )}
       </StyledAccordionDetails>
     </Accordion>
   )

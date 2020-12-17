@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Title from './ProjectTitle'
-import ProjectOptions from '../Options/ProjectOptions'
+import ProjectOptions from './ProjectOptions'
 import ProjectSettingsList from './ProjectSettingsList'
 import ProjectNotes from './ProjectNotes'
 import DragDropContext from '../DragNDrop/DragDropContext'
@@ -63,8 +63,8 @@ const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
         console.error('Error removing document: ', error)
       })
 
-  const handleUpdateProject = (_project, newValue, valueType) => {
-    return firestore
+  const handleUpdateProject = (_project, newValue, valueType) =>
+    firestore
       .collection('users')
       .doc(uid)
       .collection('projects')
@@ -72,7 +72,6 @@ const ProjectContent = ({ inputRefNotes, projectID, ...restProps }) => {
       .update({
         [`${valueType}`]: newValue
       })
-  }
 
   if (!isLoaded(project)) {
     return 'Loading...'

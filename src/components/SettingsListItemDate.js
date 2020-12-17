@@ -2,8 +2,9 @@ import * as React from 'react'
 import { Divider, Icon, ListItem } from '@material-ui/core'
 import { dateString, daysFromToday } from './utilsDates'
 import { StyledIconSettingsList } from './styles/componentsStyles'
+import { useTheme } from '@material-ui/core/styles'
 
-const IconsDate = ({ todos, type }) =>
+const IconsDate = ({ todos, type, date, theme }) =>
   type === 'deadline' ? (
     <>
       <StyledIconSettingsList todos={todos && 'true'}>
@@ -12,8 +13,8 @@ const IconsDate = ({ todos, type }) =>
       {!todos && 'Deadline: '}
     </>
   ) : (
-    <StyledIconSettingsList todos={todos && 'true'}>
-      date_range
+    <StyledIconSettingsList date={date} theme={theme} todos={todos && 'true'}>
+      {date === 'Today' ? 'star' : 'date_range'}
     </StyledIconSettingsList>
   )
 
@@ -23,17 +24,23 @@ const SettingsListItemDate = ({
   handleUpdateProject,
   todos
 }) => {
+  const theme = useTheme()
   const [hover, sethover] = React.useState(false)
+  const date = dateString(project[`${type}`], type)
+  const deadlinePast =
+    type === 'deadline' && daysFromToday(project[`${type}`]).match('ago')
+      ? 'deadlinePast'
+      : null
   return (
     <>
-      <ListItem className={'each'}>
+      <ListItem className={`each ${deadlinePast}`}>
         <span
           className={'date'}
           onMouseLeave={() => sethover(false)}
           onMouseEnter={() => sethover(true)}
         >
-          <IconsDate todos={todos} type={type} />
-          {dateString(project[`${type}`], type)}
+          <IconsDate todos={todos} type={type} date={date} theme={theme} />
+          {date}
           {hover && (
             <Icon
               className={'date-icon-close'}
@@ -43,7 +50,7 @@ const SettingsListItemDate = ({
             </Icon>
           )}
         </span>
-        {!todos && !hover && (
+        {!hover && (
           <span
             className={'deadline'}
             onMouseLeave={() => sethover(false)}
@@ -53,7 +60,7 @@ const SettingsListItemDate = ({
           </span>
         )}
       </ListItem>
-      <Divider />
+      {!todos && <Divider />}
     </>
   )
 }

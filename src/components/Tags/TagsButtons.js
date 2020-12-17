@@ -2,19 +2,23 @@ import * as React from 'react'
 import { StyledTagButton, StyledTagButtonInput } from './styles/tagsStyles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './utils'
-
-export const TagButton = ({ index, title, onPressDeleteTag }) => (
-  <StyledTagButton
-    tabIndex={index}
-    onClick={e => e.currentTarget.focus()}
-    onKeyDown={e => {
-      if (e.key === 'Backspace') onPressDeleteTag()
-    }}
-  >
-    <span>{title}</span>
-  </StyledTagButton>
-)
-
+import { useTheme } from '@material-ui/core'
+export const TagButton = ({ index, title, onPressDeleteTag, withButton }) => {
+  const theme = useTheme()
+  return (
+    <StyledTagButton
+      withButton={withButton}
+      theme={theme}
+      tabIndex={index}
+      onClick={e => e.currentTarget.focus()}
+      onKeyDown={e => {
+        if (e.key === 'Backspace') onPressDeleteTag()
+      }}
+    >
+      <span>{title}</span>
+    </StyledTagButton>
+  )
+}
 export const AddTagButton = ({
   project,
   value,
@@ -38,12 +42,6 @@ export const AddTagButton = ({
       clearOnBlur
       blurOnSelect
       options={defaultTagsList}
-      filterOptions={options => {
-        const filtered = options.filter(
-          option => !project.tags.includes(option)
-        )
-        return filtered
-      }}
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue)

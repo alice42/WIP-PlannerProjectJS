@@ -5,6 +5,7 @@ import Hidden from '@material-ui/core/Hidden'
 import ProjectsList from '../ProjectsList'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { styles } from './styles/layoutStyles'
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 240
 const useStyles = makeStyles(styles)
@@ -18,10 +19,10 @@ function ResponsiveDrawer({ handleDrawerToggle, mobileOpen, ...props }) {
       <div className={classes.toolbar} />
       <ul>
         <li>
-          <a href="A">A</a>
+          <Link to="/A">A</Link>
         </li>
         <li>
-          <a href="B">B</a>
+          <Link to="/B">B</Link>
         </li>
       </ul>
       <Divider />

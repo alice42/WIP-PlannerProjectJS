@@ -8,45 +8,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // case CONSTANTS.ADD_PROJECT:
-    //   return {
-    //     ...state,
-    //     all: [...state.all, action.newProject]
-    //   }
-    // case CONSTANTS.REMOVE_PROJECT:
-    //   return {
-    //     ...state,
-    //     all: state.all.filter(
-    //       project => project.id !== action.projectToRemove.id
-    //     )
-    //   }
-    // case CONSTANTS.UPDATE_PROJECT:
-    //   return {
-    //     ...state,
-    //     all: state.all.map(project =>
-    //       project.id === action.updatedProject.id
-    //         ? action.updatedProject
-    //         : project
-    //     )
-    //   }
-
-    // case CONSTANTS.ADD_LIST:
-    //   const newList = {
-    //     title: action.payload,
-    //     cards: [],
-    //     id: `heading_${uuid()}`
-    //   }
-    //   const newStateAddList = state.all
-    //   newStateAddList.map(project =>
-    //     project.id === action.project.id
-    //       ? (action.project.lists = [...project.lists, newList])
-    //       : project
-    //   )
-    //   return {
-    //     ...state,
-    //     all: newStateAddList
-    //   }
-
     case CONSTANTS.ADD_CARD:
       const newCard = {
         title: action.payload.text,
@@ -197,7 +158,6 @@ const reducer = (state = initialState, action) => {
     //   })
 
     case CONSTANTS.UPDATE_TODO:
-      console.log(action)
       const newStateUpdateTodo = action.project.lists.map(list => {
         if (list.id === action.list) {
           return {

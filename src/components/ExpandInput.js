@@ -1,33 +1,36 @@
-import * as React from 'react'
+import React from 'react'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import Collapse from '@material-ui/core/Collapse'
 import Icon from '@material-ui/core/Icon'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import InputBase from '@material-ui/core/InputBase'
-import { useStyledExpandedInput } from './styles/componentsStyles'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import { defaultTagsList } from './Tags/utils'
-import Calendar from './Calendar/Calendar'
-import { PopperBodyCalendar } from './styles/componentsStyles'
+import { CalendarMenu, OptionsMenu } from './Popper'
 import { Popper } from '@material-ui/core'
-import { AddTagButton } from './Tags/TagsButtons'
+import { dateRange, todayStr } from './utilsDates'
+import { useStyledExpandedInput } from './styles/componentsStyles'
 
-const Test = React.forwardRef(function ListboxComponent(props, ref) {
+const ListboxComponent = React.forwardRef(function ListboxComponent(
+  props,
+  ref
+) {
   return (
     <div ref={ref}>
-      {(props.bodyType === 'when' || props.bodyType === 'deadline') && (
-        <Calendar
-          {...props}
-          dateType={props.bodyType}
+      {props.dates.length === props.children.length ? (
+        <CalendarMenu
+          bodyType={props.option.id}
           handleUpdate={props.handleUpdate}
           toUpdate={props.todo}
           handleClose={props.handleClose}
         />
+      ) : (
+        <OptionsMenu listOptions role={'listbox'} options={props.children} />
       )}
-      {props.bodyType === 'tag' && <ul role={'listbox'}>{props.children}</ul>}
     </div>
   )
 })
-const TestA = React.forwardRef(function PopperComponent(props, ref) {
+
+const PopperComponent = React.forwardRef(function PopperComponent(props, ref) {
   return (
     <Popper
       ref={ref}
@@ -39,115 +42,166 @@ const TestA = React.forwardRef(function PopperComponent(props, ref) {
     </Popper>
   )
 })
-const TestB = React.forwardRef(function PaperComponent(props, ref) {
-  return <PopperBodyCalendar ref={ref}>{props.children}</PopperBodyCalendar>
+const PaperComponent = React.forwardRef(function PaperComponent(props, ref) {
+  return <div ref={ref}>{props.children}</div>
 })
 
-export default function CustomInputAutocomplete(props) {
+export default function Auto({
+  handleSetValue,
+  handleUpdateTodo,
+  handleOpen,
+  handleClose,
+  option,
+  open,
+  todo,
+  project
+}) {
   const classes = useStyledExpandedInput()
-  const [open, setOpen] = React.useState(true)
+  if (option.id === 'tag') {
+    const tagsOptions = [
+      ...defaultTagsList,
+      ...project.tags.filter(item => defaultTagsList.indexOf(item) < 0)
+    ]
 
-  const [value, setValue] = React.useState(null)
-  const [inputValue, setInputValue] = React.useState(null)
+    const fixedOptions = [...todo.tags]
+    const value = [...fixedOptions]
 
-  React.useEffect(() => {
-    if (value === inputValue) onPressValidNewTag()
-  }, [value])
-
-  const onPressValidNewTag = () => {
-    const tags = [...props.todo.tags]
-    if (value && !tags.find(tag => tag === value)) {
-      tags.push(value)
-      props.handleUpdate(props.todo, tags, 'tags')
-    }
-    setValue(null)
-  }
-  const options = [
-    ...defaultTagsList,
-    ...props.project.tags.filter(item => defaultTagsList.indexOf(item) < 0)
-  ]
-
-  React.useEffect(() => {
-    if (!open && props.expanded[props.id]) {
-      setOpen(true)
-    }
-    if (!open && !props.expanded[props.id]) {
-      setOpen(false)
-    }
-  }, [props.expanded[props.id]])
-
-  return (
-    <div className={classes.root}>
-      <FormControlLabel
-        className={classes.label}
-        control={
-          <Icon
-            id={props.id}
-            onClick={e => props.handleClick(e.currentTarget.id, 'bottom', e)}
-          >
-            {props.icon}
-          </Icon>
-        }
-      />
-      <Collapse
-        orientation="horizontal"
-        in={props.expanded[props.id]}
-        timeout="auto"
-        unmountOnExit
-      >
-        <Autocomplete
-          id="custom-input-demo"
-          options={options}
-          open={open}
-          freeSolo
-          autoComplete
-          autoSelect
-          clearOnBlur
-          blurOnSelect
-          value={value}
-          filterOptions={options => {
-            const filtered = options.filter(
-              option => !props.todo.tags.includes(option)
-            )
-            return filtered.length === 0 ? ['NO OPTIONS'] : filtered
-          }}
-          onChange={(event, newValue) => {
-            setValue(newValue)
-          }}
-          onInputChange={(event, newInputValue) => {
-            setInputValue(newInputValue)
-          }}
-          getOptionLabel={option => {
-            if (typeof option === 'string') {
-              return option
-            }
-            if (option.inputValue) {
-              return option.inputValue
-            }
-            return option
-          }}
-          onOpen={() => {
-            setOpen(true)
-          }}
-          onClose={() => {
-            setOpen(false)
-          }}
-          renderInput={params => (
-            <InputBase
-              autoFocus
-              ref={params.InputProps.ref}
-              type="text"
-              inputProps={params.inputProps}
-              className={classes.inputWrapper}
-              placeholder={props.option}
-            />
-          )}
-          ListboxComponent={Test}
-          PopperComponent={TestA}
-          PaperComponent={TestB}
-          ListboxProps={{ ...props }}
+    return (
+      <div className={classes.root}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
         />
-      </Collapse>
-    </div>
-  )
+        <Collapse
+          orientation="horizontal"
+          in={open[option.id]}
+          timeout="auto"
+          unmountOnExit
+        >
+          <Autocomplete
+            id={`${todo.id}_${option.id}`}
+            multiple
+            freeSolo
+            autoComplete
+            autoSelect
+            clearOnBlur
+            blurOnSelect
+            filterSelectedOptions
+            value={value}
+            open={true}
+            getOptionSelected={(option, value) => option === value}
+            onChange={(_event, value) =>
+              handleSetValue(
+                [
+                  ...fixedOptions,
+                  ...value.filter(option => fixedOptions.indexOf(option) === -1)
+                ],
+                option.id
+              )
+            }
+            options={tagsOptions}
+            getOptionLabel={option => option}
+            renderInput={params => (
+              <InputBase
+                autoFocus
+                ref={params.InputProps.ref}
+                type="text"
+                inputProps={params.inputProps}
+                className={classes.inputWrapper}
+                placeholder={option.title}
+              />
+            )}
+            PopperComponent={PopperComponent}
+          />
+        </Collapse>
+      </div>
+    )
+  } else if (option.id === 'when' || option.id === 'deadine') {
+    var date = new Date()
+    date.setDate(date.getDate() + 15)
+    const to = date.toISOString().replace(/T.*$/, '')
+
+    const dates = dateRange(todayStr, to)
+
+    return (
+      <div className={classes.root}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
+        />
+        <Collapse
+          orientation="horizontal"
+          in={open[option.id]}
+          timeout="auto"
+          unmountOnExit
+        >
+          <Autocomplete
+            id={`${todo.id}_${option.id}`}
+            multiple
+            freeSolo
+            autoComplete
+            autoSelect
+            clearOnBlur
+            blurOnSelect
+            onChange={(_event, value) => {
+              dates.find(date => date.date === value[value.length - 1].date) &&
+                handleSetValue(value[value.length - 1].date, option.id)
+            }}
+            options={dates}
+            open
+            getOptionLabel={option => option.option}
+            renderInput={params => (
+              <InputBase
+                autoFocus
+                ref={params.InputProps.ref}
+                type="text"
+                className={classes.inputWrapper}
+                inputProps={params.inputProps}
+                placeholder={option.title}
+              />
+            )}
+            ListboxComponent={ListboxComponent}
+            PopperComponent={PopperComponent}
+            PaperComponent={PaperComponent}
+            ListboxProps={{
+              option: option,
+              dates: dates,
+              todo: todo,
+              handleUpdate: handleUpdateTodo,
+              handleClose: handleClose
+            }}
+          />
+        </Collapse>
+      </div>
+    )
+  } else {
+    return (
+      <div className={classes.root}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
+        />
+        <Collapse
+          orientation="horizontal"
+          in={open[option.id]}
+          timeout="auto"
+          unmountOnExit
+        >
+          A
+        </Collapse>
+      </div>
+    )
+  }
 }

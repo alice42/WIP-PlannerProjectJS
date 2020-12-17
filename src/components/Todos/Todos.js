@@ -35,7 +35,6 @@ const Todos = props => {
     return (
       <StyledInputWrapperLeft>
         <InlineGrownInput
-          {...props}
           inputRef={inputRefTodo}
           value={cardText}
           typeValue={'todo'}

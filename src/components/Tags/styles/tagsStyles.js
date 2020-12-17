@@ -5,7 +5,7 @@ export const StyledTagWrapper = styled.div`
   flex-flow: wrap;
 `
 export const StyledTagButton = styled.div`
-  font-size: 15px;
+  font-size: ${props => (props.withButton ? '13px' : '11px')};
   margin-left: 3px;
   margin-bottom: 3px;
   padding: 3px;
@@ -13,13 +13,16 @@ export const StyledTagButton = styled.div`
   width: fit-content;
   display: flex;
   align-items: center;
-  opacity: 0.5;
-  background: grey;
-  text-color: white;
+  background: ${props => props.theme.palette.primary.main};
+  color: white;
   overflow-wrap: anywhere;
+  : hover {
+    outline: none;
+    background: ${props => props.theme.palette.primary.light};
+  }
   : focus {
     outline: none;
-    background: lightsteelblue;
+    background: ${props => props.theme.palette.primary.light};
   }
 `
 export const StyledTagButtonInput = styled.input`

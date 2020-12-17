@@ -18,20 +18,26 @@ export const CustomViewConfigDeadline = {
   titleFormat: { year: 'numeric', month: 'long' }
 }
 
+export const CustomViewGlobal = {
+  type: 'dayGridMonth',
+  titleFormat: { year: 'numeric', month: 'long' }
+}
+
 export const customViewPlugin = createPlugin({
   views: {
     when: CustomViewConfig,
-    deadline: CustomViewConfigDeadline
+    deadline: CustomViewConfigDeadline,
+    global: CustomViewGlobal
   }
 })
 
 export const renderEventContent = (e, calendarType) =>
   calendarType === 'when' && <div />
 
-export const handleDayCellClassNames = (e, calendarType) =>
-  ((e.isToday && calendarType === 'when') ||
-    (e.isPast && calendarType === 'deadline')) &&
-  'fc-day-other'
+export const handleDayCellClassNames = (e, calendarType) => {
+  if (e.isToday && calendarType === 'when') return 'today-icon'
+  else if (e.isPast && calendarType === 'deadline') return 'fc-day-other'
+}
 
 export const handleDayHeaderClassNames = (e, calendarType) =>
   calendarType === 'when' && 'test'

@@ -14,6 +14,7 @@ const ProjectTitle = ({ handleUpdateProject, project }) => {
 
   return (
     <InlineGrownInput
+      project={project}
       inputRef={inputRefTitle}
       typeValue={'title'}
       value={title}

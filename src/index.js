@@ -10,9 +10,10 @@ import { createFirestoreInstance } from 'redux-firestore'
 import mainReducer from './reducers/mainReducer'
 import App from './containers/App'
 import { StylesProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const theme = createMuiTheme()
+let theme = createMuiTheme()
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAXl3gF8A_eaw4F3tmYKPmrNKTQ_UEa9RY',
@@ -41,20 +42,19 @@ const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch,
-  createFirestoreInstance //since we are using Firestore
+  createFirestoreInstance
 }
 
 ReactDOM.render(
-  // <React.StrictMode>
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
+        <CssBaseline />
         <StylesProvider injectFirst>
           <App />
         </StylesProvider>
       </ReactReduxFirebaseProvider>
     </Provider>
   </MuiThemeProvider>,
-  // </React.StrictMode>,
   document.getElementById('root')
 )

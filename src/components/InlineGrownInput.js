@@ -25,7 +25,9 @@ const StyledInputContext = styled.span`
 const InlineGrownInput = props => {
   const handleInputUpdate = (value, type) => {
     const newValue = value || props.placeholder
-    props.handleUpdateProject(newValue, type)
+    props.project
+      ? props.handleUpdateProject(props.project, newValue, type)
+      : props.handleUpdateProject(newValue, type)
   }
 
   const handleSelect = (inputRef, placeholder) => {
@@ -49,7 +51,6 @@ const InlineGrownInput = props => {
         className={'input'}
         contentEditable={'true'}
         suppressContentEditableWarning={'true'}
-        //
         ref={props.inputRef}
         typevalue={props.typeValue}
         onBlur={e => {
