@@ -60,7 +60,7 @@ const SettingsListItemDate = ({
           </span>
         )}
       </ListItem>
-      <Divider />
+      {!todos && <Divider />}
     </>
   )
 }

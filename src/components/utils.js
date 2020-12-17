@@ -72,7 +72,7 @@ export const optionsTodos = [
   },
   {
     id: 'deadline',
-    title: 'Add Deadline',
+    title: 'Deadline',
     icon: 'schedule'
   }
 ]

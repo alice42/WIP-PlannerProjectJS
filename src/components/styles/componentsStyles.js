@@ -48,7 +48,7 @@ export const useStyledExpandedInput = makeStyles(theme => ({
 //SETTINGS
 export const StyledSettingsList = styled(List)`
   font-size: ${props => (props.todos ? '12px' : '15px')};
-  ${props => props.todos && 'padding: 0; min-width: fit-content;'}
+  ${props => props.todos && 'padding: 0; min-width: max-content;'}
   .each {
     padding-top: 3px;
     padding-bottom: 3px;
@@ -59,7 +59,7 @@ export const StyledSettingsList = styled(List)`
     padding-bottom: 0;
   }
   .date {
-    padding: 3px;
+    padding: ${props => (props.todos ? '1px' : '3px')};
     border-radius: 3px;
     width: fit-content;
     display: flex;
