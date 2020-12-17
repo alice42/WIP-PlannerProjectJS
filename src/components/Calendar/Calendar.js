@@ -77,7 +77,7 @@ const Calendar = props => {
           variant="outlined"
           color="primary"
           className={classes.button}
-          startIcon={<Star />}
+          startIcon={<Star className={classes.startIcon} />}
         >
           Today
         </Button>

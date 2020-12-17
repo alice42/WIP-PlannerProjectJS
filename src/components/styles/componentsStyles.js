@@ -80,9 +80,13 @@ export const StyledSettingsList = styled(List)`
 `
 
 export const StyledIconSettingsList = styled(Icon)`
+  ${props => console.log(props)}
   margin-right: 5px;
+  ${props =>
+    props.date === 'Today' && `color: ${props.theme.palette.warning.light};`};
   font-size: ${props => (props.todos ? '15px' : '20px')};
 `
+
 // MISC
 export const StyledInputWrapperLeft = styled.div`
   text-align: left;

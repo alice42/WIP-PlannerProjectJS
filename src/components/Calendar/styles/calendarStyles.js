@@ -37,7 +37,7 @@ export const StyleWrapper = styled.div`
   }
   .today-icon {
     background: none;
-    color: ${props => props.theme.palette.primary.main};
+    color: ${props => props.theme.palette.warning.light};
   }
 
   .fc-daygrid-day.fc-day-today {
@@ -135,5 +135,6 @@ export const StyleWrapper = styled.div`
 export const useStyles = makeStyles(theme => ({
   button: {
     margin: theme.spacing(1)
-  }
+  },
+  startIcon: { color: theme.palette.warning.light }
 }))
