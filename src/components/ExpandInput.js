@@ -120,7 +120,7 @@ export default function Auto({
         </Collapse>
       </div>
     )
-  } else {
+  } else if (option.id === 'when' || option.id === 'deadine') {
     var date = new Date()
     date.setDate(date.getDate() + 15)
     const to = date.toISOString().replace(/T.*$/, '')
@@ -179,6 +179,27 @@ export default function Auto({
               handleClose: handleClose
             }}
           />
+        </Collapse>
+      </div>
+    )
+  } else {
+    return (
+      <div className={classes.root}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
+        />
+        <Collapse
+          orientation="horizontal"
+          in={open[option.id]}
+          timeout="auto"
+          unmountOnExit
+        >
+          A
         </Collapse>
       </div>
     )
