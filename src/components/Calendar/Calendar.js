@@ -66,7 +66,6 @@ const Calendar = props => {
       props.handleUpdate(props.toUpdate, null, [props.dateType])
     }
   }
-
   return (
     <StyleWrapper theme={theme}>
       {props.dateType === 'when' && (

@@ -92,7 +92,7 @@ export const StyledTodosSettingsNotExpanded = styled.div`
 `
 export const StyledTodosNotesWrapper = styled.div`
   display: flex;
-  min-height: 50px;
+  // min-height: 50px;
 `
 export const StyledAccordionDetails = styled(AccordionDetails)`
   display: flex;

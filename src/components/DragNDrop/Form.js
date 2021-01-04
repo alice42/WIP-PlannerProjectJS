@@ -16,6 +16,7 @@ export default function Form({
   inputRef
 }) {
   const classes = useStyles()
+
   React.useEffect(() => {
     if (inputRef && inputRef.current) {
       inputRef.current.textContent = text || ''

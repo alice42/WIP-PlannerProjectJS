@@ -9,6 +9,7 @@ import {
 } from './styles/todosStyles'
 import TodosNotes from './TodosNotes'
 import TodosOptions from './TodosOptions'
+import TodosChecklist from './TodosChecklist'
 import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
 
 const TodosAccordion = props => {
@@ -24,10 +25,15 @@ const TodosAccordion = props => {
       props.project,
       props.list
     )
-
   return (
-    <Accordion className={classes.root} onChange={() => setExpanded(!expanded)}>
+    <Accordion
+      ref={props.dNdRef}
+      {...props.draggableProps}
+      className={classes.root}
+      onChange={() => setExpanded(!expanded)}
+    >
       <StyledAccordionSummary
+        {...props.dragHandleProps}
         aria-label="Expand"
         aria-controls="additional-actions3-content"
         id="additional-actions3-header"
@@ -42,13 +48,18 @@ const TodosAccordion = props => {
           <TodosSettingsNotExpanded currentTodo={props.currentTodo} />
         )}
       </StyledAccordionSummary>
-      <StyledAccordionDetails>
-        <TodosNotes
-          {...props}
-          todo={props.currentTodo}
-          handleUpdateTodo={handleUpdateTodo}
-        />
-        {props.currentTodo && (
+      {props.currentTodo && (
+        <StyledAccordionDetails>
+          <TodosNotes
+            {...props}
+            todo={props.currentTodo}
+            handleUpdateTodo={handleUpdateTodo}
+          />
+          <TodosChecklist
+            {...props}
+            todo={props.currentTodo}
+            handleUpdateTodo={handleUpdateTodo}
+          />
           <TodosOptions
             {...props}
             todos
@@ -56,8 +67,8 @@ const TodosAccordion = props => {
             todo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
           />
-        )}
-      </StyledAccordionDetails>
+        </StyledAccordionDetails>
+      )}
     </Accordion>
   )
 }

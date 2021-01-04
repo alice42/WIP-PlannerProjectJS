@@ -57,6 +57,7 @@ export default function Auto({
   project
 }) {
   const classes = useStyledExpandedInput()
+
   if (option.id === 'tag') {
     const tagsOptions = [
       ...defaultTagsList,
@@ -120,7 +121,7 @@ export default function Auto({
         </Collapse>
       </div>
     )
-  } else if (option.id === 'when' || option.id === 'deadine') {
+  } else if (option.id === 'when' || option.id === 'deadline') {
     var date = new Date()
     date.setDate(date.getDate() + 15)
     const to = date.toISOString().replace(/T.*$/, '')
@@ -183,6 +184,9 @@ export default function Auto({
       </div>
     )
   } else {
+    const handleNewCheckpoint = value => {
+      handleSetValue(value, option.id)
+    }
     return (
       <div className={classes.root}>
         <FormControlLabel
@@ -200,6 +204,7 @@ export default function Auto({
           unmountOnExit
         >
           <InputBase
+            onChange={e => handleNewCheckpoint(e.currentTarget.value)}
             autoFocus
             type="text"
             className={classes.inputWrapper}

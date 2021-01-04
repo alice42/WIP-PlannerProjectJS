@@ -48,9 +48,6 @@ const Todos = props => {
     <Draggable draggableId={String(props.id)} index={props.index}>
       {provided => (
         <StyledTodoContainer
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
           onMouseDown={e => {
             e.currentTarget.focus()
           }}
@@ -58,6 +55,9 @@ const Todos = props => {
         >
           <TodoAccordion
             {...props}
+            draggableProps={provided.draggableProps}
+            dragHandleProps={provided.dragHandleProps}
+            dNdRef={provided.innerRef}
             list={props.listID}
             currentTodo={props.todo}
             label={isEditing ? renderEditForm() : cardText}

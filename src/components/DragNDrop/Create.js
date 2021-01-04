@@ -14,13 +14,9 @@ export default function Create({
   const [text, setText] = React.useState('')
   const [formOpen, setformOpen] = React.useState(false)
 
-  const openForm = () => {
-    setformOpen(true)
-  }
+  const openForm = () => setformOpen(true)
 
-  const closeForm = e => {
-    setformOpen(false)
-  }
+  const closeForm = e => setformOpen(false)
 
   const handleInputChange = (value, type) => {
     setText(value)

@@ -5,6 +5,7 @@ import { ClickAwayListener, makeStyles } from '@material-ui/core'
 import TodosSettingsList from './TodosSettingsList'
 import { styles } from './styles/todosStyles'
 import Tags from '../Tags/Tags'
+import uuid from 'react-uuid'
 
 const useStyles = makeStyles(styles)
 
@@ -24,6 +25,15 @@ const TodosOptions = props => {
     if (type === 'tag') props.handleUpdateTodo(props.todo, value, 'tags')
     else if (type === 'when' || type === 'deadline')
       props.handleUpdateTodo(props.todo, value, type)
+    else if (type === 'checklist') {
+      const newCheckpoint = {
+        value: value,
+        id: `checkpoint_${uuid()}`,
+        checked: false
+      }
+      const newChecklist = props.todo.checklist ? [...props.todo.checklist] : []
+      props.handleUpdateTodo(props.todo, [...newChecklist, newCheckpoint], type)
+    }
     setOpen({})
   }
 
