@@ -29,7 +29,7 @@ const TodosOptions = props => {
       const newCheckpoint = {
         value: value,
         id: `checkpoint_${uuid()}`,
-        checked: false
+        isCompleted: false
       }
       const newChecklist = props.todo.checklist ? [...props.todo.checklist] : []
       props.handleUpdateTodo(props.todo, [...newChecklist, newCheckpoint], type)
