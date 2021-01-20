@@ -60,6 +60,7 @@ const TodosOptions = props => {
                   key={index}
                   handleSetValue={handleSetValue}
                   handleUpdateTodo={props.handleUpdateTodo}
+                  handleDeleteCard={props.handleDeleteCard}
                   handleOpen={handleOpen}
                   handleClose={handleClose}
                   open={open}

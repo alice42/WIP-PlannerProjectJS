@@ -11,13 +11,14 @@ import TodosNotes from './TodosNotes'
 import TodosOptions from './TodosOptions'
 import TodosChecklist from './TodosChecklist'
 import TodosSettingsNotExpanded from './TodosSettingsNotExpanded'
+import ProgressBar from './ProgressBar'
 
 const TodosAccordion = props => {
   const [expanded, setExpanded] = React.useState(false)
   const classes = useStyledTodoWrapper()
   const label = <div onClick={e => e.preventDefault()}>{props.label}</div>
 
-  const handleUpdateTodo = (itemType, newValue, valueType) =>
+  const handleUpdateTodo = (itemType, newValue, valueType) => {
     props.projectsActions.updateTodo(
       itemType,
       newValue,
@@ -25,6 +26,7 @@ const TodosAccordion = props => {
       props.project,
       props.list
     )
+  }
   return (
     <Accordion
       ref={props.dNdRef}
@@ -44,8 +46,11 @@ const TodosAccordion = props => {
           control={<Checkbox />}
           label={label}
         />
-        {!expanded && (
+        {!expanded && !props.isEditing && (
           <TodosSettingsNotExpanded currentTodo={props.currentTodo} />
+        )}
+        {expanded && !props.isEditing && (
+          <ProgressBar todo={props.currentTodo} />
         )}
       </StyledAccordionSummary>
       {props.currentTodo && (
@@ -66,6 +71,7 @@ const TodosAccordion = props => {
             list={props.list}
             todo={props.currentTodo}
             handleUpdateTodo={handleUpdateTodo}
+            handleDeleteCard={props.handleDeleteCard}
           />
         </StyledAccordionDetails>
       )}

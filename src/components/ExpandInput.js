@@ -49,6 +49,7 @@ const PaperComponent = React.forwardRef(function PaperComponent(props, ref) {
 export default function Auto({
   handleSetValue,
   handleUpdateTodo,
+  handleDeleteCard,
   handleOpen,
   handleClose,
   option,
@@ -183,7 +184,7 @@ export default function Auto({
         </Collapse>
       </div>
     )
-  } else {
+  } else if (option.id === 'checklist') {
     const handleNewCheckpoint = value => {
       handleSetValue(value, option.id)
     }
@@ -211,6 +212,19 @@ export default function Auto({
             placeholder={option.title}
           />
         </Collapse>
+      </div>
+    )
+  } else {
+    return (
+      <div className={classes.root} onClick={handleDeleteCard}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
+        />
       </div>
     )
   }

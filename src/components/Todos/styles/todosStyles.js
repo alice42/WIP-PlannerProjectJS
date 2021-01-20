@@ -19,9 +19,11 @@ export const StyledWhenInfo = styled.div`
   color: white;
   background: ${props => props.theme.palette.primary.main};
   border-radius: 3px;
+  min-width: fit-content;
 `
 export const StyledDeadlineInfo = styled.div`
   display: flex;
+  min-width: fit-content;
   ${props => props.isPast && `color: ${props.theme.palette.error.main}`};
   span {
     font-size: 13px;
@@ -51,7 +53,7 @@ export const StyledAccordionSummary = withStyles({
   },
   content: {
     outline: 'none',
-    display: 'flex',
+    display: 'block',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -69,9 +71,6 @@ export const StyledAccordionSummary = withStyles({
 export const StyledFormControlLabel = withStyles({
   root: {
     marginRight: '5px'
-  },
-  label: {
-    width: 'max-content'
   }
 })(FormControlLabel)
 
@@ -92,7 +91,6 @@ export const StyledTodosSettingsNotExpanded = styled.div`
 `
 export const StyledTodosNotesWrapper = styled.div`
   display: flex;
-  // min-height: 50px;
 `
 export const StyledAccordionDetails = styled(AccordionDetails)`
   display: flex;
@@ -113,3 +111,45 @@ export const styles = theme => ({
     paddingTop: '5px'
   }
 })
+
+export const StyledCheckpoint = makeStyles(theme => ({
+  root: {
+    marginTop: '2px',
+    marginBottom: '2px',
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    '&:focus': {
+      outlineColor: theme.palette.primary.main
+    }
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+    fontSize: '13px',
+    '& .MuiInputBase-input': {
+      padding: 0,
+      '&focus': {
+        background: 'red'
+      }
+    }
+  },
+  iconButton: {
+    '& .MuiCheckbox-root': {
+      '& .MuiSvgIcon-root': {
+        fontSize: '17px',
+        margin: '3px'
+      },
+      padding: 0
+    },
+    '& .MuiSvgIcon-root': {
+      fontSize: '17px',
+      margin: '3px'
+    },
+    padding: 0
+  },
+  divider: {
+    height: 28,
+    margin: 4
+  }
+}))

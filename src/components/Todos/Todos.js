@@ -27,21 +27,18 @@ const Todos = props => {
     setIsEditing(false)
   }
 
-  const handleDeleteCard = () => {
+  const handleDeleteCard = () =>
     props.projectsActions.deleteCard(props.id, props.listID, props.project)
-  }
 
   const renderEditForm = () => {
     return (
-      <StyledInputWrapperLeft>
-        <InlineGrownInput
-          inputRef={inputRefTodo}
-          value={cardText}
-          typeValue={'todo'}
-          placeholder={'New To-do'}
-          handleUpdateProject={handleTypeEditing}
-        />
-      </StyledInputWrapperLeft>
+      <InlineGrownInput
+        inputRef={inputRefTodo}
+        value={cardText}
+        typeValue={'todo'}
+        placeholder={'New To-do'}
+        handleUpdateProject={handleTypeEditing}
+      />
     )
   }
   return (
@@ -59,8 +56,24 @@ const Todos = props => {
             dragHandleProps={provided.dragHandleProps}
             dNdRef={provided.innerRef}
             list={props.listID}
+            isEditing={isEditing}
             currentTodo={props.todo}
-            label={isEditing ? renderEditForm() : cardText}
+            label={
+              isEditing ? (
+                renderEditForm()
+              ) : (
+                <div
+                  style={{
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '40vw'
+                  }}
+                >
+                  {cardText}
+                </div>
+              )
+            }
             handleDeleteCard={handleDeleteCard}
           />
         </StyledTodoContainer>

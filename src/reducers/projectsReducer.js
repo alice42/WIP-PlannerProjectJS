@@ -97,9 +97,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         lists: newState
       }
+
     case CONSTANTS.EDIT_CARD:
-      const a = action.project.lists
-      const newStateEditCard = a.map(list => {
+      const tmpProjectList = action.project.lists
+      const newStateEditCard = tmpProjectList.map(list => {
         if (list.id === action.payload.listID) {
           return {
             ...list,
@@ -116,22 +117,21 @@ const reducer = (state = initialState, action) => {
         lists: newStateEditCard
       }
 
-    // case CONSTANTS.DELETE_CARD:
-    //   const newStateDeleteCard = state.all
-    //   newStateDeleteCard
-    //     .find(project => project.id === action.project.id)
-    //     .lists.map(list => {
-    //       if (list.id === action.payload.listID) {
-    //         const newCards = list.cards.filter(
-    //           card => card.id !== action.payload.id
-    //         )
-    //         list.cards = newCards
-    //       }
-    //     })
-    //   return {
-    //     ...state,
-    //     all: newStateDeleteCard
-    //   }
+    case CONSTANTS.DELETE_CARD:
+      const newStateDeleteCard = action.project.lists.map(list => {
+        if (list.id === action.payload.listID) {
+          const updatedList = {
+            ...list,
+            cards: list.cards.filter(card => card.id !== action.payload.id)
+          }
+          return updatedList
+        } else return list
+      })
+
+      return {
+        ...state,
+        lists: newStateDeleteCard
+      }
 
     // case CONSTANTS.EDIT_LIST_TITLE:
     //   const newStateEditTitleList = state.all
