@@ -27,6 +27,19 @@ const TodosAccordion = props => {
       props.list
     )
   }
+
+  const value =
+    props.currentTodo &&
+    props.currentTodo.checklist &&
+    props.currentTodo &&
+    props.currentTodo.checklist.filter(item => item.isCompleted).length
+  const MIN = 0
+  const MAX =
+    props.currentTodo &&
+    props.currentTodo.checklist &&
+    props.currentTodo.checklist.length
+  const normalise = value => ((value - MIN) * 100) / (MAX - MIN)
+
   return (
     <Accordion
       ref={props.dNdRef}
@@ -38,19 +51,40 @@ const TodosAccordion = props => {
         {...props.dragHandleProps}
         aria-label="Expand"
         aria-controls="additional-actions3-content"
-        id="additional-actions3-header"
+        id={`additional-actions3-header_${props.index}`}
       >
         <StyledFormControlLabel
           aria-label="Acknowledge"
           onClick={e => e.stopPropagation()}
-          control={<Checkbox />}
+          control={
+            !props.a && (
+              <Checkbox
+                checked={
+                  (props.currentTodo && props.currentTodo.isCompleted) ||
+                  normalise(value) === 100
+                }
+                onChange={e =>
+                  handleUpdateTodo(
+                    props.currentTodo,
+                    e.target.checked,
+                    'isCompleted'
+                  )
+                }
+              />
+            )
+          }
           label={label}
         />
         {!expanded && !props.isEditing && (
           <TodosSettingsNotExpanded currentTodo={props.currentTodo} />
         )}
         {expanded && !props.isEditing && (
-          <ProgressBar todo={props.currentTodo} />
+          <ProgressBar
+            todo={props.currentTodo}
+            value={normalise(value)}
+            MIN={MIN}
+            MAX={MAX}
+          />
         )}
       </StyledAccordionSummary>
       {props.currentTodo && (

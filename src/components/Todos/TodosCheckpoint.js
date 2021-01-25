@@ -25,20 +25,22 @@ const TodosCheckpoint = ({ todo, checkpoint, handleUpdateTodo, index }) => {
     }
   }
 
-  const onPressDeleteCheckpoint = () => {
-    const newChecklist = todo.checklist.filter(
-      item => item.id !== checkpoint.id
-    )
+  const onPressDeleteCheckpoint = a => {
+    const newChecklist = todo.checklist.filter(item => item.id !== a)
     newChecklist && handleUpdateTodo(todo, newChecklist, 'checklist')
   }
 
   const handleCompleteCheckpoint = e => {
+    setInputFocused(false)
+
+    // if (e.currentTarget.checked !== todo.isCompleted) {
     const newChecklist = todo.checklist.map(item => {
       if (item.id === checkpoint.id)
-        item = { ...item, isCompleted: e.currentTarget.checked }
+        item = { ...item, isCompleted: !item.isCompleted }
       return item
     })
-    handleUpdateTodo(todo, newChecklist, 'checklist')
+    !isInputFocused && handleUpdateTodo(todo, newChecklist, 'checklist')
+    // }
   }
 
   return (
@@ -46,9 +48,7 @@ const TodosCheckpoint = ({ todo, checkpoint, handleUpdateTodo, index }) => {
       tabIndex={index}
       className={classes.root}
       onKeyDown={e => {
-        console.log(e.currentTarget)
-        if (e.key === 'Backspace' && e.currentTarget.focused)
-          onPressDeleteCheckpoint()
+        if (e.key === 'Backspace' && !isInputFocused) onPressDeleteCheckpoint()
       }}
       onClick={e => {
         if (e.target.name !== 'input' && e.target.name !== 'checkbox')
@@ -59,10 +59,11 @@ const TodosCheckpoint = ({ todo, checkpoint, handleUpdateTodo, index }) => {
         <Checkbox
           name={'checkbox'}
           checked={checkpoint.isCompleted}
-          onChange={e => handleCompleteCheckpoint(e)}
+          onChange={e => handleCompleteCheckpoint(!checkpoint.isCompleted)}
         />
       </IconButton>
       <InputBase
+        disabled={checkpoint.isCompleted}
         name={'input'}
         className={classes.input}
         placeholder="New Checkpoint"

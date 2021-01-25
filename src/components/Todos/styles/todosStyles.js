@@ -59,6 +59,7 @@ export const StyledAccordionSummary = withStyles({
     justifyContent: 'space-between',
     margin: '0',
     '&$expanded': {
+      display: 'flex',
       margin: '0',
       minHeight: '0'
     }

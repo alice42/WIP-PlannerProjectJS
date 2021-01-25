@@ -26,23 +26,14 @@ const useStyles = makeStyles({
   }
 })
 
-export default function LinearWithValueLabel({ todo }) {
+export default function LinearWithValueLabel({ value, MIN, MAX, todo }) {
   const classes = useStyles()
-
-  const value =
-    todo.checklist && todo.checklist.filter(item => item.isCompleted).length
-  const MIN = 0
-  const MAX = todo.checklist && todo.checklist.length
-  const normalise = value => ((value - MIN) * 100) / (MAX - MIN)
   if (!todo.checklist) return null
   return (
     todo.checklist &&
     MAX !== 0 && (
       <div className={classes.root}>
-        <LinearProgressWithLabel
-          variant="determinate"
-          value={normalise(value)}
-        />
+        <LinearProgressWithLabel variant="determinate" value={value} />
       </div>
     )
   )
