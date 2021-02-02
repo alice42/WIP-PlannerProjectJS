@@ -32,19 +32,20 @@ export const StyleWrapper = styled.div`
     justify-content: center;
     flex-direction: row-reverse;
   }
-  fc-day {
+  .fc-day {
     pointerevents: auto;
   }
   .today-icon {
-    background: none;
     color: ${props => props.theme.palette.warning.light};
   }
 
-  .fc-daygrid-day.fc-day-today {
+  ${props =>
+    props.dateType === 'global' ||
+    `.fc-daygrid-day.fc-day-today {
     background: none;
-  }
+  }`}
 
-  .fc-toolbar.fc-header-toolbar {
+  .fc-toolbar {
     margin: 0;
   }
 
@@ -57,10 +58,13 @@ export const StyleWrapper = styled.div`
     background: ${props => props.theme.palette.primary.main};
     border-radius: 3px;
   }
-  .fc-day-future {
+
+  .fc-daygrid-day,
+  .fc-popover {
     :hover {
       background: ${props => props.theme.palette.primary.main};
       border-radius: 3px;
+      color: white;
     }
   }
   .monthRender {
@@ -71,22 +75,51 @@ export const StyleWrapper = styled.div`
     font-family: inherit;
     font-weight: bold;
   }
-  .fc-day-past {
-    :hover {
-      background: ${props => props.theme.palette.primary.main};
-      border-radius: 3px;
-    }
-  }
+
   .past {
     opacity: 0.4;
   }
   .fc-day-disabled {
     background: unset;
   }
+
+  ${props =>
+    props.dateType === 'global' && props.matches
+      ? `
+  .fc .fc-button-primary:not(:disabled).fc-button-active {
+    box-shadow: none;
+    background: ${props.theme.palette.primary.dark};
+  }
   .fc-next-button.fc-button-primary,
   .fc-prev-button.fc-button-primary,
   .fc-button-primary {
-    background: ${props => props.theme.palette.primary.main};
+    background: ${props.theme.palette.primary.main};
+    border: unset;
+  }
+  .fc-today-button.fc-button-primary {
+    background: ${props.theme.palette.primary.main};
+  }
+
+  .fc-toolbar-title {
+    font-size: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  }
+  .fc--button {
+    padding: 0;
+  }
+  `
+      : `
+  .fc .fc-button-primary:not(:disabled).fc-button-active {
+    box-shadow: none;
+    background: ${props.theme.palette.primary.dark};
+  }
+  .fc-next-button.fc-button-primary,
+  .fc-prev-button.fc-button-primary,
+  .fc-button-primary {
+    background: ${props.theme.palette.primary.main};
     border: unset;
     :disabled,
     :hover,
@@ -94,7 +127,7 @@ export const StyleWrapper = styled.div`
     :focus,
     :not(:disabled):active,
     :not(:disabled):active:focus {
-      background: ${props => props.theme.palette.primary.main};
+      background: ${props.theme.palette.primary.main};
       border: unset;
       outline: none;
       box-shadow: unset;
@@ -103,13 +136,21 @@ export const StyleWrapper = styled.div`
       opacity: 0.2;
     }
   }
+  .fc-toolbar-chunk {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .fc-header-toolbar {
+    margin-bottom: 1.5em;
+  }
   .fc-today-button.fc-button-primary {
-    width: 100%;
+    width: fit-content;
     display: flex;
     border: unset;
     margin: 0;
-    padding: 0;
-    background: ${props => props.theme.palette.primary.main};
+    padding: 0 10px 0 10px;
+    background: ${props.theme.palette.primary.main};
     justify-content: center;
     :disabled {
       display: none;
@@ -129,6 +170,13 @@ export const StyleWrapper = styled.div`
   }
   .fc--button {
     padding: 0;
+  }
+  `}
+  .fc-h-event .fc-event-main {
+    text-align: center;
+  }
+  .fc .fc-daygrid-event-harness-abs {
+    visibility: visible;
   }
 `
 

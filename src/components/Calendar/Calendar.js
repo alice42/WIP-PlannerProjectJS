@@ -15,25 +15,43 @@ import {
 } from './utils'
 import { useTheme } from '@material-ui/core/styles'
 import { Star } from '@material-ui/icons'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const Calendar = props => {
   const calendarRef = React.createRef(null)
   const theme = useTheme()
   const classes = useStyles()
+
   React.useEffect(() => {
     calendarRef.current &&
       calendarRef.current._calendarApi.changeView(props.dateType)
   }, [props.dateType])
 
-  const INITIAL_EVENTS = [
-    {
-      id: props.toUpdate.id,
-      title: props.toUpdate.title,
-      start: props.toUpdate[props.dateType],
-      editable: false,
-      display: 'background'
-    }
-  ]
+  const INITIAL_EVENTS =
+    props.dateType === 'global'
+      ? props.toUpdate.map(project => {
+          return {
+            id: project.id,
+            title: project.title,
+            start: project.when,
+            editable: false,
+            display: 'auto',
+            extendedProps: {
+              department: 'BioChemistry'
+            },
+            description: 'Lecture',
+            url: `http://localhost:8080/projects/${project.id}`
+          }
+        })
+      : [
+          {
+            id: props.toUpdate.id,
+            title: props.toUpdate.title,
+            start: props.toUpdate[props.dateType],
+            editable: false,
+            display: 'background'
+          }
+        ]
 
   const handleDateSelect = (startStr, calendarApi) => {
     if (props.dateType === 'when' && startStr < todayStr) return
@@ -66,8 +84,27 @@ const Calendar = props => {
       props.handleUpdate(props.toUpdate, null, [props.dateType])
     }
   }
+  console.log(INITIAL_EVENTS, props)
+  const aspectRatio = props.dateType === 'when' ? 1.55 : 1.05
+  const matches = useMediaQuery(theme => theme.breakpoints.up('sm'))
+  const headerToolbar =
+    props.dateType === 'global' && matches
+      ? {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        }
+      : {
+          left: '',
+          center: '',
+          right: ''
+        }
+  const footerToolbar =
+    props.dateType === 'global' && matches
+      ? { left: '', center: '', right: '' }
+      : { left: 'prev', center: 'title, today', right: 'next' }
   return (
-    <StyleWrapper theme={theme}>
+    <StyleWrapper theme={theme} dateType={props.dateType} matches={matches}>
       {props.dateType === 'when' && (
         <Button
           onClick={() => {
@@ -91,17 +128,14 @@ const Calendar = props => {
         ]}
         initialView={props.dateType}
         locale={'en'}
+        height={props.dateType === 'global' ? 'auto' : null}
         weekNumberCalculation={'ISO'}
-        headerToolbar={{
-          left: '',
-          center: '',
-          right: ''
-        }}
-        footerToolbar={{ left: 'prev', center: 'title, today', right: 'next' }}
+        aspectRatio={props.dateType === 'global' ? null : aspectRatio}
+        headerToolbar={headerToolbar}
+        footerToolbar={footerToolbar}
         buttonText={{
-          today: 'Back to Today'
+          today: props.dateType === 'global' ? 'Today' : 'Back to Today'
         }}
-        aspectRatio={props.dateType === 'when' ? 1.55 : 1.05}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
@@ -109,6 +143,9 @@ const Calendar = props => {
         select={selectInfo =>
           handleDateSelect(selectInfo.startStr, selectInfo.view.calendar)
         }
+        eventTextColor={`#fff`}
+        eventBorderColor={theme.palette.primary.dark}
+        eventColor={theme.palette.primary.light}
         eventClick={handleEventClick}
         eventContent={e => renderEventContent(e, props.dateType)}
         dayCellDidMount={e => handleDayCellDidMount(e, props.dateType)}

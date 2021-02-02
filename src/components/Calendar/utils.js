@@ -32,7 +32,11 @@ export const customViewPlugin = createPlugin({
 })
 
 export const renderEventContent = (e, calendarType) =>
-  calendarType === 'when' && <div />
+  calendarType === 'when' || calendarType === 'deadline' ? (
+    <div />
+  ) : (
+    e.event.title
+  )
 
 export const handleDayCellClassNames = (e, calendarType) => {
   if (e.isToday && calendarType === 'when') return 'today-icon'
