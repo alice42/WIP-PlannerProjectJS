@@ -33,14 +33,12 @@ const TodosCheckpoint = ({ todo, checkpoint, handleUpdateTodo, index }) => {
   const handleCompleteCheckpoint = e => {
     setInputFocused(false)
 
-    // if (e.currentTarget.checked !== todo.isCompleted) {
     const newChecklist = todo.checklist.map(item => {
       if (item.id === checkpoint.id)
         item = { ...item, isCompleted: !item.isCompleted }
       return item
     })
     !isInputFocused && handleUpdateTodo(todo, newChecklist, 'checklist')
-    // }
   }
 
   return (

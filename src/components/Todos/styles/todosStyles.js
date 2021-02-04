@@ -53,7 +53,7 @@ export const StyledAccordionSummary = withStyles({
   },
   content: {
     outline: 'none',
-    display: 'block',
+    // display: 'block',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
