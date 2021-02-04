@@ -12,6 +12,7 @@ import App from './containers/App'
 import { StylesProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import StyledEngineProvider from '@material-ui/core/StyledEngineProvider'
 
 let theme = createMuiTheme()
 
@@ -50,9 +51,9 @@ ReactDOM.render(
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <CssBaseline />
-        <StylesProvider injectFirst>
+        <StyledEngineProvider injectFirst>
           <App />
-        </StylesProvider>
+        </StyledEngineProvider>
       </ReactReduxFirebaseProvider>
     </Provider>
   </MuiThemeProvider>,

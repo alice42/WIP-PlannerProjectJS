@@ -1,21 +1,36 @@
 import * as React from 'react'
 import { styles } from './styles/layoutStyles'
 import { makeStyles } from '@material-ui/core/styles'
-import withWidth, { isWidthUp } from '@material-ui/core/withWidth'
 import Header from './Header'
 import Sidebar from './SideBar'
+
+import { useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+
+function useWidth() {
+  const theme = useTheme()
+  const keys = [...theme.breakpoints.keys].reverse()
+  return (
+    keys.reduce((output, key) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const matches = useMediaQuery(theme.breakpoints.up(key))
+      return !output && matches ? key : output
+    }, null) || 'xs'
+  )
+}
 
 const useStyles = makeStyles(styles)
 
 const Layout = props => {
   const classes = useStyles()
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const width = useWidth()
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
 
-  if (isWidthUp('sm', props.width) && mobileOpen) setMobileOpen(false)
+  if (width !== 'xs' && mobileOpen) setMobileOpen(false)
 
   return (
     <div className={classes.root}>
@@ -33,4 +48,4 @@ const Layout = props => {
   )
 }
 
-export default withWidth()(Layout)
+export default Layout

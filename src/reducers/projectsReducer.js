@@ -13,16 +13,13 @@ const reducer = (state = initialState, action) => {
         title: action.payload.text,
         id: `todo_${uuid()}`,
         tags: [],
-        isComplete: false
+        isCompleted: false
       }
-      const newStateAddCard = action.project.lists.map(
-        list =>
-          (list =
-            list.id === action.payload.listID
-              ? { ...list, cards: [...list.cards, newCard] }
-              : list)
+      const newStateAddCard = action.project.lists.map(list =>
+        list.id === action.payload.listID
+          ? { ...list, cards: [...list.cards, newCard] }
+          : list
       )
-
       return {
         ...state,
         lists: newStateAddCard
@@ -97,9 +94,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         lists: newState
       }
+
     case CONSTANTS.EDIT_CARD:
-      const a = action.project.lists
-      const newStateEditCard = a.map(list => {
+      const tmpProjectList = action.project.lists
+      const newStateEditCard = tmpProjectList.map(list => {
         if (list.id === action.payload.listID) {
           return {
             ...list,
@@ -116,22 +114,21 @@ const reducer = (state = initialState, action) => {
         lists: newStateEditCard
       }
 
-    // case CONSTANTS.DELETE_CARD:
-    //   const newStateDeleteCard = state.all
-    //   newStateDeleteCard
-    //     .find(project => project.id === action.project.id)
-    //     .lists.map(list => {
-    //       if (list.id === action.payload.listID) {
-    //         const newCards = list.cards.filter(
-    //           card => card.id !== action.payload.id
-    //         )
-    //         list.cards = newCards
-    //       }
-    //     })
-    //   return {
-    //     ...state,
-    //     all: newStateDeleteCard
-    //   }
+    case CONSTANTS.DELETE_CARD:
+      const newStateDeleteCard = action.project.lists.map(list => {
+        if (list.id === action.payload.listID) {
+          const updatedList = {
+            ...list,
+            cards: list.cards.filter(card => card.id !== action.payload.id)
+          }
+          return updatedList
+        } else return list
+      })
+
+      return {
+        ...state,
+        lists: newStateDeleteCard
+      }
 
     // case CONSTANTS.EDIT_LIST_TITLE:
     //   const newStateEditTitleList = state.all
@@ -147,15 +144,14 @@ const reducer = (state = initialState, action) => {
     //     all: newStateEditTitleList
     //   }
 
-    // case CONSTANTS.DELETE_LIST:
-    //   const newStateDeleteList = state.all
-    //   newStateDeleteList.find(project => {
-    //     if (project.id === action.project.id) {
-    //       project.lists = project.lists.filter(
-    //         list => list.id !== action.payload.listID
-    //       )
-    //     }
-    //   })
+    case CONSTANTS.DELETE_LIST:
+      const newStateDeleteList = action.project.lists.filter(
+        list => list.id !== action.payload.listID
+      )
+      return {
+        ...state,
+        lists: newStateDeleteList
+      }
 
     case CONSTANTS.UPDATE_TODO:
       const newStateUpdateTodo = action.project.lists.map(list => {

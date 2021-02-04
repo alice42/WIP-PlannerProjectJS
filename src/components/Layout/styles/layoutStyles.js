@@ -31,7 +31,9 @@ export const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    // paddingTop: '88px',
     padding: theme.spacing(3)
+    // height: '100vh'
   }
 })
 

@@ -8,6 +8,7 @@ import { StyledHeadingContainer, styles } from './styles/headingStyles'
 import InlineGrownInput from '../InlineGrownInput'
 
 import { makeStyles } from '@material-ui/core/styles'
+import { Icon } from '@material-ui/core'
 
 const useStyles = makeStyles(styles)
 
@@ -38,9 +39,9 @@ const Heading = props => {
     setIsEditing(false)
   }
 
-  // const handledeleteList = () => {
-  //   props.projectsActions.deleteList(props.listID, props.currentProject)
-  // }
+  const handledeleteList = () => {
+    props.projectsActions.deleteList(props.listID, props.project)
+  }
 
   const renderEditInput = () => {
     return (
@@ -80,11 +81,13 @@ const Heading = props => {
                         <div onClick={() => setIsEditing(true)}>
                           {listTitle}
                         </div>
+                        <Icon onClick={handledeleteList}>delete</Icon>
                       </h4>
                     )}
 
                 {props.cards.map((card, index) => (
                   <Todos
+                    projects={props.projects}
                     {...props}
                     todo={card}
                     key={card.id}

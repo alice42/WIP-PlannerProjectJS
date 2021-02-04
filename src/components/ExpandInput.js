@@ -1,5 +1,5 @@
 import React from 'react'
-import Autocomplete from '@material-ui/lab/Autocomplete'
+import Autocomplete from '@material-ui/core/Autocomplete'
 import Collapse from '@material-ui/core/Collapse'
 import Icon from '@material-ui/core/Icon'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -18,6 +18,7 @@ const ListboxComponent = React.forwardRef(function ListboxComponent(
     <div ref={ref}>
       {props.dates.length === props.children.length ? (
         <CalendarMenu
+          todo
           bodyType={props.option.id}
           handleUpdate={props.handleUpdate}
           toUpdate={props.todo}
@@ -49,6 +50,7 @@ const PaperComponent = React.forwardRef(function PaperComponent(props, ref) {
 export default function Auto({
   handleSetValue,
   handleUpdateTodo,
+  handleDeleteCard,
   handleOpen,
   handleClose,
   option,
@@ -57,6 +59,7 @@ export default function Auto({
   project
 }) {
   const classes = useStyledExpandedInput()
+
   if (option.id === 'tag') {
     const tagsOptions = [
       ...defaultTagsList,
@@ -120,7 +123,7 @@ export default function Auto({
         </Collapse>
       </div>
     )
-  } else if (option.id === 'when' || option.id === 'deadine') {
+  } else if (option.id === 'when' || option.id === 'deadline') {
     var date = new Date()
     date.setDate(date.getDate() + 15)
     const to = date.toISOString().replace(/T.*$/, '')
@@ -182,7 +185,10 @@ export default function Auto({
         </Collapse>
       </div>
     )
-  } else {
+  } else if (option.id === 'checklist') {
+    const handleNewCheckpoint = value => {
+      handleSetValue(value, option.id)
+    }
     return (
       <div className={classes.root}>
         <FormControlLabel
@@ -200,12 +206,26 @@ export default function Auto({
           unmountOnExit
         >
           <InputBase
+            onChange={e => handleNewCheckpoint(e.currentTarget.value)}
             autoFocus
             type="text"
             className={classes.inputWrapper}
             placeholder={option.title}
           />
         </Collapse>
+      </div>
+    )
+  } else {
+    return (
+      <div className={classes.root} onClick={handleDeleteCard}>
+        <FormControlLabel
+          className={classes.label}
+          control={
+            <Icon id={option.id} onClick={e => handleOpen(e.currentTarget.id)}>
+              {option.icon}
+            </Icon>
+          }
+        />
       </div>
     )
   }

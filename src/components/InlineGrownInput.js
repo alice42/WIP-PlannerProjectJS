@@ -1,3 +1,4 @@
+import { ClickAwayListener } from '@material-ui/core'
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -53,9 +54,9 @@ const InlineGrownInput = props => {
         suppressContentEditableWarning={'true'}
         ref={props.inputRef}
         typevalue={props.typeValue}
-        onBlur={e => {
+        onBlur={e =>
           handleInputUpdate(e.currentTarget.textContent, props.typeValue)
-        }}
+        }
         onKeyPress={e => {
           if (e.key === 'Enter')
             handleInputUpdate(e.currentTarget.textContent, props.typeValue)
@@ -64,6 +65,11 @@ const InlineGrownInput = props => {
           handleSelect(props.inputRef, props.placeholder)
         }}
         placeholder={props.placeholder}
+        // onMouseLeave={e =>
+        //   props.typeValue === 'todo' &&
+        //   props.create &&
+        //   handleInputUpdate(e.currentTarget.textContent, props.typeValue)
+        // }
       >
         {props.value}
       </span>
