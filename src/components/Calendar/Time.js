@@ -17,9 +17,6 @@ export default function BasicTimePicker() {
           onChange={newValue => {
             setValue(newValue)
           }}
-          onBlur={() => {
-            console.log('A', value)
-          }}
           renderInput={params => (
             <TextField {...params} margin="normal" variant="standard" />
           )}
