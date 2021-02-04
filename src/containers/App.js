@@ -8,7 +8,7 @@ import LayoutRoute from '../components/Layout/LayoutRoute'
 import Layout from '../components/Layout/Layout'
 import * as projectsActions from '../actions/projectsActions'
 import Projects from './Projects'
-import A from './A'
+import FullCalendar from './FullCalendar'
 import SignIn from './SignIn'
 
 const App = () => {
@@ -35,7 +35,12 @@ const App = () => {
           component={Projects}
           layout={Layout}
         />
-        <LayoutRouteConnected exact path={'/A'} component={A} layout={Layout} />
+        <LayoutRouteConnected
+          exact
+          path={'/FullCalendar'}
+          component={FullCalendar}
+          layout={Layout}
+        />
         <Route path="/">
           <SignIn />
         </Route>

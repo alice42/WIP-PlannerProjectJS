@@ -15,8 +15,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const A = props => {
-  const classes = useStyles()
+const FullCalendar = props => {
+  const clFullCalendarsses = useStyles()
   const [selectedProject, setSelectedProject] = React.useState(null)
   const selectedProjectTodos =
     selectedProject &&
@@ -30,13 +30,13 @@ const A = props => {
               <Calendar
                 {...props}
                 dateType={'global'}
-                handleUpdate={() => console.log('A')}
+                handleUpdate={() => console.log('handleUpdate')}
                 toUpdate={
                   selectedProjectTodos
                     ? selectedProjectTodos
                     : Object.values(props.firestore.data.projects)
                 }
-                handleClose={() => console.log('A')}
+                handleClose={() => console.log('handleClose')}
               />
             )}
           </Paper>
@@ -80,4 +80,4 @@ const A = props => {
     </div>
   )
 }
-export default A
+export default FullCalendar
